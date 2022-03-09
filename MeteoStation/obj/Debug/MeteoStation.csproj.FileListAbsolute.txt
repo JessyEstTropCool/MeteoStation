@@ -1,0 +1,10 @@
+C:\Users\jessy\source\repos\MeteoStation\MeteoStation\bin\Debug\MeteoStation.exe.config
+C:\Users\jessy\source\repos\MeteoStation\MeteoStation\bin\Debug\MeteoStation.exe
+C:\Users\jessy\source\repos\MeteoStation\MeteoStation\bin\Debug\MeteoStation.pdb
+C:\Users\jessy\source\repos\MeteoStation\MeteoStation\obj\Debug\MeteoStation.csproj.AssemblyReference.cache
+C:\Users\jessy\source\repos\MeteoStation\MeteoStation\obj\Debug\MeteoStation.Properties.Resources.resources
+C:\Users\jessy\source\repos\MeteoStation\MeteoStation\obj\Debug\MeteoStation.csproj.GenerateResource.cache
+C:\Users\jessy\source\repos\MeteoStation\MeteoStation\obj\Debug\MeteoStation.csproj.CoreCompileInputs.cache
+C:\Users\jessy\source\repos\MeteoStation\MeteoStation\obj\Debug\MeteoStation.exe
+C:\Users\jessy\source\repos\MeteoStation\MeteoStation\obj\Debug\MeteoStation.pdb
+C:\Users\jessy\source\repos\MeteoStation\MeteoStation\obj\Debug\MeteoStation.MainForm.resources
