@@ -37,29 +37,29 @@ namespace MeteoStation
             this.timerDequeue = new System.Windows.Forms.Timer(this.components);
             this.button2 = new System.Windows.Forms.Button();
             this.tsViews = new System.Windows.Forms.ToolStrip();
+            this.tsbMeasures = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsbAlarms = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsbGraphs = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsbAccounts = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsbConnection = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsbCalibration = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.tscbComPorts = new System.Windows.Forms.ToolStripComboBox();
             this.tslStatus = new System.Windows.Forms.ToolStripLabel();
             this.tsbOpenClose = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.tslErrors = new System.Windows.Forms.ToolStripLabel();
-            this.tsbCalibration = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
-            this.tsbMeasures = new System.Windows.Forms.ToolStripButton();
-            this.tsbAlarms = new System.Windows.Forms.ToolStripButton();
-            this.tsbGraphs = new System.Windows.Forms.ToolStripButton();
-            this.tsbAccounts = new System.Windows.Forms.ToolStripButton();
-            this.tsbConnection = new System.Windows.Forms.ToolStripButton();
             this.pMainControl = new System.Windows.Forms.Panel();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.pSecondaryControl = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.gMeasures)).BeginInit();
             this.tsViews.SuspendLayout();
             this.pMainControl.SuspendLayout();
-            this.panel1.SuspendLayout();
+            this.pSecondaryControl.SuspendLayout();
             this.SuspendLayout();
             // 
             // spSensorData
@@ -86,11 +86,11 @@ namespace MeteoStation
             this.gMeasures.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gMeasures.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gMeasures.GridColor = System.Drawing.Color.Black;
-            this.gMeasures.Location = new System.Drawing.Point(5, 5);
+            this.gMeasures.Location = new System.Drawing.Point(1, 1);
             this.gMeasures.Name = "gMeasures";
             this.gMeasures.ReadOnly = true;
             this.gMeasures.RowHeadersVisible = false;
-            this.gMeasures.Size = new System.Drawing.Size(476, 400);
+            this.gMeasures.Size = new System.Drawing.Size(526, 408);
             this.gMeasures.TabIndex = 3;
             // 
             // timerDequeue
@@ -102,12 +102,14 @@ namespace MeteoStation
             // 
             this.button2.BackColor = System.Drawing.Color.White;
             this.button2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button2.FlatAppearance.BorderSize = 0;
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Location = new System.Drawing.Point(5, 5);
+            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button2.Location = new System.Drawing.Point(1, 1);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(274, 269);
+            this.button2.Size = new System.Drawing.Size(240, 277);
             this.button2.TabIndex = 4;
-            this.button2.Text = "clear";
+            this.button2.Text = "Clear";
             this.button2.UseVisualStyleBackColor = false;
             this.button2.Click += new System.EventHandler(this.ClearTable);
             // 
@@ -137,6 +139,85 @@ namespace MeteoStation
             this.tsViews.Size = new System.Drawing.Size(800, 25);
             this.tsViews.TabIndex = 8;
             this.tsViews.Text = "toolStrip1";
+            // 
+            // tsbMeasures
+            // 
+            this.tsbMeasures.ForeColor = System.Drawing.Color.White;
+            this.tsbMeasures.Image = ((System.Drawing.Image)(resources.GetObject("tsbMeasures.Image")));
+            this.tsbMeasures.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbMeasures.Name = "tsbMeasures";
+            this.tsbMeasures.Size = new System.Drawing.Size(77, 22);
+            this.tsbMeasures.Text = "Measures";
+            // 
+            // toolStripSeparator7
+            // 
+            this.toolStripSeparator7.Name = "toolStripSeparator7";
+            this.toolStripSeparator7.Size = new System.Drawing.Size(6, 25);
+            // 
+            // tsbAlarms
+            // 
+            this.tsbAlarms.ForeColor = System.Drawing.Color.White;
+            this.tsbAlarms.Image = ((System.Drawing.Image)(resources.GetObject("tsbAlarms.Image")));
+            this.tsbAlarms.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbAlarms.Name = "tsbAlarms";
+            this.tsbAlarms.Size = new System.Drawing.Size(64, 22);
+            this.tsbAlarms.Text = "Alarms";
+            // 
+            // toolStripSeparator6
+            // 
+            this.toolStripSeparator6.Name = "toolStripSeparator6";
+            this.toolStripSeparator6.Size = new System.Drawing.Size(6, 25);
+            // 
+            // tsbGraphs
+            // 
+            this.tsbGraphs.ForeColor = System.Drawing.Color.White;
+            this.tsbGraphs.Image = ((System.Drawing.Image)(resources.GetObject("tsbGraphs.Image")));
+            this.tsbGraphs.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbGraphs.Name = "tsbGraphs";
+            this.tsbGraphs.Size = new System.Drawing.Size(64, 22);
+            this.tsbGraphs.Text = "Graphs";
+            // 
+            // toolStripSeparator5
+            // 
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 25);
+            // 
+            // tsbAccounts
+            // 
+            this.tsbAccounts.ForeColor = System.Drawing.Color.White;
+            this.tsbAccounts.Image = ((System.Drawing.Image)(resources.GetObject("tsbAccounts.Image")));
+            this.tsbAccounts.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbAccounts.Name = "tsbAccounts";
+            this.tsbAccounts.Size = new System.Drawing.Size(77, 22);
+            this.tsbAccounts.Text = "Accounts";
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
+            // 
+            // tsbConnection
+            // 
+            this.tsbConnection.ForeColor = System.Drawing.Color.White;
+            this.tsbConnection.Image = ((System.Drawing.Image)(resources.GetObject("tsbConnection.Image")));
+            this.tsbConnection.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbConnection.Name = "tsbConnection";
+            this.tsbConnection.Size = new System.Drawing.Size(89, 22);
+            this.tsbConnection.Text = "Connection";
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
+            // 
+            // tsbCalibration
+            // 
+            this.tsbCalibration.ForeColor = System.Drawing.Color.White;
+            this.tsbCalibration.Image = ((System.Drawing.Image)(resources.GetObject("tsbCalibration.Image")));
+            this.tsbCalibration.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbCalibration.Name = "tsbCalibration";
+            this.tsbCalibration.Size = new System.Drawing.Size(85, 22);
+            this.tsbCalibration.Text = "Calibration";
             // 
             // toolStripSeparator1
             // 
@@ -182,104 +263,25 @@ namespace MeteoStation
             this.tslErrors.Size = new System.Drawing.Size(47, 22);
             this.tslErrors.Text = "X errors";
             // 
-            // tsbCalibration
-            // 
-            this.tsbCalibration.ForeColor = System.Drawing.Color.White;
-            this.tsbCalibration.Image = ((System.Drawing.Image)(resources.GetObject("tsbCalibration.Image")));
-            this.tsbCalibration.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbCalibration.Name = "tsbCalibration";
-            this.tsbCalibration.Size = new System.Drawing.Size(85, 22);
-            this.tsbCalibration.Text = "Calibration";
-            // 
-            // toolStripSeparator3
-            // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
-            // 
-            // toolStripSeparator4
-            // 
-            this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
-            // 
-            // toolStripSeparator5
-            // 
-            this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 25);
-            // 
-            // toolStripSeparator6
-            // 
-            this.toolStripSeparator6.Name = "toolStripSeparator6";
-            this.toolStripSeparator6.Size = new System.Drawing.Size(6, 25);
-            // 
-            // toolStripSeparator7
-            // 
-            this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(6, 25);
-            // 
-            // tsbMeasures
-            // 
-            this.tsbMeasures.ForeColor = System.Drawing.Color.White;
-            this.tsbMeasures.Image = ((System.Drawing.Image)(resources.GetObject("tsbMeasures.Image")));
-            this.tsbMeasures.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbMeasures.Name = "tsbMeasures";
-            this.tsbMeasures.Size = new System.Drawing.Size(77, 22);
-            this.tsbMeasures.Text = "Measures";
-            // 
-            // tsbAlarms
-            // 
-            this.tsbAlarms.ForeColor = System.Drawing.Color.White;
-            this.tsbAlarms.Image = ((System.Drawing.Image)(resources.GetObject("tsbAlarms.Image")));
-            this.tsbAlarms.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbAlarms.Name = "tsbAlarms";
-            this.tsbAlarms.Size = new System.Drawing.Size(64, 22);
-            this.tsbAlarms.Text = "Alarms";
-            // 
-            // tsbGraphs
-            // 
-            this.tsbGraphs.ForeColor = System.Drawing.Color.White;
-            this.tsbGraphs.Image = ((System.Drawing.Image)(resources.GetObject("tsbGraphs.Image")));
-            this.tsbGraphs.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbGraphs.Name = "tsbGraphs";
-            this.tsbGraphs.Size = new System.Drawing.Size(64, 22);
-            this.tsbGraphs.Text = "Graphs";
-            // 
-            // tsbAccounts
-            // 
-            this.tsbAccounts.ForeColor = System.Drawing.Color.White;
-            this.tsbAccounts.Image = ((System.Drawing.Image)(resources.GetObject("tsbAccounts.Image")));
-            this.tsbAccounts.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbAccounts.Name = "tsbAccounts";
-            this.tsbAccounts.Size = new System.Drawing.Size(77, 22);
-            this.tsbAccounts.Text = "Accounts";
-            // 
-            // tsbConnection
-            // 
-            this.tsbConnection.ForeColor = System.Drawing.Color.White;
-            this.tsbConnection.Image = ((System.Drawing.Image)(resources.GetObject("tsbConnection.Image")));
-            this.tsbConnection.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbConnection.Name = "tsbConnection";
-            this.tsbConnection.Size = new System.Drawing.Size(89, 22);
-            this.tsbConnection.Text = "Connection";
-            // 
             // pMainControl
             // 
             this.pMainControl.BackColor = System.Drawing.Color.Black;
             this.pMainControl.Controls.Add(this.gMeasures);
             this.pMainControl.Location = new System.Drawing.Point(12, 28);
             this.pMainControl.Name = "pMainControl";
-            this.pMainControl.Padding = new System.Windows.Forms.Padding(5);
-            this.pMainControl.Size = new System.Drawing.Size(486, 410);
+            this.pMainControl.Padding = new System.Windows.Forms.Padding(1);
+            this.pMainControl.Size = new System.Drawing.Size(528, 410);
             this.pMainControl.TabIndex = 9;
             // 
-            // panel1
+            // pSecondaryControl
             // 
-            this.panel1.BackColor = System.Drawing.Color.Black;
-            this.panel1.Controls.Add(this.button2);
-            this.panel1.Location = new System.Drawing.Point(504, 159);
-            this.panel1.Name = "panel1";
-            this.panel1.Padding = new System.Windows.Forms.Padding(5);
-            this.panel1.Size = new System.Drawing.Size(284, 279);
-            this.panel1.TabIndex = 10;
+            this.pSecondaryControl.BackColor = System.Drawing.Color.Black;
+            this.pSecondaryControl.Controls.Add(this.button2);
+            this.pSecondaryControl.Location = new System.Drawing.Point(546, 159);
+            this.pSecondaryControl.Name = "pSecondaryControl";
+            this.pSecondaryControl.Padding = new System.Windows.Forms.Padding(1);
+            this.pSecondaryControl.Size = new System.Drawing.Size(242, 279);
+            this.pSecondaryControl.TabIndex = 10;
             // 
             // MainForm
             // 
@@ -287,7 +289,7 @@ namespace MeteoStation
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.PowderBlue;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.pSecondaryControl);
             this.Controls.Add(this.pMainControl);
             this.Controls.Add(this.tsViews);
             this.Name = "MainForm";
@@ -297,7 +299,7 @@ namespace MeteoStation
             this.tsViews.ResumeLayout(false);
             this.tsViews.PerformLayout();
             this.pMainControl.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
+            this.pSecondaryControl.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -327,7 +329,7 @@ namespace MeteoStation
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripButton tsbCalibration;
         private System.Windows.Forms.Panel pMainControl;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel pSecondaryControl;
     }
 }
 

@@ -28,6 +28,10 @@ namespace MeteoStation
             dt.Columns.Add("DATA");
             dt.Columns.Add("UPDATE");
             dt.Columns.Add("ALARM");
+
+            gMeasures.DataSource = dt; gMeasures.DataSource = dt;
+
+            gMeasures.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
         }
 
         private void MainForm_Load(object sender, EventArgs e)
