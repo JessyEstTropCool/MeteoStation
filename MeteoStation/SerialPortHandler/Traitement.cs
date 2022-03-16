@@ -13,28 +13,25 @@ namespace MeteoStation.SerialPortHandler
     {
         internal static int errors = 0;
 
-        internal static void DataTreatment(MainForm form, DataGridView dgv, DataTable dt)
+        internal static void DataTreatment()
         {
-            while (Data.Collections.SerialBuffer.Count > 14 )
+            FilterQueue();
+
+            while (Data.Collections.SerialBuffer.Count > 13 )
             {
                 Data.SensorData.Base obj = new Data.SensorData.Measure();
+                byte sum = 0;
 
-                FilterQueue();
+                Data.Collections.SerialBuffer.Dequeue();
+                Data.Collections.SerialBuffer.Dequeue();
+                Data.Collections.SerialBuffer.Dequeue();
 
-                Data.Collections.SerialBuffer.Dequeue();
-                Data.Collections.SerialBuffer.Dequeue();
-                Data.Collections.SerialBuffer.Dequeue();
+                obj.serial = (ushort)((Data.Collections.SerialBuffer.Dequeue() << 8) + Data.Collections.SerialBuffer.Dequeue());
 
                 obj.id = Data.Collections.SerialBuffer.Dequeue();
                 obj.type = Data.Collections.SerialBuffer.Dequeue();
-                obj.nbrBytes = Data.Collections.SerialBuffer.Dequeue();
 
-                //if (obj.nbrBytes > 4) MessageBox.Show("???");
-
-                for ( int compt = 0; compt < obj.nbrBytes; compt++ )
-                {
-                    obj.data = (obj.data << 8) + Data.Collections.SerialBuffer.Dequeue();
-                }
+                obj.data = (ushort)((Data.Collections.SerialBuffer.Dequeue() << 8) + Data.Collections.SerialBuffer.Dequeue());
 
                 byte checksum = Data.Collections.SerialBuffer.Dequeue();
 
@@ -42,17 +39,20 @@ namespace MeteoStation.SerialPortHandler
                 Data.Collections.SerialBuffer.Dequeue();
                 Data.Collections.SerialBuffer.Dequeue();
 
-                byte sum = 0;
+                foreach (byte b in BitConverter.GetBytes(obj.serial))
+                    sum += b;
 
                 foreach (byte b in BitConverter.GetBytes(obj.data))
                     sum += b;
 
-                if (checksum == (byte)(obj.id + obj.type + obj.nbrBytes + sum) /*&& obj.id != 0*/) AddToList(obj, dt, dgv);
-                else /*if (obj.id != 0)*/ errors++;
+                if (checksum == (byte)(obj.id + obj.type + sum) ) AddToList(obj);
+                else errors++;
+
+                //AddToList(obj);
             }
         }
 
-        internal static void AddToList(Data.SensorData.Base obj, DataTable dt, DataGridView dg)
+        internal static void AddToList(Data.SensorData.Base obj)
         {
             bool isIn = false;
 
@@ -63,18 +63,7 @@ namespace MeteoStation.SerialPortHandler
                     isIn = true;
                     m.data = obj.data;
                     m.type = obj.type;
-                    m.nbrBytes = obj.nbrBytes;
                     m.moment = obj.moment;
-
-                    foreach (DataRow dr in dt.Rows) 
-                    {
-                        if (dr["ID"].ToString() == obj.id.ToString())
-                        {
-                            dr["TYPE"] = ((Data.SensorData.MeasureType)Data.Collections.TypeList[obj.type]).Name + " (" + obj.type + ")";
-                            dr["DATA"] = obj.data;
-                            dr["UPDATE"] = obj.moment.ToLongTimeString();
-                        }
-                    }
                 }
             }
             
@@ -83,7 +72,6 @@ namespace MeteoStation.SerialPortHandler
                 if (Data.Collections.ObjectList.Count == 0) 
                 {
                     Data.Collections.ObjectList.Add(obj);
-                    dt.Rows.Add(new object[] { obj.id, "None", ((Data.SensorData.MeasureType)Data.Collections.TypeList[obj.type]).Name + " (" + obj.type + ")", obj.data, obj.moment.ToLongTimeString(), "None" });
                 }
                 else
                 {
@@ -93,32 +81,46 @@ namespace MeteoStation.SerialPortHandler
                     {
                         if (m.id > obj.id)
                         {
-                            DataRow row = dt.NewRow();
-                            row["ID"] = obj.id;
-                            row["CONFIG"] = "None";
-                            row["TYPE"] = ((Data.SensorData.MeasureType)Data.Collections.TypeList[obj.type]).Name + " (" + obj.type + ")";
-                            row["DATA"] = obj.data;
-                            row["UPDATE"] = obj.moment.ToLongTimeString();
-                            row["ALARM"] = "None";
-
                             Data.Collections.ObjectList.Insert(i, obj);
-                            dt.Rows.InsertAt(row, i);
                             break;
                         }
                         else i++;
+
+                        if (i == Data.Collections.ObjectList.Count)
+                        {
+                            Data.Collections.ObjectList.Add(obj);
+                            break;
+                        }
                     }
                 }
             }
+        }
 
-            dg.DataSource = dt;
+        internal static void UpdateMeasureTable(DataGridView dgv, DataTable dt)
+        {
+            dt.Rows.Clear();
+
+            foreach (Data.SensorData.Base obj in Data.Collections.ObjectList)
+            {
+                dt.Rows.Add(new object[] { 
+                    obj.id, 
+                    "None", 
+                    ((Data.SensorData.MeasureType)Data.Collections.TypeList[obj.type]).Name + " (" + obj.type + ")", 
+                    obj.data, 
+                    (int)((DateTime.Now - obj.moment).TotalSeconds) + " sec", 
+                    "None" 
+                });
+            }
+
+            dgv.DataSource = dt;
         }
 
         internal static void FilterQueue()
         {
             while (Data.Collections.SerialBuffer.Count > 3
-                && Data.Collections.SerialBuffer.ElementAt(0) != Convert.ToByte("55", 16)
-                && Data.Collections.SerialBuffer.ElementAt(1) != Convert.ToByte("55", 16)
-                && Data.Collections.SerialBuffer.ElementAt(2) != Convert.ToByte("AA", 16))
+                && Data.Collections.SerialBuffer.ElementAt(0) != 0x55
+                && Data.Collections.SerialBuffer.ElementAt(1) != 0x55
+                && Data.Collections.SerialBuffer.ElementAt(2) != 0xAA)
             {
                 Data.Collections.SerialBuffer.Dequeue();
             }

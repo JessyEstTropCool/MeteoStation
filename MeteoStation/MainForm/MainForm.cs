@@ -8,12 +8,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO.Ports;
+using MeteoStation.Controls;
 
 namespace MeteoStation
 {
     public partial class MainForm : Form
     {
-        DataTable dt;
+        Control mainControl = null, configControl = null;
 
         public MainForm()
         {
@@ -21,17 +22,13 @@ namespace MeteoStation
 
             spSensorData.DataReceived += new SerialDataReceivedEventHandler(SerialPortHandler.Reception.RecieveData);
 
-            dt = new DataTable();
-            dt.Columns.Add("ID");
-            dt.Columns.Add("CONFIG");
-            dt.Columns.Add("TYPE");
-            dt.Columns.Add("DATA");
-            dt.Columns.Add("UPDATE");
-            dt.Columns.Add("ALARM");
+            tscbComPorts.Items.Add(spSensorData.PortName);
+            tscbComPorts.SelectedIndex = 0;
+        }
 
-            gMeasures.DataSource = dt; gMeasures.DataSource = dt;
-
-            gMeasures.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+        private void TimerDequeue_Tick(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -44,8 +41,7 @@ namespace MeteoStation
 
         private void timerDequeue_Tick(object sender, EventArgs e)
         {
-            SerialPortHandler.Reception.DataTreatment(this, gMeasures, dt);
-
+            SerialPortHandler.Reception.DataTreatment();
             tslErrors.Text = SerialPortHandler.Reception.errors + " erreurs";
         }
 
@@ -74,14 +70,6 @@ namespace MeteoStation
             }
         }
 
-        private void ClearTable(object sender, EventArgs e)
-        {
-            dt.Rows.Clear();
-            gMeasures.DataSource = dt;
-
-            Data.Collections.ObjectList.Clear();
-        }
-
         private void cbComPorts_DropDown(object sender, EventArgs e)
         {
             tscbComPorts.Items.Clear();
@@ -92,13 +80,78 @@ namespace MeteoStation
         {
             try
             {
-                spSensorData.PortName = tscbComPorts.SelectedItem.ToString();
+                if (tscbComPorts.SelectedItem != null) spSensorData.PortName = tscbComPorts.SelectedItem.ToString();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Erreur de port", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 tscbComPorts.SelectedText = spSensorData.PortName;
             }
+        }
+
+        private void ClearPanels()
+        {
+            if (mainControl != null)
+            {
+                mainControl.Dispose();
+                mainControl = null;
+                pMainControl.Controls.Clear();
+            }
+
+            if (configControl != null)
+            {
+                configControl.Dispose();
+                configControl = null;
+                pSecondaryControl.Controls.Clear();
+            }
+        }
+
+        private void DockIn(Control control, Panel parent)
+        {
+            parent.Controls.Add(control);
+            control.Dock = DockStyle.Fill;
+        }
+
+        private void tsbMeasures_Click(object sender, EventArgs e)
+        {
+            MeasureControl mtc = new MeasureControl();
+            MeasureConfigControl mcc = new MeasureConfigControl();
+            DataTable dt = mtc.Table;
+
+            ClearPanels();
+
+            mainControl = mtc;
+            DockIn(mtc, pMainControl);
+
+            configControl = mcc;
+            DockIn(mcc, pSecondaryControl);
+
+            timerDequeue.Tick += mtc.UpdateTick;
+        }
+
+        private void tsbAlarms_Click(object sender, EventArgs e)
+        {
+            ClearPanels();
+        }
+
+        private void tsbGraphs_Click(object sender, EventArgs e)
+        {
+            ClearPanels();
+        }
+
+        private void tsbAccounts_Click(object sender, EventArgs e)
+        {
+            ClearPanels();
+        }
+
+        private void tsbConnection_Click(object sender, EventArgs e)
+        {
+            ClearPanels();
+        }
+
+        private void tsbCalibration_Click(object sender, EventArgs e)
+        {
+            ClearPanels();
         }
     }
 }

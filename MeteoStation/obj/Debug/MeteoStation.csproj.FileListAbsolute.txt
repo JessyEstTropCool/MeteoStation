@@ -18,3 +18,5 @@ C:\Users\Elie\source\repos\MeteoStation\MeteoStation\obj\Debug\MeteoStation.cspr
 C:\Users\Elie\source\repos\MeteoStation\MeteoStation\obj\Debug\MeteoStation.csproj.CoreCompileInputs.cache
 C:\Users\Elie\source\repos\MeteoStation\MeteoStation\obj\Debug\MeteoStation.exe
 C:\Users\Elie\source\repos\MeteoStation\MeteoStation\obj\Debug\MeteoStation.pdb
+C:\Users\jessy\source\repos\MeteoStation\MeteoStation\obj\Debug\MeteoStation.Controls.MeasureConfigControl.resources
+C:\Users\jessy\source\repos\MeteoStation\MeteoStation\obj\Debug\MeteoStation.Controls.MeasureControl.resources

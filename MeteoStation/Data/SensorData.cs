@@ -10,17 +10,17 @@ namespace MeteoStation.Data
     {
         internal class Base
         {
+            internal ushort serial;
             internal byte id;
             internal byte type;
-            internal byte nbrBytes;
-            internal uint data;
+            internal ushort data;
             internal DateTime moment;
 
-            internal Base(byte id, byte type, byte nbrBytes, uint data, DateTime moment)
+            internal Base(ushort serial, byte id, byte type, ushort data, DateTime moment)
             {
+                this.serial = serial;
                 this.id = id;
                 this.type = type;
-                this.nbrBytes = nbrBytes;
                 this.data = data;
                 this.moment = moment;
             }

@@ -30,12 +30,9 @@ namespace MeteoStation
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.spSensorData = new System.IO.Ports.SerialPort(this.components);
-            this.gMeasures = new System.Windows.Forms.DataGridView();
             this.timerDequeue = new System.Windows.Forms.Timer(this.components);
-            this.button2 = new System.Windows.Forms.Button();
             this.tsViews = new System.Windows.Forms.ToolStrip();
             this.tsbMeasures = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
@@ -56,62 +53,17 @@ namespace MeteoStation
             this.tslErrors = new System.Windows.Forms.ToolStripLabel();
             this.pMainControl = new System.Windows.Forms.Panel();
             this.pSecondaryControl = new System.Windows.Forms.Panel();
-            ((System.ComponentModel.ISupportInitialize)(this.gMeasures)).BeginInit();
             this.tsViews.SuspendLayout();
-            this.pMainControl.SuspendLayout();
-            this.pSecondaryControl.SuspendLayout();
             this.SuspendLayout();
             // 
             // spSensorData
             // 
             this.spSensorData.PortName = "COM2";
             // 
-            // gMeasures
-            // 
-            this.gMeasures.AllowUserToAddRows = false;
-            this.gMeasures.AllowUserToDeleteRows = false;
-            this.gMeasures.AllowUserToResizeColumns = false;
-            this.gMeasures.AllowUserToResizeRows = false;
-            this.gMeasures.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.gMeasures.BackgroundColor = System.Drawing.Color.White;
-            this.gMeasures.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.gMeasures.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.gMeasures.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gMeasures.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gMeasures.GridColor = System.Drawing.Color.Black;
-            this.gMeasures.Location = new System.Drawing.Point(1, 1);
-            this.gMeasures.Name = "gMeasures";
-            this.gMeasures.ReadOnly = true;
-            this.gMeasures.RowHeadersVisible = false;
-            this.gMeasures.Size = new System.Drawing.Size(526, 408);
-            this.gMeasures.TabIndex = 3;
-            // 
             // timerDequeue
             // 
             this.timerDequeue.Interval = 1000;
             this.timerDequeue.Tick += new System.EventHandler(this.timerDequeue_Tick);
-            // 
-            // button2
-            // 
-            this.button2.BackColor = System.Drawing.Color.White;
-            this.button2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button2.FlatAppearance.BorderSize = 0;
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(1, 1);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(240, 277);
-            this.button2.TabIndex = 4;
-            this.button2.Text = "Clear";
-            this.button2.UseVisualStyleBackColor = false;
-            this.button2.Click += new System.EventHandler(this.ClearTable);
             // 
             // tsViews
             // 
@@ -148,6 +100,7 @@ namespace MeteoStation
             this.tsbMeasures.Name = "tsbMeasures";
             this.tsbMeasures.Size = new System.Drawing.Size(77, 22);
             this.tsbMeasures.Text = "Measures";
+            this.tsbMeasures.Click += new System.EventHandler(this.tsbMeasures_Click);
             // 
             // toolStripSeparator7
             // 
@@ -162,6 +115,7 @@ namespace MeteoStation
             this.tsbAlarms.Name = "tsbAlarms";
             this.tsbAlarms.Size = new System.Drawing.Size(64, 22);
             this.tsbAlarms.Text = "Alarms";
+            this.tsbAlarms.Click += new System.EventHandler(this.tsbAlarms_Click);
             // 
             // toolStripSeparator6
             // 
@@ -176,6 +130,7 @@ namespace MeteoStation
             this.tsbGraphs.Name = "tsbGraphs";
             this.tsbGraphs.Size = new System.Drawing.Size(64, 22);
             this.tsbGraphs.Text = "Graphs";
+            this.tsbGraphs.Click += new System.EventHandler(this.tsbGraphs_Click);
             // 
             // toolStripSeparator5
             // 
@@ -190,6 +145,7 @@ namespace MeteoStation
             this.tsbAccounts.Name = "tsbAccounts";
             this.tsbAccounts.Size = new System.Drawing.Size(77, 22);
             this.tsbAccounts.Text = "Accounts";
+            this.tsbAccounts.Click += new System.EventHandler(this.tsbAccounts_Click);
             // 
             // toolStripSeparator4
             // 
@@ -204,6 +160,7 @@ namespace MeteoStation
             this.tsbConnection.Name = "tsbConnection";
             this.tsbConnection.Size = new System.Drawing.Size(89, 22);
             this.tsbConnection.Text = "Connection";
+            this.tsbConnection.Click += new System.EventHandler(this.tsbConnection_Click);
             // 
             // toolStripSeparator3
             // 
@@ -218,6 +175,7 @@ namespace MeteoStation
             this.tsbCalibration.Name = "tsbCalibration";
             this.tsbCalibration.Size = new System.Drawing.Size(85, 22);
             this.tsbCalibration.Text = "Calibration";
+            this.tsbCalibration.Click += new System.EventHandler(this.tsbCalibration_Click);
             // 
             // toolStripSeparator1
             // 
@@ -265,8 +223,9 @@ namespace MeteoStation
             // 
             // pMainControl
             // 
+            this.pMainControl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.pMainControl.BackColor = System.Drawing.Color.Black;
-            this.pMainControl.Controls.Add(this.gMeasures);
             this.pMainControl.Location = new System.Drawing.Point(12, 28);
             this.pMainControl.Name = "pMainControl";
             this.pMainControl.Padding = new System.Windows.Forms.Padding(1);
@@ -275,8 +234,10 @@ namespace MeteoStation
             // 
             // pSecondaryControl
             // 
+            this.pSecondaryControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.pSecondaryControl.BackColor = System.Drawing.Color.Black;
-            this.pSecondaryControl.Controls.Add(this.button2);
             this.pSecondaryControl.Location = new System.Drawing.Point(546, 159);
             this.pSecondaryControl.Name = "pSecondaryControl";
             this.pSecondaryControl.Padding = new System.Windows.Forms.Padding(1);
@@ -295,11 +256,8 @@ namespace MeteoStation
             this.Name = "MainForm";
             this.Text = "Meteo Station";
             this.Load += new System.EventHandler(this.MainForm_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.gMeasures)).EndInit();
             this.tsViews.ResumeLayout(false);
             this.tsViews.PerformLayout();
-            this.pMainControl.ResumeLayout(false);
-            this.pSecondaryControl.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -307,9 +265,7 @@ namespace MeteoStation
 
         #endregion
         private System.IO.Ports.SerialPort spSensorData;
-        private System.Windows.Forms.DataGridView gMeasures;
         private System.Windows.Forms.Timer timerDequeue;
-        private System.Windows.Forms.Button button2;
         private System.Windows.Forms.ToolStrip tsViews;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripComboBox tscbComPorts;
