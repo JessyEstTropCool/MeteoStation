@@ -48,6 +48,12 @@ namespace MeteoStation.Data
                 WarningMax = 0;
                 CriticalMax = 0;
             }
+
+            //vérifie si une mesure est configurées
+            internal bool IsConfigured()
+            {
+                return LowLimit != HighLimit;
+            }
         }
 
         internal class Alarm : Base

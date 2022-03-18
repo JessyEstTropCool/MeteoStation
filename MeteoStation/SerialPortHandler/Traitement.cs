@@ -3,7 +3,6 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.Collections.Generic;
 using System.Collections;
 
@@ -106,26 +105,6 @@ namespace MeteoStation.SerialPortHandler
                     }
                 }
             }
-        }
-
-        //met les infos de la liste sur la table
-        internal static void UpdateMeasureTable(DataGridView dgv, DataTable dt)
-        {
-            dt.Rows.Clear();
-
-            foreach (Data.SensorData.Base obj in Data.Collections.ObjectList)
-            {
-                dt.Rows.Add(new object[] { 
-                    obj.id, 
-                    "None", 
-                    ((Data.SensorData.MeasureType)Data.Collections.TypeList[obj.type]).Name + " (" + obj.type + ")", 
-                    obj.data, 
-                    (int)((DateTime.Now - obj.moment).TotalSeconds) + " sec", 
-                    "None" 
-                });
-            }
-
-            dgv.DataSource = dt;
         }
 
         //enleve les bytes inutiles jusqu'à ce qu'on arrive au début d'une trame

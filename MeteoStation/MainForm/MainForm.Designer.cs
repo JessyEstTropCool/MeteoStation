@@ -185,6 +185,7 @@ namespace MeteoStation
             // tscbComPorts
             // 
             this.tscbComPorts.BackColor = System.Drawing.Color.White;
+            this.tscbComPorts.FlatStyle = System.Windows.Forms.FlatStyle.Standard;
             this.tscbComPorts.ForeColor = System.Drawing.Color.Black;
             this.tscbComPorts.Name = "tscbComPorts";
             this.tscbComPorts.Size = new System.Drawing.Size(75, 25);

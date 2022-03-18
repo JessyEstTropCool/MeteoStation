@@ -38,6 +38,7 @@ namespace MeteoStation.Controls
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.bApply = new System.Windows.Forms.Button();
+            this.lStatus = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.nudMax)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMin)).BeginInit();
             this.SuspendLayout();
@@ -65,6 +66,8 @@ namespace MeteoStation.Controls
             this.cbIdSelect.Name = "cbIdSelect";
             this.cbIdSelect.Size = new System.Drawing.Size(121, 21);
             this.cbIdSelect.TabIndex = 1;
+            this.cbIdSelect.DropDown += new System.EventHandler(this.cbIdSelect_DropDown);
+            this.cbIdSelect.DropDownClosed += new System.EventHandler(this.cbIdSelect_DropDownClosed);
             // 
             // lType
             // 
@@ -82,6 +85,16 @@ namespace MeteoStation.Controls
             this.nudMax.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.nudMax.Location = new System.Drawing.Point(77, 95);
+            this.nudMax.Maximum = new decimal(new int[] {
+            -1,
+            -1,
+            -1,
+            0});
+            this.nudMax.Minimum = new decimal(new int[] {
+            -1,
+            -1,
+            -1,
+            -2147483648});
             this.nudMax.Name = "nudMax";
             this.nudMax.Size = new System.Drawing.Size(120, 20);
             this.nudMax.TabIndex = 3;
@@ -91,6 +104,16 @@ namespace MeteoStation.Controls
             this.nudMin.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.nudMin.Location = new System.Drawing.Point(78, 121);
+            this.nudMin.Maximum = new decimal(new int[] {
+            -1,
+            -1,
+            -1,
+            0});
+            this.nudMin.Minimum = new decimal(new int[] {
+            -1,
+            -1,
+            -1,
+            -2147483648});
             this.nudMin.Name = "nudMin";
             this.nudMin.Size = new System.Drawing.Size(120, 20);
             this.nudMin.TabIndex = 4;
@@ -128,18 +151,31 @@ namespace MeteoStation.Controls
             this.bApply.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.bApply.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bApply.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bApply.Location = new System.Drawing.Point(0, 147);
+            this.bApply.Location = new System.Drawing.Point(0, 191);
             this.bApply.Name = "bApply";
             this.bApply.Size = new System.Drawing.Size(201, 44);
             this.bApply.TabIndex = 8;
             this.bApply.Text = "Apply";
             this.bApply.UseVisualStyleBackColor = false;
+            this.bApply.Click += new System.EventHandler(this.bApply_Click);
+            // 
+            // lStatus
+            // 
+            this.lStatus.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lStatus.Location = new System.Drawing.Point(5, 144);
+            this.lStatus.Name = "lStatus";
+            this.lStatus.Size = new System.Drawing.Size(192, 18);
+            this.lStatus.TabIndex = 9;
+            this.lStatus.Text = "Status : Not done";
+            this.lStatus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // MeasureConfigControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Gainsboro;
+            this.Controls.Add(this.lStatus);
             this.Controls.Add(this.bApply);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -150,7 +186,7 @@ namespace MeteoStation.Controls
             this.Controls.Add(this.cbIdSelect);
             this.Controls.Add(this.lTitre);
             this.Name = "MeasureConfigControl";
-            this.Size = new System.Drawing.Size(201, 191);
+            this.Size = new System.Drawing.Size(201, 235);
             ((System.ComponentModel.ISupportInitialize)(this.nudMax)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMin)).EndInit();
             this.ResumeLayout(false);
@@ -168,5 +204,6 @@ namespace MeteoStation.Controls
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button bApply;
+        private System.Windows.Forms.Label lStatus;
     }
 }

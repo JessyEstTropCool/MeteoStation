@@ -33,6 +33,14 @@ namespace MeteoStation
             Data.Collections.TypeList.Add(new Data.SensorData.MeasureType("CO²", "ppm"));
             Data.Collections.TypeList.Add(new Data.SensorData.MeasureType("Température", "°C"));
             Data.Collections.TypeList.Add(new Data.SensorData.MeasureType("Humidité", "%"));
+
+            if (SerialPort.GetPortNames().Length > 0)
+            {
+                spSensorData.PortName = SerialPort.GetPortNames()[0];
+                tscbComPorts.Items.Clear();
+                tscbComPorts.Items.Add(SerialPort.GetPortNames()[0]);
+                tscbComPorts.SelectedIndex = 0;
+            }
         }
 
         //Handler du timer responsable du traitement des données

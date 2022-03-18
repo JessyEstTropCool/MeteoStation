@@ -33,7 +33,7 @@ namespace MeteoStation.Controls
             dgvGrid.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
 
             //Récupere les données immédiatement
-            SerialPortHandler.Reception.UpdateMeasureTable(dgvGrid, Table);
+            Data.Collections.UpdateMeasureTable(dgvGrid, Table);
         }
 
         //Rafraichi les infos sur la grille
@@ -46,7 +46,9 @@ namespace MeteoStation.Controls
         //Récupere les données en même temps que le timer du form principal
         internal void UpdateTick(object sender, EventArgs e)
         {
-            SerialPortHandler.Reception.UpdateMeasureTable(dgvGrid, Table);
+            Data.Collections.UpdateMeasureTable(dgvGrid, Table);
+
+            dgvGrid.ClearSelection();
 
             //tslErrors.Text = SerialPortHandler.Reception.errors + " erreurs";
         }

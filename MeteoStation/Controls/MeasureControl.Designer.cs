@@ -53,20 +53,22 @@ namespace MeteoStation.Controls
             this.dgvGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvGrid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvGrid.Enabled = false;
             this.dgvGrid.GridColor = System.Drawing.Color.Black;
             this.dgvGrid.Location = new System.Drawing.Point(0, 0);
+            this.dgvGrid.MultiSelect = false;
             this.dgvGrid.Name = "dgvGrid";
             this.dgvGrid.ReadOnly = true;
             this.dgvGrid.RowHeadersVisible = false;
             this.dgvGrid.Size = new System.Drawing.Size(417, 376);
             this.dgvGrid.TabIndex = 0;
             // 
-            // MeasureTableControl
+            // MeasureControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.dgvGrid);
-            this.Name = "MeasureTableControl";
+            this.Name = "MeasureControl";
             this.Size = new System.Drawing.Size(417, 376);
             ((System.ComponentModel.ISupportInitialize)(this.dgvGrid)).EndInit();
             this.ResumeLayout(false);
