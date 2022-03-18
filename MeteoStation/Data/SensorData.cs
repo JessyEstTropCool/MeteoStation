@@ -10,7 +10,7 @@ namespace MeteoStation.Data
     {
         internal class Base
         {
-            internal ushort serial;
+            internal ushort serial; //ushort = UInt16 = 16 bits non signé
             internal byte id;
             internal byte type;
             internal ushort data;

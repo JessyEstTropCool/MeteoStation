@@ -13,7 +13,7 @@ namespace MeteoStation.Controls
     public partial class MeasureControl : UserControl
     {
         internal DataTable Table { get; }
-        internal DataGridView Grid { get => dgvGrid; }
+        //internal DataGridView Grid { get => dgvGrid; }
 
         public MeasureControl()
         {
@@ -21,6 +21,7 @@ namespace MeteoStation.Controls
 
             Table = new DataTable();
 
+            //Ajoute les colones
             Table.Columns.Add("ID");
             Table.Columns.Add("CONFIG");
             Table.Columns.Add("TYPE");
@@ -31,15 +32,18 @@ namespace MeteoStation.Controls
 
             dgvGrid.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
 
+            //Récupere les données immédiatement
             SerialPortHandler.Reception.UpdateMeasureTable(dgvGrid, Table);
         }
 
+        //Rafraichi les infos sur la grille
         public void RefreshGrid()
         {
             dgvGrid.DataSource = Table;
             dgvGrid.Refresh();
         }
         
+        //Récupere les données en même temps que le timer du form principal
         internal void UpdateTick(object sender, EventArgs e)
         {
             SerialPortHandler.Reception.UpdateMeasureTable(dgvGrid, Table);

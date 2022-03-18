@@ -26,33 +26,33 @@ namespace MeteoStation
             tscbComPorts.SelectedIndex = 0;
         }
 
-        private void TimerDequeue_Tick(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
         private void MainForm_Load(object sender, EventArgs e)
         {
+            //Dans le futur a prendre d'un fichier voire la db
             Data.Collections.TypeList.Add(new Data.SensorData.MeasureType("Alarme", "yowchs"));
             Data.Collections.TypeList.Add(new Data.SensorData.MeasureType("CO²", "ppm"));
             Data.Collections.TypeList.Add(new Data.SensorData.MeasureType("Température", "°C"));
             Data.Collections.TypeList.Add(new Data.SensorData.MeasureType("Humidité", "%"));
         }
 
+        //Handler du timer responsable du traitement des données
         private void timerDequeue_Tick(object sender, EventArgs e)
         {
+            //Traitement des données toutes les secondes
             SerialPortHandler.Reception.DataTreatment();
             tslErrors.Text = SerialPortHandler.Reception.errors + " erreurs";
         }
 
+        //Ouverture / Fermeture du port
         private void OpenClosePort(object sender, EventArgs e)
         {
             try
             {
+                //Update des label et bouton + (dés)activation du timer quand on ouvre/ferme le port
                 if (spSensorData.IsOpen)
                 {
                     spSensorData.Close();
-                    timerDequeue.Enabled = true;
+                    timerDequeue.Enabled = false;
                     ((ToolStripItem)sender).Text = "Open";
                     tslStatus.Text = "Status : Closed";
                 }
@@ -70,12 +70,14 @@ namespace MeteoStation
             }
         }
 
+        //Recherche les items a afficher quand on ouvre le dropdown
         private void cbComPorts_DropDown(object sender, EventArgs e)
         {
             tscbComPorts.Items.Clear();
             tscbComPorts.Items.AddRange(SerialPort.GetPortNames());
         }
 
+        //Essaye d'assigner le nom de port quand on ferme le dropdown
         private void cbComPorts_DropDownClosed(object sender, EventArgs e)
         {
             try
@@ -89,6 +91,7 @@ namespace MeteoStation
             }
         }
 
+        //On retire tout ce qu'il y a dans les pânels pour faire place au autres usercontrol
         private void ClearPanels()
         {
             if (mainControl != null)
@@ -102,16 +105,27 @@ namespace MeteoStation
             {
                 configControl.Dispose();
                 configControl = null;
-                pSecondaryControl.Controls.Clear();
+                pConfigControl.Controls.Clear();
             }
         }
 
-        private void DockIn(Control control, Panel parent)
+        //Met un control dans le grand panel et l'assigne comme controle principal
+        private void SetMainControl(Control control)
         {
-            parent.Controls.Add(control);
+            mainControl = control;
+            pMainControl.Controls.Add(control);
             control.Dock = DockStyle.Fill;
         }
 
+        //Met un control dans le petit panel et l'assigne comme controle secondaire
+        private void SetConfigControl(Control control)
+        {
+            configControl = control;
+            pConfigControl.Controls.Add(control);
+            control.Dock = DockStyle.Fill;
+        }
+
+        //Met les controles de mesures
         private void tsbMeasures_Click(object sender, EventArgs e)
         {
             MeasureControl mtc = new MeasureControl();
@@ -120,35 +134,37 @@ namespace MeteoStation
 
             ClearPanels();
 
-            mainControl = mtc;
-            DockIn(mtc, pMainControl);
-
-            configControl = mcc;
-            DockIn(mcc, pSecondaryControl);
+            SetMainControl(mtc);
+            SetConfigControl(mcc);
 
             timerDequeue.Tick += mtc.UpdateTick;
         }
 
+        //Met les controles d'alarmes
         private void tsbAlarms_Click(object sender, EventArgs e)
         {
             ClearPanels();
         }
 
+        //Met les controles de graphiques
         private void tsbGraphs_Click(object sender, EventArgs e)
         {
             ClearPanels();
         }
 
+        //Met les controles de comptes
         private void tsbAccounts_Click(object sender, EventArgs e)
         {
             ClearPanels();
         }
 
+        //Met les controles de connection
         private void tsbConnection_Click(object sender, EventArgs e)
         {
             ClearPanels();
         }
 
+        //Met les controles de calibration
         private void tsbCalibration_Click(object sender, EventArgs e)
         {
             ClearPanels();

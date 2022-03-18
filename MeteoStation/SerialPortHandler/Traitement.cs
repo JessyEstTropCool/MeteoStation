@@ -13,6 +13,7 @@ namespace MeteoStation.SerialPortHandler
     {
         internal static int errors = 0;
 
+        //Traite les données située dans le buffer (TODO alarmes a filtrer)
         internal static void DataTreatment()
         {
             FilterQueue();
@@ -22,10 +23,12 @@ namespace MeteoStation.SerialPortHandler
                 Data.SensorData.Base obj = new Data.SensorData.Measure();
                 byte sum = 0;
 
+                //bytes d'entrés
                 Data.Collections.SerialBuffer.Dequeue();
                 Data.Collections.SerialBuffer.Dequeue();
                 Data.Collections.SerialBuffer.Dequeue();
 
+                //on décale le premier byte qu'on obtients pour avoir le nombre entier
                 obj.serial = (ushort)((Data.Collections.SerialBuffer.Dequeue() << 8) + Data.Collections.SerialBuffer.Dequeue());
 
                 obj.id = Data.Collections.SerialBuffer.Dequeue();
@@ -35,27 +38,32 @@ namespace MeteoStation.SerialPortHandler
 
                 byte checksum = Data.Collections.SerialBuffer.Dequeue();
 
+                //bytes de fin
                 Data.Collections.SerialBuffer.Dequeue();
                 Data.Collections.SerialBuffer.Dequeue();
                 Data.Collections.SerialBuffer.Dequeue();
 
+                //comme on a directement converti le serial et data en 16 bits faut prendre les bytes 1 par 1
                 foreach (byte b in BitConverter.GetBytes(obj.serial))
                     sum += b;
 
                 foreach (byte b in BitConverter.GetBytes(obj.data))
                     sum += b;
 
+                //vérification
                 if (checksum == (byte)(obj.id + obj.type + sum) ) AddToList(obj);
                 else errors++;
 
-                //AddToList(obj);
+                //AddToList(obj); //si jamais on doit vérifier sans checksum
             }
         }
 
+        //Ajoute une base dans la liste
         internal static void AddToList(Data.SensorData.Base obj)
         {
             bool isIn = false;
 
+            //si il est déjà dedans on fait qu'update les données
             foreach ( Data.SensorData.Base m in Data.Collections.ObjectList )
             {
                 if (m.id == obj.id)
@@ -67,14 +75,17 @@ namespace MeteoStation.SerialPortHandler
                 }
             }
             
+            //sinon on doit l'ajouter
             if (!isIn)
             {
+                //si ya rien on le met juste
                 if (Data.Collections.ObjectList.Count == 0) 
                 {
                     Data.Collections.ObjectList.Add(obj);
                 }
                 else
                 {
+                    //sinon on le met au bon endroit
                     int i = 0;
 
                     foreach (Data.SensorData.Base m in Data.Collections.ObjectList)
@@ -86,6 +97,7 @@ namespace MeteoStation.SerialPortHandler
                         }
                         else i++;
 
+                        //si on doit le mettre a la fin c'est ici
                         if (i == Data.Collections.ObjectList.Count)
                         {
                             Data.Collections.ObjectList.Add(obj);
@@ -96,6 +108,7 @@ namespace MeteoStation.SerialPortHandler
             }
         }
 
+        //met les infos de la liste sur la table
         internal static void UpdateMeasureTable(DataGridView dgv, DataTable dt)
         {
             dt.Rows.Clear();
@@ -115,6 +128,7 @@ namespace MeteoStation.SerialPortHandler
             dgv.DataSource = dt;
         }
 
+        //enleve les bytes inutiles jusqu'à ce qu'on arrive au début d'une trame
         internal static void FilterQueue()
         {
             while (Data.Collections.SerialBuffer.Count > 3

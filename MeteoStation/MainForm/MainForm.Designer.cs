@@ -52,7 +52,7 @@ namespace MeteoStation
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.tslErrors = new System.Windows.Forms.ToolStripLabel();
             this.pMainControl = new System.Windows.Forms.Panel();
-            this.pSecondaryControl = new System.Windows.Forms.Panel();
+            this.pConfigControl = new System.Windows.Forms.Panel();
             this.tsViews.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -232,17 +232,17 @@ namespace MeteoStation
             this.pMainControl.Size = new System.Drawing.Size(528, 410);
             this.pMainControl.TabIndex = 9;
             // 
-            // pSecondaryControl
+            // pConfigControl
             // 
-            this.pSecondaryControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.pConfigControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.pSecondaryControl.BackColor = System.Drawing.Color.Black;
-            this.pSecondaryControl.Location = new System.Drawing.Point(546, 159);
-            this.pSecondaryControl.Name = "pSecondaryControl";
-            this.pSecondaryControl.Padding = new System.Windows.Forms.Padding(1);
-            this.pSecondaryControl.Size = new System.Drawing.Size(242, 279);
-            this.pSecondaryControl.TabIndex = 10;
+            this.pConfigControl.BackColor = System.Drawing.Color.Black;
+            this.pConfigControl.Location = new System.Drawing.Point(546, 159);
+            this.pConfigControl.Name = "pConfigControl";
+            this.pConfigControl.Padding = new System.Windows.Forms.Padding(1);
+            this.pConfigControl.Size = new System.Drawing.Size(242, 279);
+            this.pConfigControl.TabIndex = 10;
             // 
             // MainForm
             // 
@@ -250,7 +250,7 @@ namespace MeteoStation
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.PowderBlue;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.pSecondaryControl);
+            this.Controls.Add(this.pConfigControl);
             this.Controls.Add(this.pMainControl);
             this.Controls.Add(this.tsViews);
             this.Name = "MainForm";
@@ -285,7 +285,7 @@ namespace MeteoStation
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripButton tsbCalibration;
         private System.Windows.Forms.Panel pMainControl;
-        private System.Windows.Forms.Panel pSecondaryControl;
+        private System.Windows.Forms.Panel pConfigControl;
     }
 }
 
