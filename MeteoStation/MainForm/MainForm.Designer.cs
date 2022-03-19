@@ -58,7 +58,7 @@ namespace MeteoStation
             // 
             // spSensorData
             // 
-            this.spSensorData.PortName = "COM2";
+            this.spSensorData.PortName = "COM";
             // 
             // timerDequeue
             // 
@@ -189,6 +189,7 @@ namespace MeteoStation
             this.tscbComPorts.ForeColor = System.Drawing.Color.Black;
             this.tscbComPorts.Name = "tscbComPorts";
             this.tscbComPorts.Size = new System.Drawing.Size(75, 25);
+            this.tscbComPorts.Text = "NO COM";
             this.tscbComPorts.DropDown += new System.EventHandler(this.cbComPorts_DropDown);
             this.tscbComPorts.DropDownClosed += new System.EventHandler(this.cbComPorts_DropDownClosed);
             // 

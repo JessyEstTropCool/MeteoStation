@@ -19,8 +19,9 @@ namespace MeteoStation.SerialPortHandler
 
             while (Data.Collections.SerialBuffer.Count > 13 )
             {
-                Data.SensorData.Base obj = new Data.SensorData.Measure();
-                byte sum = 0;
+                Data.SensorData.Base obj;
+                ushort serial, data;
+                byte sum = 0, id, type;
 
                 //bytes d'entrés
                 Data.Collections.SerialBuffer.Dequeue();
@@ -28,12 +29,12 @@ namespace MeteoStation.SerialPortHandler
                 Data.Collections.SerialBuffer.Dequeue();
 
                 //on décale le premier byte qu'on obtients pour avoir le nombre entier
-                obj.serial = (ushort)((Data.Collections.SerialBuffer.Dequeue() << 8) + Data.Collections.SerialBuffer.Dequeue());
+                serial = (ushort)((Data.Collections.SerialBuffer.Dequeue() << 8) + Data.Collections.SerialBuffer.Dequeue());
 
-                obj.id = Data.Collections.SerialBuffer.Dequeue();
-                obj.type = Data.Collections.SerialBuffer.Dequeue();
+                id = Data.Collections.SerialBuffer.Dequeue();
+                type = Data.Collections.SerialBuffer.Dequeue();
 
-                obj.data = (ushort)((Data.Collections.SerialBuffer.Dequeue() << 8) + Data.Collections.SerialBuffer.Dequeue());
+                data = (ushort)((Data.Collections.SerialBuffer.Dequeue() << 8) + Data.Collections.SerialBuffer.Dequeue());
 
                 byte checksum = Data.Collections.SerialBuffer.Dequeue();
 
@@ -43,14 +44,26 @@ namespace MeteoStation.SerialPortHandler
                 Data.Collections.SerialBuffer.Dequeue();
 
                 //comme on a directement converti le serial et data en 16 bits faut prendre les bytes 1 par 1
-                foreach (byte b in BitConverter.GetBytes(obj.serial))
+                foreach (byte b in BitConverter.GetBytes(serial))
                     sum += b;
 
-                foreach (byte b in BitConverter.GetBytes(obj.data))
+                foreach (byte b in BitConverter.GetBytes(data))
                     sum += b;
 
                 //vérification
-                if (checksum == (byte)(obj.id + obj.type + sum) ) AddToList(obj);
+                if (checksum == (byte)(id + type + sum) )
+                {
+                    //c'est ici qu'on détermine si c'est une alarme ou un mesure
+                    if (id == 0) obj = new Data.SensorData.Alarm();
+                    else obj = new Data.SensorData.Measure();
+
+                    obj.serial = serial;
+                    obj.id = id;
+                    obj.type = type;
+                    obj.data = data;
+
+                    AddToList(obj);
+                }
                 else errors++;
 
                 //AddToList(obj); //si jamais on doit vérifier sans checksum
@@ -63,14 +76,23 @@ namespace MeteoStation.SerialPortHandler
             bool isIn = false;
 
             //si il est déjà dedans on fait qu'update les données
-            foreach ( Data.SensorData.Base m in Data.Collections.ObjectList )
+            foreach ( Data.SensorData.Base b in Data.Collections.ObjectList )
             {
-                if (m.id == obj.id)
+                if (b.id == obj.id)
                 {
                     isIn = true;
-                    m.data = obj.data;
-                    m.type = obj.type;
-                    m.moment = obj.moment;
+                    b.data = obj.data;
+                    b.type = obj.type;
+                    b.moment = obj.moment;
+
+                    if (b.id != 0)
+                    {
+                        Data.SensorData.Measure m = (Data.SensorData.Measure)b;
+                        if ( m.IsConfigured() )
+                        {
+                            ConvertMeasure(m);
+                        }
+                    }
                 }
             }
             
@@ -87,9 +109,9 @@ namespace MeteoStation.SerialPortHandler
                     //sinon on le met au bon endroit
                     int i = 0;
 
-                    foreach (Data.SensorData.Base m in Data.Collections.ObjectList)
+                    foreach (Data.SensorData.Base b in Data.Collections.ObjectList)
                     {
-                        if (m.id > obj.id)
+                        if (b.id > obj.id)
                         {
                             Data.Collections.ObjectList.Insert(i, obj);
                             break;
@@ -105,6 +127,11 @@ namespace MeteoStation.SerialPortHandler
                     }
                 }
             }
+        }
+
+        internal static void ConvertMeasure(Data.SensorData.Measure m)
+        {
+            m.ConvertedData = (int)((m.data * 1.0 / ushort.MaxValue) * (m.HighLimit - m.LowLimit) + m.LowLimit);
         }
 
         //enleve les bytes inutiles jusqu'à ce qu'on arrive au début d'une trame

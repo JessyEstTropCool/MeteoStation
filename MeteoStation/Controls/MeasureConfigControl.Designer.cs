@@ -73,9 +73,9 @@ namespace MeteoStation.Controls
             // 
             this.lType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.lType.Location = new System.Drawing.Point(5, 74);
+            this.lType.Location = new System.Drawing.Point(0, 74);
             this.lType.Name = "lType";
-            this.lType.Size = new System.Drawing.Size(192, 18);
+            this.lType.Size = new System.Drawing.Size(201, 18);
             this.lType.TabIndex = 2;
             this.lType.Text = "Type : Unknown";
             this.lType.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -84,7 +84,7 @@ namespace MeteoStation.Controls
             // 
             this.nudMax.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.nudMax.Location = new System.Drawing.Point(77, 95);
+            this.nudMax.Location = new System.Drawing.Point(77, 120);
             this.nudMax.Maximum = new decimal(new int[] {
             -1,
             -1,
@@ -103,7 +103,7 @@ namespace MeteoStation.Controls
             // 
             this.nudMin.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.nudMin.Location = new System.Drawing.Point(78, 121);
+            this.nudMin.Location = new System.Drawing.Point(78, 94);
             this.nudMin.Maximum = new decimal(new int[] {
             -1,
             -1,
@@ -120,7 +120,7 @@ namespace MeteoStation.Controls
             // 
             // lMax
             // 
-            this.lMax.Location = new System.Drawing.Point(2, 95);
+            this.lMax.Location = new System.Drawing.Point(2, 118);
             this.lMax.Name = "lMax";
             this.lMax.Size = new System.Drawing.Size(67, 20);
             this.lMax.TabIndex = 5;
@@ -129,7 +129,7 @@ namespace MeteoStation.Controls
             // 
             // label1
             // 
-            this.label1.Location = new System.Drawing.Point(2, 119);
+            this.label1.Location = new System.Drawing.Point(2, 92);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(67, 20);
             this.label1.TabIndex = 6;
@@ -163,9 +163,9 @@ namespace MeteoStation.Controls
             // 
             this.lStatus.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.lStatus.Location = new System.Drawing.Point(5, 144);
+            this.lStatus.Location = new System.Drawing.Point(0, 143);
             this.lStatus.Name = "lStatus";
-            this.lStatus.Size = new System.Drawing.Size(192, 18);
+            this.lStatus.Size = new System.Drawing.Size(201, 18);
             this.lStatus.TabIndex = 9;
             this.lStatus.Text = "Status : Not done";
             this.lStatus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;

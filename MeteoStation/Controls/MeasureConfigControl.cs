@@ -33,7 +33,6 @@ namespace MeteoStation.Controls
             {
                 ConfigDone?.Invoke(this, EventArgs.Empty);
                 UpdateLabels();
-                MessageBox.Show("Verif ok");
             }
         }
 
@@ -60,6 +59,8 @@ namespace MeteoStation.Controls
             Data.SensorData.Measure m = Data.Collections.GetMeasure(ID);
             lType.Text = "Type : " + Data.Collections.TypeList[m.type].Name + " (" + Data.Collections.TypeList[m.type].Unit + ")";
             lStatus.Text = "Status : " + ((m.IsConfigured())? "Done" : "Not Done");
+            nudMax.Value = m.HighLimit;
+            nudMin.Value = m.LowLimit;
         }
     }
 }

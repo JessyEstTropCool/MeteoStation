@@ -14,23 +14,21 @@ namespace MeteoStation.Controls
     {
         internal DataTable Table { get; }
         //internal DataGridView Grid { get => dgvGrid; }
+        private string[] columnNames = { "ID", "Config", "Type", "Data", "Last update", "Alarms" };
 
         public MeasureControl()
         {
             InitializeComponent();
 
+            //Configure la datatable et ajoute les colones appropriées
             Table = new DataTable();
 
-            //Ajoute les colones
-            Table.Columns.Add("ID");
-            Table.Columns.Add("CONFIG");
-            Table.Columns.Add("TYPE");
-            Table.Columns.Add("DATA");
-            Table.Columns.Add("UPDATE");
-            Table.Columns.Add("ALARM");
+            foreach ( string name in columnNames )
+                Table.Columns.Add(name);
+
             RefreshGrid();
 
-            dgvGrid.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dgvGrid.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
             //Récupere les données immédiatement
             Data.Collections.UpdateMeasureTable(dgvGrid, Table);
@@ -51,6 +49,11 @@ namespace MeteoStation.Controls
             dgvGrid.ClearSelection();
 
             //tslErrors.Text = SerialPortHandler.Reception.errors + " erreurs";
+        }
+
+        private void dgvGrid_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            dgvGrid.ClearSelection();
         }
     }
 }

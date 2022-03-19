@@ -40,8 +40,8 @@ namespace MeteoStation.Controls
             this.dgvGrid.AllowUserToDeleteRows = false;
             this.dgvGrid.AllowUserToResizeColumns = false;
             this.dgvGrid.AllowUserToResizeRows = false;
-            this.dgvGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvGrid.BackgroundColor = System.Drawing.Color.Silver;
+            this.dgvGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dgvGrid.BackgroundColor = System.Drawing.Color.PowderBlue;
             this.dgvGrid.BorderStyle = System.Windows.Forms.BorderStyle.None;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
@@ -53,7 +53,6 @@ namespace MeteoStation.Controls
             this.dgvGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvGrid.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvGrid.Enabled = false;
             this.dgvGrid.GridColor = System.Drawing.Color.Black;
             this.dgvGrid.Location = new System.Drawing.Point(0, 0);
             this.dgvGrid.MultiSelect = false;
@@ -62,6 +61,7 @@ namespace MeteoStation.Controls
             this.dgvGrid.RowHeadersVisible = false;
             this.dgvGrid.Size = new System.Drawing.Size(417, 376);
             this.dgvGrid.TabIndex = 0;
+            this.dgvGrid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvGrid_CellClick);
             // 
             // MeasureControl
             // 

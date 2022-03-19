@@ -21,9 +21,6 @@ namespace MeteoStation
             InitializeComponent();
 
             spSensorData.DataReceived += new SerialDataReceivedEventHandler(SerialPortHandler.Reception.RecieveData);
-
-            tscbComPorts.Items.Add(spSensorData.PortName);
-            tscbComPorts.SelectedIndex = 0;
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -37,7 +34,7 @@ namespace MeteoStation
             if (SerialPort.GetPortNames().Length > 0)
             {
                 spSensorData.PortName = SerialPort.GetPortNames()[0];
-                tscbComPorts.Items.Clear();
+
                 tscbComPorts.Items.Add(SerialPort.GetPortNames()[0]);
                 tscbComPorts.SelectedIndex = 0;
             }
@@ -96,6 +93,7 @@ namespace MeteoStation
             {
                 MessageBox.Show(ex.Message, "Erreur de port", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 tscbComPorts.SelectedText = spSensorData.PortName;
+                tscbComPorts.Text = spSensorData.PortName;
             }
         }
 
@@ -146,6 +144,7 @@ namespace MeteoStation
             SetConfigControl(mcc);
 
             timerDequeue.Tick += mtc.UpdateTick;
+            mcc.ConfigDone += Data.Collections.MeasureConfigDone;
         }
 
         //Met les controles d'alarmes
