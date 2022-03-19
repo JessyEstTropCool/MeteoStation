@@ -28,14 +28,14 @@ namespace MeteoStation.Data
 
         internal class Measure : Base
         {
-            internal Int32 LowLimit;
-            internal Int32 HighLimit;
-            internal Int32 ConvertedData;
-            internal UInt32 AlarmMaxPeriod;
-            internal Int32 WarningMin;         //User Alarm
-            internal Int32 CriticalMin;        //User Alarm
-            internal Int32 WarningMax;         //User Alarm
-            internal Int32 CriticalMax;         //User Alarm
+            internal int LowLimit; //int = Int32 = 32 bits signé
+            internal int HighLimit;
+            internal int ConvertedData;
+            internal uint AlarmMaxPeriod; //uint = UInt32 = 32 bits non signé
+            internal int WarningMin;         //User Alarm
+            internal int CriticalMin;        //User Alarm
+            internal int WarningMax;         //User Alarm
+            internal int CriticalMax;         //User Alarm
 
             internal Measure() : base(0, 0, 0, 0, DateTime.Now)
             {

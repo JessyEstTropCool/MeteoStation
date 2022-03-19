@@ -51,6 +51,7 @@ namespace MeteoStation.Controls
             //tslErrors.Text = SerialPortHandler.Reception.errors + " erreurs";
         }
 
+        //J'aime pas que la selection reste
         private void dgvGrid_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             dgvGrid.ClearSelection();

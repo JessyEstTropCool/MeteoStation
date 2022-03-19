@@ -53,7 +53,7 @@ namespace MeteoStation.Controls
             }
         }
 
-        //Affiche le type et status de config sur les bons labels
+        //Affiche les infos de config de la mesure sur les bons controles
         private void UpdateLabels()
         {
             Data.SensorData.Measure m = Data.Collections.GetMeasure(ID);

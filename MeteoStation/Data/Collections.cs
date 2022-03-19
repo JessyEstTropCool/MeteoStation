@@ -48,6 +48,7 @@ namespace MeteoStation.Data
             dgv.DataSource = dt;
         }
 
+        //retourne toutes les id des mesures contenues dans l'objectlist
         internal static string[] GetMeasureIds()
         {
             List<string> ids = new List<string>();
@@ -63,6 +64,7 @@ namespace MeteoStation.Data
             return ids.ToArray();
         }
 
+        //Retourne une mesure selon son id
         internal static SensorData.Measure GetMeasure(int id)
         {
             foreach (SensorData.Base obj in Collections.ObjectList)
@@ -73,17 +75,20 @@ namespace MeteoStation.Data
             return null;
         }
 
+        //Handler de la configuration basique
         internal static void MeasureConfigDone(object sender, EventArgs e)
         {
             Controls.MeasureConfigControl mcc = (Controls.MeasureConfigControl)sender;
             SetBasicConfiguration(mcc.ID, mcc.Min, mcc.Max);
         }
 
+        //Applique une configuration basique a une mesure
         internal static void SetBasicConfiguration(int ID, int min, int max)
         {
             SensorData.Measure m = GetMeasure(ID);
             m.LowLimit = min;
             m.HighLimit = max;
+            SerialPortHandler.Reception.ConvertMeasure(m);
         }
     }
 }

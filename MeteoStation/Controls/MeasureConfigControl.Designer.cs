@@ -174,7 +174,7 @@ namespace MeteoStation.Controls
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Gainsboro;
+            this.BackColor = System.Drawing.Color.PowderBlue;
             this.Controls.Add(this.lStatus);
             this.Controls.Add(this.bApply);
             this.Controls.Add(this.label2);

@@ -12,7 +12,7 @@ namespace MeteoStation.SerialPortHandler
     {
         internal static int errors = 0;
 
-        //Traite les données située dans le buffer (TODO alarmes a filtrer)
+        //Traite les données située dans le buffer
         internal static void DataTreatment()
         {
             FilterQueue();
@@ -129,6 +129,7 @@ namespace MeteoStation.SerialPortHandler
             }
         }
 
+        //Calcule et assigne la valeur convertie d'une mesure
         internal static void ConvertMeasure(Data.SensorData.Measure m)
         {
             m.ConvertedData = (int)((m.data * 1.0 / ushort.MaxValue) * (m.HighLimit - m.LowLimit) + m.LowLimit);
