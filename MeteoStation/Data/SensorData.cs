@@ -54,6 +54,11 @@ namespace MeteoStation.Data
             {
                 return LowLimit != HighLimit;
             }
+
+            internal bool HasAlarms()
+            {
+                return IsConfigured() && WarningMin != WarningMax;
+            }
         }
 
         internal class Alarm : Base

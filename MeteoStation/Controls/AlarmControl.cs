@@ -10,19 +10,19 @@ using System.Windows.Forms;
 
 namespace MeteoStation.Controls
 {
-    public partial class MeasureControl : UserControl
+    public partial class AlarmControl : UserControl
     {
         internal DataTable Table { get; }
-        private readonly string[] columnNames = { "ID", "Config", "Type", "Data", "Last update", "Alarms" };
+        private readonly string[] columnNames = { "ID", "Crit. Min", "Warn. Min", "Status", "Warn. Max", "Crit. Max" };
 
-        public MeasureControl()
+        public AlarmControl()
         {
             InitializeComponent();
 
             //Configure la datatable et ajoute les colones appropriées
             Table = new DataTable();
 
-            foreach ( string name in columnNames )
+            foreach (string name in columnNames)
                 Table.Columns.Add(name);
 
             RefreshGrid();
@@ -39,15 +39,13 @@ namespace MeteoStation.Controls
             dgvGrid.DataSource = Table;
             dgvGrid.Refresh();
         }
-        
+
         //Récupere les données en même temps que le timer du form principal
         internal void UpdateTick(object sender, EventArgs e)
         {
-            Data.Collections.UpdateMeasureTable(dgvGrid, Table);
+            Data.Collections.UpdateAlarmTable(dgvGrid, Table);
 
             dgvGrid.ClearSelection();
-
-            //tslErrors.Text = SerialPortHandler.Reception.errors + " erreurs";
         }
 
         //J'aime pas que la selection reste

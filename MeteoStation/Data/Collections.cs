@@ -48,6 +48,33 @@ namespace MeteoStation.Data
             dgv.DataSource = dt;
         }
 
+        internal static void UpdateAlarmTable(DataGridView dgv, DataTable dt)
+        {
+            dt.Rows.Clear();
+
+            foreach (SensorData.Base obj in ObjectList)
+            {
+                if (obj.id != 0)
+                {
+                    SensorData.Measure measure = (SensorData.Measure)obj;
+
+                    if (measure.HasAlarms())
+                    {
+                        dt.Rows.Add(new object[] {
+                            obj.id,
+                            measure.CriticalMin,
+                            measure.WarningMin,
+                            "Bad",
+                            measure.WarningMax,
+                            measure.CriticalMax
+                        });
+                    }
+                }
+            }
+
+            dgv.DataSource = dt;
+        }
+
         //retourne toutes les id des mesures contenues dans l'objectlist
         internal static string[] GetMeasureIds()
         {
@@ -76,7 +103,7 @@ namespace MeteoStation.Data
         }
 
         //Handler de la configuration basique
-        internal static void MeasureConfigDone(object sender, EventArgs e)
+        internal static void MeasureBasicConfigDone(object sender, EventArgs e)
         {
             Controls.MeasureConfigControl mcc = (Controls.MeasureConfigControl)sender;
             SetBasicConfiguration(mcc.ID, mcc.Min, mcc.Max);

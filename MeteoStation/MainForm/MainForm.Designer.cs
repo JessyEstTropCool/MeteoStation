@@ -95,7 +95,7 @@ namespace MeteoStation
             // tsbMeasures
             // 
             this.tsbMeasures.ForeColor = System.Drawing.Color.White;
-            this.tsbMeasures.Image = ((System.Drawing.Image)(resources.GetObject("tsbMeasures.Image")));
+            this.tsbMeasures.Image = global::MeteoStation.Properties.Resources.Measures;
             this.tsbMeasures.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbMeasures.Name = "tsbMeasures";
             this.tsbMeasures.Size = new System.Drawing.Size(77, 22);
@@ -110,7 +110,7 @@ namespace MeteoStation
             // tsbAlarms
             // 
             this.tsbAlarms.ForeColor = System.Drawing.Color.White;
-            this.tsbAlarms.Image = ((System.Drawing.Image)(resources.GetObject("tsbAlarms.Image")));
+            this.tsbAlarms.Image = global::MeteoStation.Properties.Resources.Alarms;
             this.tsbAlarms.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbAlarms.Name = "tsbAlarms";
             this.tsbAlarms.Size = new System.Drawing.Size(64, 22);
@@ -125,7 +125,7 @@ namespace MeteoStation
             // tsbGraphs
             // 
             this.tsbGraphs.ForeColor = System.Drawing.Color.White;
-            this.tsbGraphs.Image = ((System.Drawing.Image)(resources.GetObject("tsbGraphs.Image")));
+            this.tsbGraphs.Image = global::MeteoStation.Properties.Resources.Graphs;
             this.tsbGraphs.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbGraphs.Name = "tsbGraphs";
             this.tsbGraphs.Size = new System.Drawing.Size(64, 22);
@@ -140,7 +140,7 @@ namespace MeteoStation
             // tsbAccounts
             // 
             this.tsbAccounts.ForeColor = System.Drawing.Color.White;
-            this.tsbAccounts.Image = ((System.Drawing.Image)(resources.GetObject("tsbAccounts.Image")));
+            this.tsbAccounts.Image = global::MeteoStation.Properties.Resources.Accounts;
             this.tsbAccounts.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbAccounts.Name = "tsbAccounts";
             this.tsbAccounts.Size = new System.Drawing.Size(77, 22);
@@ -155,7 +155,7 @@ namespace MeteoStation
             // tsbConnection
             // 
             this.tsbConnection.ForeColor = System.Drawing.Color.White;
-            this.tsbConnection.Image = ((System.Drawing.Image)(resources.GetObject("tsbConnection.Image")));
+            this.tsbConnection.Image = global::MeteoStation.Properties.Resources.Connection;
             this.tsbConnection.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbConnection.Name = "tsbConnection";
             this.tsbConnection.Size = new System.Drawing.Size(89, 22);
@@ -170,7 +170,7 @@ namespace MeteoStation
             // tsbCalibration
             // 
             this.tsbCalibration.ForeColor = System.Drawing.Color.White;
-            this.tsbCalibration.Image = ((System.Drawing.Image)(resources.GetObject("tsbCalibration.Image")));
+            this.tsbCalibration.Image = global::MeteoStation.Properties.Resources.Calibration;
             this.tsbCalibration.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbCalibration.Name = "tsbCalibration";
             this.tsbCalibration.Size = new System.Drawing.Size(85, 22);

@@ -35,8 +35,8 @@ namespace MeteoStation.Controls
             this.nudMax = new System.Windows.Forms.NumericUpDown();
             this.nudMin = new System.Windows.Forms.NumericUpDown();
             this.lMax = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.lMin = new System.Windows.Forms.Label();
+            this.lId = new System.Windows.Forms.Label();
             this.bApply = new System.Windows.Forms.Button();
             this.lStatus = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.nudMax)).BeginInit();
@@ -53,7 +53,7 @@ namespace MeteoStation.Controls
             this.lTitre.Margin = new System.Windows.Forms.Padding(3, 10, 3, 0);
             this.lTitre.Name = "lTitre";
             this.lTitre.Size = new System.Drawing.Size(201, 47);
-            this.lTitre.TabIndex = 0;
+            this.lTitre.TabIndex = 4;
             this.lTitre.Text = "Configuration";
             this.lTitre.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -65,7 +65,7 @@ namespace MeteoStation.Controls
             this.cbIdSelect.Location = new System.Drawing.Point(77, 50);
             this.cbIdSelect.Name = "cbIdSelect";
             this.cbIdSelect.Size = new System.Drawing.Size(121, 21);
-            this.cbIdSelect.TabIndex = 1;
+            this.cbIdSelect.TabIndex = 0;
             this.cbIdSelect.DropDown += new System.EventHandler(this.cbIdSelect_DropDown);
             this.cbIdSelect.DropDownClosed += new System.EventHandler(this.cbIdSelect_DropDownClosed);
             // 
@@ -76,7 +76,7 @@ namespace MeteoStation.Controls
             this.lType.Location = new System.Drawing.Point(0, 74);
             this.lType.Name = "lType";
             this.lType.Size = new System.Drawing.Size(201, 18);
-            this.lType.TabIndex = 2;
+            this.lType.TabIndex = 6;
             this.lType.Text = "Type : Unknown";
             this.lType.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -97,7 +97,7 @@ namespace MeteoStation.Controls
             -2147483648});
             this.nudMax.Name = "nudMax";
             this.nudMax.Size = new System.Drawing.Size(120, 20);
-            this.nudMax.TabIndex = 3;
+            this.nudMax.TabIndex = 2;
             // 
             // nudMin
             // 
@@ -116,34 +116,34 @@ namespace MeteoStation.Controls
             -2147483648});
             this.nudMin.Name = "nudMin";
             this.nudMin.Size = new System.Drawing.Size(120, 20);
-            this.nudMin.TabIndex = 4;
+            this.nudMin.TabIndex = 1;
             // 
             // lMax
             // 
             this.lMax.Location = new System.Drawing.Point(2, 118);
             this.lMax.Name = "lMax";
             this.lMax.Size = new System.Drawing.Size(67, 20);
-            this.lMax.TabIndex = 5;
+            this.lMax.TabIndex = 8;
             this.lMax.Text = "Max :";
             this.lMax.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // label1
+            // lMin
             // 
-            this.label1.Location = new System.Drawing.Point(2, 92);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(67, 20);
-            this.label1.TabIndex = 6;
-            this.label1.Text = "Min :";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lMin.Location = new System.Drawing.Point(2, 92);
+            this.lMin.Name = "lMin";
+            this.lMin.Size = new System.Drawing.Size(67, 20);
+            this.lMin.TabIndex = 7;
+            this.lMin.Text = "Min :";
+            this.lMin.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // label2
+            // lId
             // 
-            this.label2.Location = new System.Drawing.Point(2, 49);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(67, 20);
-            this.label2.TabIndex = 7;
-            this.label2.Text = "ID :";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lId.Location = new System.Drawing.Point(2, 49);
+            this.lId.Name = "lId";
+            this.lId.Size = new System.Drawing.Size(67, 20);
+            this.lId.TabIndex = 5;
+            this.lId.Text = "ID :";
+            this.lId.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // bApply
             // 
@@ -154,7 +154,7 @@ namespace MeteoStation.Controls
             this.bApply.Location = new System.Drawing.Point(0, 191);
             this.bApply.Name = "bApply";
             this.bApply.Size = new System.Drawing.Size(201, 44);
-            this.bApply.TabIndex = 8;
+            this.bApply.TabIndex = 3;
             this.bApply.Text = "Apply";
             this.bApply.UseVisualStyleBackColor = false;
             this.bApply.Click += new System.EventHandler(this.bApply_Click);
@@ -177,8 +177,8 @@ namespace MeteoStation.Controls
             this.BackColor = System.Drawing.Color.PowderBlue;
             this.Controls.Add(this.lStatus);
             this.Controls.Add(this.bApply);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.lId);
+            this.Controls.Add(this.lMin);
             this.Controls.Add(this.lMax);
             this.Controls.Add(this.nudMin);
             this.Controls.Add(this.nudMax);
@@ -201,8 +201,8 @@ namespace MeteoStation.Controls
         private System.Windows.Forms.NumericUpDown nudMax;
         private System.Windows.Forms.NumericUpDown nudMin;
         private System.Windows.Forms.Label lMax;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lMin;
+        private System.Windows.Forms.Label lId;
         private System.Windows.Forms.Button bApply;
         private System.Windows.Forms.Label lStatus;
     }

@@ -38,6 +38,9 @@ namespace MeteoStation
                 tscbComPorts.Items.Add(SerialPort.GetPortNames()[0]);
                 tscbComPorts.SelectedIndex = 0;
             }
+
+            //Affiche les controles de mesures des le début
+            tsbMeasures.PerformClick();
         }
 
         //Handler du timer responsable du traitement des données
@@ -144,13 +147,26 @@ namespace MeteoStation
             SetConfigControl(mcc);
 
             timerDequeue.Tick += mtc.UpdateTick;
-            mcc.ConfigDone += Data.Collections.MeasureConfigDone;
+
+            mcc.ConfigDone += Data.Collections.MeasureBasicConfigDone;
+            mcc.ConfigDone += mtc.UpdateTick;
         }
 
         //Met les controles d'alarmes
         private void tsbAlarms_Click(object sender, EventArgs e)
         {
+            AlarmControl ac = new AlarmControl();
+            AlarmConfigControl acc = new AlarmConfigControl();
+
             ClearPanels();
+
+            SetMainControl(ac);
+            SetConfigControl(acc);
+
+            timerDequeue.Tick += ac.UpdateTick;
+
+            //acc.ConfigDone += Data.Collections.MeasureAlarmConfigDone;
+            //acc.ConfigDone += ac.UpdateTick;
         }
 
         //Met les controles de graphiques
