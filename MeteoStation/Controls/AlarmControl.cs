@@ -30,7 +30,7 @@ namespace MeteoStation.Controls
             dgvGrid.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
             //Récupere les données immédiatement
-            Data.Collections.UpdateMeasureTable(dgvGrid, Table);
+            Data.Collections.UpdateAlarmTable(dgvGrid, Table);
         }
 
         //Rafraichi les infos sur la grille

@@ -24,3 +24,5 @@ C:\Users\Elie\source\repos\MeteoStation\MeteoStation\obj\Debug\MeteoStation.Cont
 C:\Users\Elie\source\repos\MeteoStation\MeteoStation\obj\Debug\MeteoStation.Controls.MeasureControl.resources
 C:\Users\jessy\source\repos\MeteoStation\MeteoStation\obj\Debug\MeteoStation.Controls.AlarmConfigControl.resources
 C:\Users\jessy\source\repos\MeteoStation\MeteoStation\obj\Debug\MeteoStation.Controls.AlarmControl.resources
+C:\Users\Elie\source\repos\MeteoStation\MeteoStation\obj\Debug\MeteoStation.Controls.AlarmConfigControl.resources
+C:\Users\Elie\source\repos\MeteoStation\MeteoStation\obj\Debug\MeteoStation.Controls.AlarmControl.resources

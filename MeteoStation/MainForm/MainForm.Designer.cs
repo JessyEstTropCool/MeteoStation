@@ -86,6 +86,7 @@ namespace MeteoStation
             this.tsbOpenClose,
             this.toolStripSeparator2,
             this.tslErrors});
+            this.tsViews.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
             this.tsViews.Location = new System.Drawing.Point(0, 0);
             this.tsViews.Name = "tsViews";
             this.tsViews.Size = new System.Drawing.Size(800, 25);
@@ -255,6 +256,7 @@ namespace MeteoStation
             this.Controls.Add(this.pConfigControl);
             this.Controls.Add(this.pMainControl);
             this.Controls.Add(this.tsViews);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
             this.Text = "Meteo Station";
             this.Load += new System.EventHandler(this.MainForm_Load);
