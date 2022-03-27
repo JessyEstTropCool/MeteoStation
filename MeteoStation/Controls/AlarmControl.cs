@@ -44,8 +44,45 @@ namespace MeteoStation.Controls
         internal void UpdateTick(object sender, EventArgs e)
         {
             Data.Collections.UpdateAlarmTable(dgvGrid, Table);
+            ColorGrid();
 
             dgvGrid.ClearSelection();
+        }
+
+        internal void ColorGrid()
+        {
+            const int statusCol = 3;
+
+            for ( int compt = 0; compt < Table.Rows.Count; compt++ )
+            {
+                switch (Table.Rows[compt][columnNames[statusCol]])
+                {
+                    case "Normal":
+                        if (dgvGrid.Rows.Count > 0)
+                            dgvGrid.Rows[compt].Cells[statusCol].Style.BackColor = Color.PaleGreen;
+                        break;
+
+                    case "Warning":
+                        if (dgvGrid.Rows.Count > 0)
+                            dgvGrid.Rows[compt].Cells[statusCol].Style.BackColor = Color.FromArgb(254, 230, 133);
+                        break;
+
+                    case "Critical":
+                        if (dgvGrid.Rows.Count > 0)
+                            dgvGrid.Rows[compt].Cells[statusCol].Style.BackColor = Color.LightCoral;
+                        break;
+
+                    case "Obselete":
+                        if (dgvGrid.Rows.Count > 0)
+                            dgvGrid.Rows[compt].Cells[statusCol].Style.BackColor = Color.Brown;
+                        break;
+
+                    default:
+                        if (dgvGrid.Rows.Count > 0)
+                            dgvGrid.Rows[compt].Cells[statusCol].Style.BackColor = dgvGrid.DefaultCellStyle.BackColor;
+                        break;
+                }
+            }
         }
 
         //J'aime pas que la selection reste

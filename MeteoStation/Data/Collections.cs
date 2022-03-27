@@ -30,7 +30,8 @@ namespace MeteoStation.Data
 
                     if ( measure.IsConfigured() )
                     {
-                        config = "Done";
+                        if (measure.HasAlarms()) config = "Done";
+                        else config = "Basic";
                         data = measure.ConvertedData + " " + Collections.TypeList[measure.type].Unit;
                     }
 
@@ -40,7 +41,7 @@ namespace MeteoStation.Data
                         Collections.TypeList[obj.type].Name,// + " (" + obj.type + ")",
                         data,
                         (int)((DateTime.Now - obj.moment).TotalSeconds) + " sec",
-                        "None"
+                        measure.GetStatus()
                     });
                 }
             }
@@ -64,7 +65,7 @@ namespace MeteoStation.Data
                             obj.id,
                             measure.CriticalMin,
                             measure.WarningMin,
-                            "Bad",
+                            measure.GetStatus(),
                             measure.WarningMax,
                             measure.CriticalMax
                         });
@@ -85,6 +86,27 @@ namespace MeteoStation.Data
                 if (obj.id != 0)
                 {
                     ids.Add(obj.id.ToString());
+                }
+            }
+
+            return ids.ToArray();
+        }
+
+        //retourne toutes les id des mesures contenues dans l'objectlist
+        internal static string[] GetConfiguredMeasureIds()
+        {
+            List<string> ids = new List<string>();
+
+            foreach (SensorData.Base obj in Collections.ObjectList)
+            {
+                if (obj.id != 0)
+                {
+                    SensorData.Measure measure = (SensorData.Measure)obj;
+
+                    if ( measure.IsConfigured() )
+                    {
+                        ids.Add(obj.id.ToString());
+                    }
                 }
             }
 
@@ -116,6 +138,29 @@ namespace MeteoStation.Data
             m.LowLimit = min;
             m.HighLimit = max;
             SerialPortHandler.Reception.ConvertMeasure(m);
+
+            m.CriticalMax = 0;
+            m.WarningMax = 0;
+            m.WarningMin = 0;
+            m.CriticalMin = 0;
+        }
+
+        //Handler de la configuration d'alarmes
+        internal static void MeasureAlarmConfigDone(object sender, EventArgs e)
+        {
+            Controls.AlarmConfigControl acc = (Controls.AlarmConfigControl)sender;
+            SetAlarmConfiguration(acc.ID, acc.CritMax, acc.WarnMax, acc.WarnMin, acc.CritMin);
+        }
+
+        //Applique une configuration d'alarmes a une mesure
+        internal static void SetAlarmConfiguration(int ID, int critMax, int warnMax, int warnMin, int critMin)
+        {
+            SensorData.Measure m = GetMeasure(ID);
+            m.CriticalMax = critMax;
+            m.WarningMax = warnMax;
+            m.WarningMin = warnMin;
+            m.CriticalMin = critMin;
+            //SerialPortHandler.Reception.SetStatus(m);
         }
     }
 }

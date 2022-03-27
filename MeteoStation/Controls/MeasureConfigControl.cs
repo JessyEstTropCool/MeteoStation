@@ -12,11 +12,10 @@ namespace MeteoStation.Controls
 {
     public partial class MeasureConfigControl : UserControl
     {
+        internal event EventHandler ConfigDone;
         internal int ID { get; set; }
         internal int Max { get => (int)nudMax.Value; }
         internal int Min { get => (int)nudMin.Value; }
-
-        internal event EventHandler ConfigDone;
 
         public MeasureConfigControl()
         {

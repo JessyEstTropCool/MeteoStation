@@ -47,8 +47,13 @@ namespace MeteoStation
         private void timerDequeue_Tick(object sender, EventArgs e)
         {
             //Traitement des données toutes les secondes
-            SerialPortHandler.Reception.DataTreatment();
-            tslErrors.Text = SerialPortHandler.Reception.errors + " erreurs";
+            if (spSensorData.IsOpen)
+            {
+                SerialPortHandler.Reception.DataTreatment();
+                tslErrors.Text = SerialPortHandler.Reception.errors + " erreurs";
+            }
+
+            lTemps.Text = DateTime.Now.ToString("F");
         }
 
         //Ouverture / Fermeture du port
@@ -60,14 +65,12 @@ namespace MeteoStation
                 if (spSensorData.IsOpen)
                 {
                     spSensorData.Close();
-                    timerDequeue.Enabled = false;
                     ((ToolStripItem)sender).Text = "Open";
                     tslStatus.Text = "Status : Closed";
                 }
                 else
                 {
                     spSensorData.Open();
-                    timerDequeue.Enabled = true;
                     ((ToolStripItem)sender).Text = "Close";
                     tslStatus.Text = "Status : Opened";
                 }
@@ -165,8 +168,8 @@ namespace MeteoStation
 
             timerDequeue.Tick += ac.UpdateTick;
 
-            //acc.ConfigDone += Data.Collections.MeasureAlarmConfigDone;
-            //acc.ConfigDone += ac.UpdateTick;
+            acc.ConfigDone += Data.Collections.MeasureAlarmConfigDone;
+            acc.ConfigDone += ac.UpdateTick;
         }
 
         //Met les controles de graphiques

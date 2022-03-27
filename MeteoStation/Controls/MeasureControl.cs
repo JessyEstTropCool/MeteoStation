@@ -13,7 +13,7 @@ namespace MeteoStation.Controls
     public partial class MeasureControl : UserControl
     {
         internal DataTable Table { get; }
-        private readonly string[] columnNames = { "ID", "Config", "Type", "Data", "Last update", "Alarms" };
+        private readonly string[] columnNames = { "ID", "Config", "Type", "Data", "Last update", "Alarm" };
 
         public MeasureControl()
         {
@@ -44,6 +44,7 @@ namespace MeteoStation.Controls
         internal void UpdateTick(object sender, EventArgs e)
         {
             Data.Collections.UpdateMeasureTable(dgvGrid, Table);
+            ColorGrid();
 
             dgvGrid.ClearSelection();
 
@@ -54,6 +55,43 @@ namespace MeteoStation.Controls
         private void dgvGrid_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             dgvGrid.ClearSelection();
+        }
+
+        //Donne les bonnes couleurs à la colonne de status
+        internal void ColorGrid()
+        {
+            const int statusCol = 5;
+
+            for (int compt = 0; compt < Table.Rows.Count; compt++)
+            {
+                switch (Table.Rows[compt][columnNames[statusCol]])
+                {
+                    case "Normal":
+                        if (dgvGrid.Rows.Count > 0)
+                            dgvGrid.Rows[compt].Cells[statusCol].Style.BackColor = Color.PaleGreen;
+                        break;
+
+                    case "Warning":
+                        if (dgvGrid.Rows.Count > 0)
+                            dgvGrid.Rows[compt].Cells[statusCol].Style.BackColor = Color.FromArgb(254, 230, 133);
+                        break;
+
+                    case "Critical":
+                        if (dgvGrid.Rows.Count > 0)
+                            dgvGrid.Rows[compt].Cells[statusCol].Style.BackColor = Color.LightCoral;
+                        break;
+
+                    case "Obselete":
+                        if (dgvGrid.Rows.Count > 0)
+                            dgvGrid.Rows[compt].Cells[statusCol].Style.BackColor = Color.Brown;
+                        break;
+
+                    default:
+                        if (dgvGrid.Rows.Count > 0)
+                            dgvGrid.Rows[compt].Cells[statusCol].Style.BackColor = dgvGrid.DefaultCellStyle.BackColor;
+                        break;
+                }
+            }
         }
     }
 }

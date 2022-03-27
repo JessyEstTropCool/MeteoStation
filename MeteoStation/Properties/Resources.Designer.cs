@@ -113,6 +113,16 @@ namespace MeteoStation.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap HELB_Logo {
+            get {
+                object obj = ResourceManager.GetObject("HELB Logo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Measures {
             get {
                 object obj = ResourceManager.GetObject("Measures", resourceCulture);

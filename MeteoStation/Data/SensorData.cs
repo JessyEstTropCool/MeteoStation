@@ -42,7 +42,7 @@ namespace MeteoStation.Data
                 LowLimit = 0;
                 HighLimit = 0;
                 ConvertedData = 0;
-                AlarmMaxPeriod = 0;
+                AlarmMaxPeriod = 10;
                 WarningMin = 0;
                 CriticalMin = 0;
                 WarningMax = 0;
@@ -58,6 +58,18 @@ namespace MeteoStation.Data
             internal bool HasAlarms()
             {
                 return IsConfigured() && WarningMin != WarningMax;
+            }
+
+            internal string GetStatus()
+            {
+                if (!HasAlarms()) return "No alarms";
+
+                if (AlarmMaxPeriod > 0 && (DateTime.Now - moment).TotalSeconds > AlarmMaxPeriod) return "Obselete";
+
+                if (ConvertedData > CriticalMax || ConvertedData < CriticalMin) return "Critical";
+                if (ConvertedData > WarningMax || ConvertedData < WarningMin) return "Warning";
+
+                return "Normal";
             }
         }
 
