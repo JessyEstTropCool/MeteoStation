@@ -176,12 +176,16 @@ namespace MeteoStation
         private void tsbGraphs_Click(object sender, EventArgs e)
         {
             ClearPanels();
+            
+            
         }
 
         //Met les controles de comptes
         private void tsbAccounts_Click(object sender, EventArgs e)
         {
             ClearPanels();
+            SetMainControl(new AccountControl());
+            SetConfigControl(new AccountConfigControl());
         }
 
         //Met les controles de connection

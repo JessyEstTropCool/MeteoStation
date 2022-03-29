@@ -82,5 +82,10 @@ namespace MeteoStation.Controls
                 UpdateLabels();
             }
         }
+
+        private void lTitre_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

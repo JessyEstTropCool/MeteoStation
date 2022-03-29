@@ -90,5 +90,10 @@ namespace MeteoStation.Controls
         {
             dgvGrid.ClearSelection();
         }
+
+        private void lTitle_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

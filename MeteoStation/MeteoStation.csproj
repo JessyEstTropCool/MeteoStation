@@ -51,6 +51,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\AccountConfigControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\AccountConfigControl.Designer.cs">
+      <DependentUpon>AccountConfigControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\AccountControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\AccountControl.Designer.cs">
+      <DependentUpon>AccountControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\AlarmConfigControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -92,6 +104,12 @@
     </Compile>
     <Compile Include="SerialPortHandler\Reception.cs" />
     <Compile Include="SerialPortHandler\Traitement.cs" />
+    <EmbeddedResource Include="Controls\AccountConfigControl.resx">
+      <DependentUpon>AccountConfigControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\AccountControl.resx">
+      <DependentUpon>AccountControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\AlarmConfigControl.resx">
       <DependentUpon>AlarmConfigControl.cs</DependentUpon>
     </EmbeddedResource>
