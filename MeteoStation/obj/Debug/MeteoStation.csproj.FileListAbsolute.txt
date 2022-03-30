@@ -43,3 +43,5 @@ C:\Users\abdou\Documents\GitHub\MeteoStation\MeteoStation\obj\Debug\MeteoStation
 C:\Users\abdou\Documents\GitHub\MeteoStation\MeteoStation\obj\Debug\MeteoStation.pdb
 C:\Users\abdou\Documents\GitHub\MeteoStation\MeteoStation\obj\Debug\MeteoStation.Controls.AccountControl.resources
 C:\Users\abdou\Documents\GitHub\MeteoStation\MeteoStation\obj\Debug\MeteoStation.Controls.AccountConfigControl.resources
+C:\Users\jessy\source\repos\MeteoStation\MeteoStation\obj\Debug\MeteoStation.Controls.AccountConfigControl.resources
+C:\Users\jessy\source\repos\MeteoStation\MeteoStation\obj\Debug\MeteoStation.Controls.AccountControl.resources

@@ -89,6 +89,7 @@
     </Compile>
     <Compile Include="Data\Collections.cs" />
     <Compile Include="Data\SensorData.cs" />
+    <Compile Include="Data\Tables.cs" />
     <Compile Include="MainForm\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
