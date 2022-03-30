@@ -53,8 +53,9 @@ namespace MeteoStation.Data
             dgv.DataSource = dt;
         }
 
-        internal static void UpdateAlarmTable(DataGridView dgv, DataTable dt)
+        internal static void UpdateAlarmTable(DataGridView dgv)
         {
+            DataTable dt = Tables.AlarmTable;
             dt.Rows.Clear();
 
             foreach (SensorData.Base obj in ObjectList)
@@ -73,6 +74,8 @@ namespace MeteoStation.Data
                             measure.WarningMax,
                             measure.CriticalMax
                         });
+
+                        SetStatusColor(dgv, measure, 3, dt.Rows.Count - 1);
                     }
                 }
             }

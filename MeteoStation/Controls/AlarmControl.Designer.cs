@@ -63,7 +63,6 @@ namespace MeteoStation.Controls
             this.lTitle.TabIndex = 5;
             this.lTitle.Text = "Alarms";
             this.lTitle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.lTitle.Click += new System.EventHandler(this.lTitle_Click);
             // 
             // dgvGrid
             // 

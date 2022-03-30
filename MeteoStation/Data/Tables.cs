@@ -27,7 +27,13 @@ namespace MeteoStation.Data
         //Créé la table des alarmes avec les colones appropriées
         private static DataTable MakeAlarmTable()
         {
-            return null;
+            DataTable dt = new DataTable();
+            string[] columnNames = { "ID", "Crit. Min", "Warn. Min", "Status", "Warn. Max", "Crit. Max" };
+
+            foreach (string name in columnNames)
+                dt.Columns.Add(name);
+
+            return dt;
         }
     }
 }
