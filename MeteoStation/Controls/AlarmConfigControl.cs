@@ -82,7 +82,7 @@ namespace MeteoStation.Controls
             else if (MaxPeriod <= 0) MessageBox.Show("La durée de temps ne peut pas être négative ou nulle", "Erreur de configuration", MessageBoxButtons.OK, MessageBoxIcon.Error);
             else
             {
-                ConfigDone?.Invoke(this, EventArgs.Empty);
+                ConfigDone.Invoke(this, EventArgs.Empty);
                 UpdateLabels();
             }
         }
