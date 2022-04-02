@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Collections;
 using System.Windows.Forms;
 using System.Data;
+using System.Drawing;
 
 namespace MeteoStation.Data
 {
@@ -16,8 +17,9 @@ namespace MeteoStation.Data
         internal static List<SensorData.MeasureType> TypeList { get; set; } = new List<SensorData.MeasureType>();
 
         //met les infos de la liste sur la table
-        internal static void UpdateMeasureTable(DataGridView dgv, DataTable dt)
+        internal static void UpdateMeasureTable(DataGridView dgv)
         {
+            DataTable dt = Tables.MeasureTable;
             dt.Rows.Clear();
 
             foreach (SensorData.Base obj in ObjectList)
@@ -43,14 +45,17 @@ namespace MeteoStation.Data
                         (int)((DateTime.Now - obj.moment).TotalSeconds) + " sec",
                         measure.GetStatus()
                     });
+
+                    SetStatusColor(dgv, measure, 5, dt.Rows.Count - 1);
                 }
             }
 
             dgv.DataSource = dt;
         }
 
-        internal static void UpdateAlarmTable(DataGridView dgv, DataTable dt)
+        internal static void UpdateAlarmTable(DataGridView dgv)
         {
+            DataTable dt = Tables.AlarmTable;
             dt.Rows.Clear();
 
             foreach (SensorData.Base obj in ObjectList)
@@ -69,11 +74,45 @@ namespace MeteoStation.Data
                             measure.WarningMax,
                             measure.CriticalMax
                         });
+
+                        SetStatusColor(dgv, measure, 3, dt.Rows.Count - 1);
                     }
                 }
             }
 
             dgv.DataSource = dt;
+        }
+
+        //Colore un cellule d'un dgv avec la couleur qui correspond au status d'une mesure
+        internal static void SetStatusColor(DataGridView dgv, SensorData.Measure measure, int x, int y)
+        {
+            Color c;
+
+            switch (measure.GetStatus())
+            {
+                case "Normal":
+                    c = Color.PaleGreen;
+                    break;
+
+                case "Warning":
+                    c = Color.FromArgb(254, 230, 133);
+                    break;
+
+                case "Critical":
+                    c = Color.LightCoral;
+                    break;
+
+                case "Obselete":
+                    c = Color.Brown;
+                    break;
+
+                default:
+                    c = dgv.DefaultCellStyle.BackColor;
+                    break;
+            }
+
+            if (dgv.Rows.Count > 0)
+                dgv.Rows[y].Cells[x].Style.BackColor = c;
         }
 
         //retourne toutes les id des mesures contenues dans l'objectlist
@@ -149,17 +188,18 @@ namespace MeteoStation.Data
         internal static void MeasureAlarmConfigDone(object sender, EventArgs e)
         {
             Controls.AlarmConfigControl acc = (Controls.AlarmConfigControl)sender;
-            SetAlarmConfiguration(acc.ID, acc.CritMax, acc.WarnMax, acc.WarnMin, acc.CritMin);
+            SetAlarmConfiguration(acc.ID, acc.CritMax, acc.WarnMax, acc.WarnMin, acc.CritMin, acc.MaxPeriod);
         }
 
         //Applique une configuration d'alarmes a une mesure
-        internal static void SetAlarmConfiguration(int ID, int critMax, int warnMax, int warnMin, int critMin)
+        internal static void SetAlarmConfiguration(int ID, int critMax, int warnMax, int warnMin, int critMin, uint maxPeriod)
         {
             SensorData.Measure m = GetMeasure(ID);
             m.CriticalMax = critMax;
             m.WarningMax = warnMax;
             m.WarningMin = warnMin;
             m.CriticalMin = critMin;
+            m.AlarmMaxPeriod = maxPeriod;
             //SerialPortHandler.Reception.SetStatus(m);
         }
     }

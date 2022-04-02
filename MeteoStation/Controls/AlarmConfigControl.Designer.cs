@@ -32,7 +32,7 @@ namespace MeteoStation.Controls
             this.lTitre = new System.Windows.Forms.Label();
             this.bApply = new System.Windows.Forms.Button();
             this.tlpRows = new System.Windows.Forms.TableLayoutPanel();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.pIdSelect = new System.Windows.Forms.Panel();
             this.cbIdSelect = new System.Windows.Forms.ComboBox();
             this.lId = new System.Windows.Forms.Label();
             this.pCritMin = new System.Windows.Forms.Panel();
@@ -49,8 +49,11 @@ namespace MeteoStation.Controls
             this.pCritMax = new System.Windows.Forms.Panel();
             this.lCritMax = new System.Windows.Forms.Label();
             this.nudCritMax = new System.Windows.Forms.NumericUpDown();
+            this.pExpiration = new System.Windows.Forms.Panel();
+            this.lMaxPeriod = new System.Windows.Forms.Label();
+            this.nudMaxPeriod = new System.Windows.Forms.NumericUpDown();
             this.tlpRows.SuspendLayout();
-            this.panel1.SuspendLayout();
+            this.pIdSelect.SuspendLayout();
             this.pCritMin.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudCritMin)).BeginInit();
             this.pWarnMin.SuspendLayout();
@@ -60,6 +63,8 @@ namespace MeteoStation.Controls
             ((System.ComponentModel.ISupportInitialize)(this.nudWarnMax)).BeginInit();
             this.pCritMax.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudCritMax)).BeginInit();
+            this.pExpiration.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMaxPeriod)).BeginInit();
             this.SuspendLayout();
             // 
             // lTitre
@@ -69,13 +74,12 @@ namespace MeteoStation.Controls
             this.lTitre.Dock = System.Windows.Forms.DockStyle.Top;
             this.lTitre.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lTitre.Location = new System.Drawing.Point(0, 0);
-            this.lTitre.Margin = new System.Windows.Forms.Padding(4, 15, 4, 0);
+            this.lTitre.Margin = new System.Windows.Forms.Padding(3, 10, 3, 0);
             this.lTitre.Name = "lTitre";
-            this.lTitre.Size = new System.Drawing.Size(396, 71);
+            this.lTitre.Size = new System.Drawing.Size(264, 47);
             this.lTitre.TabIndex = 5;
             this.lTitre.Text = "Alarms";
             this.lTitre.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lTitre.Click += new System.EventHandler(this.lTitre_Click);
             // 
             // bApply
             // 
@@ -83,10 +87,9 @@ namespace MeteoStation.Controls
             this.bApply.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.bApply.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bApply.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bApply.Location = new System.Drawing.Point(0, 481);
-            this.bApply.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.bApply.Location = new System.Drawing.Point(0, 350);
             this.bApply.Name = "bApply";
-            this.bApply.Size = new System.Drawing.Size(396, 68);
+            this.bApply.Size = new System.Drawing.Size(264, 44);
             this.bApply.TabIndex = 6;
             this.bApply.Text = "Apply";
             this.bApply.UseVisualStyleBackColor = false;
@@ -96,45 +99,45 @@ namespace MeteoStation.Controls
             // 
             this.tlpRows.ColumnCount = 1;
             this.tlpRows.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tlpRows.Controls.Add(this.panel1, 0, 0);
+            this.tlpRows.Controls.Add(this.pExpiration, 0, 6);
+            this.tlpRows.Controls.Add(this.pIdSelect, 0, 0);
             this.tlpRows.Controls.Add(this.pCritMin, 0, 5);
             this.tlpRows.Controls.Add(this.pWarnMin, 0, 4);
             this.tlpRows.Controls.Add(this.pStatus, 0, 3);
             this.tlpRows.Controls.Add(this.pWarnMax, 0, 2);
             this.tlpRows.Controls.Add(this.pCritMax, 0, 1);
             this.tlpRows.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tlpRows.Location = new System.Drawing.Point(0, 71);
-            this.tlpRows.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.tlpRows.Location = new System.Drawing.Point(0, 47);
             this.tlpRows.Name = "tlpRows";
-            this.tlpRows.RowCount = 6;
-            this.tlpRows.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.tlpRows.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.tlpRows.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.tlpRows.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.tlpRows.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.tlpRows.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.tlpRows.Size = new System.Drawing.Size(396, 410);
+            this.tlpRows.RowCount = 7;
+            this.tlpRows.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28571F));
+            this.tlpRows.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28571F));
+            this.tlpRows.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28571F));
+            this.tlpRows.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28571F));
+            this.tlpRows.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28571F));
+            this.tlpRows.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28571F));
+            this.tlpRows.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28571F));
+            this.tlpRows.Size = new System.Drawing.Size(264, 303);
             this.tlpRows.TabIndex = 7;
             // 
-            // panel1
+            // pIdSelect
             // 
-            this.panel1.Controls.Add(this.cbIdSelect);
-            this.panel1.Controls.Add(this.lId);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Margin = new System.Windows.Forms.Padding(0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(396, 68);
-            this.panel1.TabIndex = 6;
+            this.pIdSelect.Controls.Add(this.cbIdSelect);
+            this.pIdSelect.Controls.Add(this.lId);
+            this.pIdSelect.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pIdSelect.Location = new System.Drawing.Point(0, 0);
+            this.pIdSelect.Margin = new System.Windows.Forms.Padding(0);
+            this.pIdSelect.Name = "pIdSelect";
+            this.pIdSelect.Size = new System.Drawing.Size(264, 43);
+            this.pIdSelect.TabIndex = 6;
             // 
             // cbIdSelect
             // 
             this.cbIdSelect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.cbIdSelect.FormattingEnabled = true;
-            this.cbIdSelect.Location = new System.Drawing.Point(129, 18);
-            this.cbIdSelect.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.cbIdSelect.Location = new System.Drawing.Point(86, 11);
             this.cbIdSelect.Name = "cbIdSelect";
-            this.cbIdSelect.Size = new System.Drawing.Size(260, 28);
+            this.cbIdSelect.Size = new System.Drawing.Size(175, 21);
             this.cbIdSelect.TabIndex = 2;
             this.cbIdSelect.DropDown += new System.EventHandler(this.cbIdSelect_DropDown);
             this.cbIdSelect.DropDownClosed += new System.EventHandler(this.cbIdSelect_DropDownClosed);
@@ -143,9 +146,8 @@ namespace MeteoStation.Controls
             // 
             this.lId.Dock = System.Windows.Forms.DockStyle.Left;
             this.lId.Location = new System.Drawing.Point(0, 0);
-            this.lId.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lId.Name = "lId";
-            this.lId.Size = new System.Drawing.Size(120, 68);
+            this.lId.Size = new System.Drawing.Size(80, 43);
             this.lId.TabIndex = 1;
             this.lId.Text = "ID :";
             this.lId.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -156,19 +158,18 @@ namespace MeteoStation.Controls
             this.pCritMin.Controls.Add(this.lCritMin);
             this.pCritMin.Controls.Add(this.nudCritMin);
             this.pCritMin.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pCritMin.Location = new System.Drawing.Point(0, 340);
+            this.pCritMin.Location = new System.Drawing.Point(0, 215);
             this.pCritMin.Margin = new System.Windows.Forms.Padding(0);
             this.pCritMin.Name = "pCritMin";
-            this.pCritMin.Size = new System.Drawing.Size(396, 70);
+            this.pCritMin.Size = new System.Drawing.Size(264, 43);
             this.pCritMin.TabIndex = 1;
             // 
             // lCritMin
             // 
             this.lCritMin.Dock = System.Windows.Forms.DockStyle.Left;
             this.lCritMin.Location = new System.Drawing.Point(0, 0);
-            this.lCritMin.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lCritMin.Name = "lCritMin";
-            this.lCritMin.Size = new System.Drawing.Size(120, 70);
+            this.lCritMin.Size = new System.Drawing.Size(80, 43);
             this.lCritMin.TabIndex = 3;
             this.lCritMin.Text = "Critical Min :";
             this.lCritMin.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -176,8 +177,7 @@ namespace MeteoStation.Controls
             // nudCritMin
             // 
             this.nudCritMin.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.nudCritMin.Location = new System.Drawing.Point(129, 20);
-            this.nudCritMin.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.nudCritMin.Location = new System.Drawing.Point(86, 12);
             this.nudCritMin.Maximum = new decimal(new int[] {
             -1,
             -1,
@@ -189,7 +189,7 @@ namespace MeteoStation.Controls
             -1,
             -2147483648});
             this.nudCritMin.Name = "nudCritMin";
-            this.nudCritMin.Size = new System.Drawing.Size(262, 26);
+            this.nudCritMin.Size = new System.Drawing.Size(175, 20);
             this.nudCritMin.TabIndex = 1;
             this.nudCritMin.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -199,19 +199,18 @@ namespace MeteoStation.Controls
             this.pWarnMin.Controls.Add(this.lWarnMin);
             this.pWarnMin.Controls.Add(this.nudWarnMin);
             this.pWarnMin.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pWarnMin.Location = new System.Drawing.Point(0, 272);
+            this.pWarnMin.Location = new System.Drawing.Point(0, 172);
             this.pWarnMin.Margin = new System.Windows.Forms.Padding(0);
             this.pWarnMin.Name = "pWarnMin";
-            this.pWarnMin.Size = new System.Drawing.Size(396, 68);
+            this.pWarnMin.Size = new System.Drawing.Size(264, 43);
             this.pWarnMin.TabIndex = 4;
             // 
             // lWarnMin
             // 
             this.lWarnMin.Dock = System.Windows.Forms.DockStyle.Left;
             this.lWarnMin.Location = new System.Drawing.Point(0, 0);
-            this.lWarnMin.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lWarnMin.Name = "lWarnMin";
-            this.lWarnMin.Size = new System.Drawing.Size(120, 68);
+            this.lWarnMin.Size = new System.Drawing.Size(80, 43);
             this.lWarnMin.TabIndex = 3;
             this.lWarnMin.Text = "Warning Min :";
             this.lWarnMin.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -219,8 +218,7 @@ namespace MeteoStation.Controls
             // nudWarnMin
             // 
             this.nudWarnMin.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.nudWarnMin.Location = new System.Drawing.Point(129, 18);
-            this.nudWarnMin.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.nudWarnMin.Location = new System.Drawing.Point(86, 11);
             this.nudWarnMin.Maximum = new decimal(new int[] {
             -1,
             -1,
@@ -232,7 +230,7 @@ namespace MeteoStation.Controls
             -1,
             -2147483648});
             this.nudWarnMin.Name = "nudWarnMin";
-            this.nudWarnMin.Size = new System.Drawing.Size(262, 26);
+            this.nudWarnMin.Size = new System.Drawing.Size(175, 20);
             this.nudWarnMin.TabIndex = 1;
             this.nudWarnMin.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -241,19 +239,18 @@ namespace MeteoStation.Controls
             this.pStatus.BackColor = System.Drawing.Color.PaleGreen;
             this.pStatus.Controls.Add(this.lConfigStatus);
             this.pStatus.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pStatus.Location = new System.Drawing.Point(0, 204);
+            this.pStatus.Location = new System.Drawing.Point(0, 129);
             this.pStatus.Margin = new System.Windows.Forms.Padding(0);
             this.pStatus.Name = "pStatus";
-            this.pStatus.Size = new System.Drawing.Size(396, 68);
+            this.pStatus.Size = new System.Drawing.Size(264, 43);
             this.pStatus.TabIndex = 3;
             // 
             // lConfigStatus
             // 
             this.lConfigStatus.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lConfigStatus.Location = new System.Drawing.Point(0, 0);
-            this.lConfigStatus.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lConfigStatus.Name = "lConfigStatus";
-            this.lConfigStatus.Size = new System.Drawing.Size(396, 68);
+            this.lConfigStatus.Size = new System.Drawing.Size(264, 43);
             this.lConfigStatus.TabIndex = 3;
             this.lConfigStatus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -263,19 +260,18 @@ namespace MeteoStation.Controls
             this.pWarnMax.Controls.Add(this.lWarnMax);
             this.pWarnMax.Controls.Add(this.nudWarnMax);
             this.pWarnMax.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pWarnMax.Location = new System.Drawing.Point(0, 136);
+            this.pWarnMax.Location = new System.Drawing.Point(0, 86);
             this.pWarnMax.Margin = new System.Windows.Forms.Padding(0);
             this.pWarnMax.Name = "pWarnMax";
-            this.pWarnMax.Size = new System.Drawing.Size(396, 68);
+            this.pWarnMax.Size = new System.Drawing.Size(264, 43);
             this.pWarnMax.TabIndex = 2;
             // 
             // lWarnMax
             // 
             this.lWarnMax.Dock = System.Windows.Forms.DockStyle.Left;
             this.lWarnMax.Location = new System.Drawing.Point(0, 0);
-            this.lWarnMax.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lWarnMax.Name = "lWarnMax";
-            this.lWarnMax.Size = new System.Drawing.Size(120, 68);
+            this.lWarnMax.Size = new System.Drawing.Size(80, 43);
             this.lWarnMax.TabIndex = 2;
             this.lWarnMax.Text = "Warning Max :";
             this.lWarnMax.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -283,8 +279,7 @@ namespace MeteoStation.Controls
             // nudWarnMax
             // 
             this.nudWarnMax.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.nudWarnMax.Location = new System.Drawing.Point(129, 18);
-            this.nudWarnMax.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.nudWarnMax.Location = new System.Drawing.Point(86, 11);
             this.nudWarnMax.Maximum = new decimal(new int[] {
             -1,
             -1,
@@ -296,7 +291,7 @@ namespace MeteoStation.Controls
             -1,
             -2147483648});
             this.nudWarnMax.Name = "nudWarnMax";
-            this.nudWarnMax.Size = new System.Drawing.Size(262, 26);
+            this.nudWarnMax.Size = new System.Drawing.Size(175, 20);
             this.nudWarnMax.TabIndex = 1;
             this.nudWarnMax.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -306,19 +301,18 @@ namespace MeteoStation.Controls
             this.pCritMax.Controls.Add(this.lCritMax);
             this.pCritMax.Controls.Add(this.nudCritMax);
             this.pCritMax.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pCritMax.Location = new System.Drawing.Point(0, 68);
+            this.pCritMax.Location = new System.Drawing.Point(0, 43);
             this.pCritMax.Margin = new System.Windows.Forms.Padding(0);
             this.pCritMax.Name = "pCritMax";
-            this.pCritMax.Size = new System.Drawing.Size(396, 68);
+            this.pCritMax.Size = new System.Drawing.Size(264, 43);
             this.pCritMax.TabIndex = 0;
             // 
             // lCritMax
             // 
             this.lCritMax.Dock = System.Windows.Forms.DockStyle.Left;
             this.lCritMax.Location = new System.Drawing.Point(0, 0);
-            this.lCritMax.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lCritMax.Name = "lCritMax";
-            this.lCritMax.Size = new System.Drawing.Size(120, 68);
+            this.lCritMax.Size = new System.Drawing.Size(80, 43);
             this.lCritMax.TabIndex = 1;
             this.lCritMax.Text = "Critical Max :";
             this.lCritMax.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -326,8 +320,7 @@ namespace MeteoStation.Controls
             // nudCritMax
             // 
             this.nudCritMax.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.nudCritMax.Location = new System.Drawing.Point(129, 18);
-            this.nudCritMax.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.nudCritMax.Location = new System.Drawing.Point(86, 11);
             this.nudCritMax.Maximum = new decimal(new int[] {
             -1,
             -1,
@@ -339,23 +332,69 @@ namespace MeteoStation.Controls
             -1,
             -2147483648});
             this.nudCritMax.Name = "nudCritMax";
-            this.nudCritMax.Size = new System.Drawing.Size(262, 26);
+            this.nudCritMax.Size = new System.Drawing.Size(175, 20);
             this.nudCritMax.TabIndex = 0;
             this.nudCritMax.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
+            // pExpiration
+            // 
+            this.pExpiration.BackColor = System.Drawing.Color.Brown;
+            this.pExpiration.Controls.Add(this.lMaxPeriod);
+            this.pExpiration.Controls.Add(this.nudMaxPeriod);
+            this.pExpiration.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pExpiration.Location = new System.Drawing.Point(0, 258);
+            this.pExpiration.Margin = new System.Windows.Forms.Padding(0);
+            this.pExpiration.Name = "pExpiration";
+            this.pExpiration.Size = new System.Drawing.Size(264, 45);
+            this.pExpiration.TabIndex = 7;
+            // 
+            // lMaxPeriod
+            // 
+            this.lMaxPeriod.Dock = System.Windows.Forms.DockStyle.Left;
+            this.lMaxPeriod.ForeColor = System.Drawing.Color.White;
+            this.lMaxPeriod.Location = new System.Drawing.Point(0, 0);
+            this.lMaxPeriod.Name = "lMaxPeriod";
+            this.lMaxPeriod.Size = new System.Drawing.Size(80, 45);
+            this.lMaxPeriod.TabIndex = 3;
+            this.lMaxPeriod.Text = "Max Period :";
+            this.lMaxPeriod.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // nudMaxPeriod
+            // 
+            this.nudMaxPeriod.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.nudMaxPeriod.Location = new System.Drawing.Point(86, 13);
+            this.nudMaxPeriod.Maximum = new decimal(new int[] {
+            -1,
+            -1,
+            -1,
+            0});
+            this.nudMaxPeriod.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nudMaxPeriod.Name = "nudMaxPeriod";
+            this.nudMaxPeriod.Size = new System.Drawing.Size(175, 20);
+            this.nudMaxPeriod.TabIndex = 1;
+            this.nudMaxPeriod.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.nudMaxPeriod.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
             // AlarmConfigControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.PowderBlue;
             this.Controls.Add(this.tlpRows);
             this.Controls.Add(this.bApply);
             this.Controls.Add(this.lTitre);
-            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "AlarmConfigControl";
-            this.Size = new System.Drawing.Size(396, 549);
+            this.Size = new System.Drawing.Size(264, 394);
             this.tlpRows.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
+            this.pIdSelect.ResumeLayout(false);
             this.pCritMin.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.nudCritMin)).EndInit();
             this.pWarnMin.ResumeLayout(false);
@@ -365,6 +404,8 @@ namespace MeteoStation.Controls
             ((System.ComponentModel.ISupportInitialize)(this.nudWarnMax)).EndInit();
             this.pCritMax.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.nudCritMax)).EndInit();
+            this.pExpiration.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.nudMaxPeriod)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -388,8 +429,11 @@ namespace MeteoStation.Controls
         private System.Windows.Forms.Label lCritMin;
         private System.Windows.Forms.NumericUpDown nudCritMin;
         private System.Windows.Forms.Label lCritMax;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel pIdSelect;
         private System.Windows.Forms.ComboBox cbIdSelect;
         private System.Windows.Forms.Label lId;
+        private System.Windows.Forms.Panel pExpiration;
+        private System.Windows.Forms.Label lMaxPeriod;
+        private System.Windows.Forms.NumericUpDown nudMaxPeriod;
     }
 }

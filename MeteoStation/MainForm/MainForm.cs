@@ -156,7 +156,6 @@ namespace MeteoStation
         {
             MeasureControl mtc = new MeasureControl();
             MeasureConfigControl mcc = new MeasureConfigControl();
-            DataTable dt = mtc.Table;
 
             ClearPanels();
 

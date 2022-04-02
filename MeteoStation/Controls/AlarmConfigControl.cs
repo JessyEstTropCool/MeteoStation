@@ -18,6 +18,7 @@ namespace MeteoStation.Controls
         internal int WarnMax { get => (int)nudWarnMax.Value; }
         internal int WarnMin { get => (int)nudWarnMin.Value; }
         internal int CritMin { get => (int)nudCritMin.Value; }
+        internal uint MaxPeriod { get => (uint)nudMaxPeriod.Value; }
 
         public AlarmConfigControl()
         {
@@ -56,6 +57,7 @@ namespace MeteoStation.Controls
                 nudWarnMax.Value = m.WarningMax;
                 nudWarnMin.Value = m.WarningMin;
                 nudCritMin.Value = m.CriticalMin;
+                nudMaxPeriod.Value = m.AlarmMaxPeriod;
             }
             else
             {
@@ -65,6 +67,7 @@ namespace MeteoStation.Controls
                 nudWarnMax.Value = m.HighLimit;
                 nudWarnMin.Value = m.LowLimit;
                 nudCritMin.Value = m.LowLimit;
+                nudMaxPeriod.Value = 5;
             }
         }
 
@@ -76,16 +79,12 @@ namespace MeteoStation.Controls
             else if (CritMax > m.HighLimit || WarnMax > m.HighLimit || WarnMin < m.LowLimit || CritMin < m.LowLimit) MessageBox.Show("Une alarme est hors limite", "Erreur de configuration", MessageBoxButtons.OK, MessageBoxIcon.Error);
             else if (CritMin > CritMax || WarnMin > WarnMax) MessageBox.Show("Des alarmes sont incohérentes (Min et Max dans le mauvais sens ou égaux)", "Erreur de configuration", MessageBoxButtons.OK, MessageBoxIcon.Error);
             else if (WarnMax > CritMax || WarnMin < CritMin) MessageBox.Show("Alarmes critiques et d'attentions entremélées", "Erreur de configuration", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            else if (MaxPeriod <= 0) MessageBox.Show("La durée de temps ne peut pas être négative ou nulle", "Erreur de configuration", MessageBoxButtons.OK, MessageBoxIcon.Error);
             else
             {
-                ConfigDone?.Invoke(this, EventArgs.Empty);
+                ConfigDone.Invoke(this, EventArgs.Empty);
                 UpdateLabels();
             }
-        }
-
-        private void lTitre_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }
