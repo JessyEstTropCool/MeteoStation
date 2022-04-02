@@ -51,13 +51,20 @@ namespace MeteoStation
             this.tsbOpenClose = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.tslErrors = new System.Windows.Forms.ToolStripLabel();
-            this.pMainControl = new System.Windows.Forms.Panel();
+            this.pMainCointainer = new System.Windows.Forms.Panel();
             this.pConfigControl = new System.Windows.Forms.Panel();
             this.lTemps = new System.Windows.Forms.Label();
             this.lCredits = new System.Windows.Forms.Label();
             this.pbLogo = new System.Windows.Forms.PictureBox();
+            this.pHeader = new System.Windows.Forms.Panel();
+            this.lTitle = new System.Windows.Forms.Label();
+            this.pbIcon = new System.Windows.Forms.PictureBox();
+            this.pMainControl = new System.Windows.Forms.Panel();
             this.tsViews.SuspendLayout();
+            this.pMainCointainer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbLogo)).BeginInit();
+            this.pHeader.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbIcon)).BeginInit();
             this.SuspendLayout();
             // 
             // spSensorData
@@ -229,17 +236,19 @@ namespace MeteoStation
             this.tslErrors.Size = new System.Drawing.Size(47, 22);
             this.tslErrors.Text = "X errors";
             // 
-            // pMainControl
+            // pMainCointainer
             // 
-            this.pMainControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.pMainCointainer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.pMainControl.BackColor = System.Drawing.Color.Black;
-            this.pMainControl.Location = new System.Drawing.Point(12, 28);
-            this.pMainControl.Name = "pMainControl";
-            this.pMainControl.Padding = new System.Windows.Forms.Padding(1);
-            this.pMainControl.Size = new System.Drawing.Size(512, 421);
-            this.pMainControl.TabIndex = 9;
+            this.pMainCointainer.BackColor = System.Drawing.Color.Black;
+            this.pMainCointainer.Controls.Add(this.pMainControl);
+            this.pMainCointainer.Controls.Add(this.pHeader);
+            this.pMainCointainer.Location = new System.Drawing.Point(12, 28);
+            this.pMainCointainer.Name = "pMainCointainer";
+            this.pMainCointainer.Padding = new System.Windows.Forms.Padding(1);
+            this.pMainCointainer.Size = new System.Drawing.Size(512, 421);
+            this.pMainCointainer.TabIndex = 9;
             // 
             // pConfigControl
             // 
@@ -284,6 +293,48 @@ namespace MeteoStation
             this.pbLogo.TabIndex = 11;
             this.pbLogo.TabStop = false;
             // 
+            // pHeader
+            // 
+            this.pHeader.BackColor = System.Drawing.Color.White;
+            this.pHeader.Controls.Add(this.lTitle);
+            this.pHeader.Controls.Add(this.pbIcon);
+            this.pHeader.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pHeader.Location = new System.Drawing.Point(1, 1);
+            this.pHeader.Name = "pHeader";
+            this.pHeader.Size = new System.Drawing.Size(510, 27);
+            this.pHeader.TabIndex = 6;
+            // 
+            // lTitle
+            // 
+            this.lTitle.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lTitle.Location = new System.Drawing.Point(24, 0);
+            this.lTitle.Name = "lTitle";
+            this.lTitle.Size = new System.Drawing.Size(486, 27);
+            this.lTitle.TabIndex = 5;
+            this.lTitle.Text = "Measures";
+            this.lTitle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // pbIcon
+            // 
+            this.pbIcon.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.pbIcon.Dock = System.Windows.Forms.DockStyle.Left;
+            this.pbIcon.Image = global::MeteoStation.Properties.Resources.Measures;
+            this.pbIcon.Location = new System.Drawing.Point(0, 0);
+            this.pbIcon.Name = "pbIcon";
+            this.pbIcon.Size = new System.Drawing.Size(24, 27);
+            this.pbIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pbIcon.TabIndex = 4;
+            this.pbIcon.TabStop = false;
+            // 
+            // pMainControl
+            // 
+            this.pMainControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pMainControl.Location = new System.Drawing.Point(1, 28);
+            this.pMainControl.Name = "pMainControl";
+            this.pMainControl.Size = new System.Drawing.Size(510, 392);
+            this.pMainControl.TabIndex = 10;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -294,7 +345,7 @@ namespace MeteoStation
             this.Controls.Add(this.lTemps);
             this.Controls.Add(this.pbLogo);
             this.Controls.Add(this.pConfigControl);
-            this.Controls.Add(this.pMainControl);
+            this.Controls.Add(this.pMainCointainer);
             this.Controls.Add(this.tsViews);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(800, 500);
@@ -303,7 +354,10 @@ namespace MeteoStation
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.tsViews.ResumeLayout(false);
             this.tsViews.PerformLayout();
+            this.pMainCointainer.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pbLogo)).EndInit();
+            this.pHeader.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pbIcon)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -330,11 +384,15 @@ namespace MeteoStation
         private System.Windows.Forms.ToolStripButton tsbConnection;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripButton tsbCalibration;
-        private System.Windows.Forms.Panel pMainControl;
+        private System.Windows.Forms.Panel pMainCointainer;
         private System.Windows.Forms.Panel pConfigControl;
         private System.Windows.Forms.PictureBox pbLogo;
         private System.Windows.Forms.Label lTemps;
         private System.Windows.Forms.Label lCredits;
+        private System.Windows.Forms.Panel pHeader;
+        private System.Windows.Forms.Label lTitle;
+        private System.Windows.Forms.PictureBox pbIcon;
+        private System.Windows.Forms.Panel pMainControl;
     }
 }
 

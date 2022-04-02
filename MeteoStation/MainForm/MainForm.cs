@@ -33,16 +33,14 @@ namespace MeteoStation
 
 
             spSensorData.DataReceived += new SerialDataReceivedEventHandler(SerialPortHandler.Reception.RecieveData);
-
         }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
             //Dans le futur a prendre d'un fichier voire la db
-            Data.Collections.TypeList.Add(new Data.SensorData.MeasureType("Alarme", "yowchs"));
-            Data.Collections.TypeList.Add(new Data.SensorData.MeasureType("CO²", "ppm"));
-            Data.Collections.TypeList.Add(new Data.SensorData.MeasureType("Température", "°C"));
-            Data.Collections.TypeList.Add(new Data.SensorData.MeasureType("Humidité", "%"));
+            Data.Collections.TypeDict.Add(1, new Data.SensorData.MeasureType("CO²", "ppm"));
+            Data.Collections.TypeDict.Add(2, new Data.SensorData.MeasureType("Température", "°C"));
+            Data.Collections.TypeDict.Add(3, new Data.SensorData.MeasureType("Humidité", "%"));
 
             if (SerialPort.GetPortNames().Length > 0)
             {
@@ -151,12 +149,21 @@ namespace MeteoStation
             control.Dock = DockStyle.Fill;
         }
 
+        private void SetHeader(object sender)
+        {
+            ToolStripItem tsi = (ToolStripItem)sender;
+
+            pbIcon.Image = tsi.Image;
+            lTitle.Text = tsi.Text;
+        }
+
         //Met les controles de mesures
         private void tsbMeasures_Click(object sender, EventArgs e)
         {
             MeasureControl mtc = new MeasureControl();
             MeasureConfigControl mcc = new MeasureConfigControl();
 
+            SetHeader(sender);
             ClearPanels();
 
             SetMainControl(mtc);
@@ -166,6 +173,9 @@ namespace MeteoStation
 
             mcc.ConfigDone += Data.Collections.MeasureBasicConfigDone;
             mcc.ConfigDone += mtc.UpdateTick;
+
+            mcc.DropDown += Data.Collections.MeasureConfigDropDown;
+            mcc.DropDownClosed += Data.Collections.MeasureConfigDropDownClosed;
         }
 
         //Met les controles d'alarmes
@@ -174,6 +184,7 @@ namespace MeteoStation
             AlarmControl ac = new AlarmControl();
             AlarmConfigControl acc = new AlarmConfigControl();
 
+            SetHeader(sender);
             ClearPanels();
 
             SetMainControl(ac);
@@ -183,11 +194,15 @@ namespace MeteoStation
 
             acc.ConfigDone += Data.Collections.MeasureAlarmConfigDone;
             acc.ConfigDone += ac.UpdateTick;
+
+            acc.DropDown += Data.Collections.AlarmConfigDropDown;
+            acc.DropDownClosed += Data.Collections.AlarmConfigDropDownClosed;
         }
 
         //Met les controles de graphiques
         private void tsbGraphs_Click(object sender, EventArgs e)
         {
+            SetHeader(sender);
             ClearPanels();
 
 
@@ -196,6 +211,8 @@ namespace MeteoStation
         //Met les controles de comptes
         private void tsbAccounts_Click(object sender, EventArgs e)
         {
+            //Attention on peut l'ouvrir qu'une fois car le clearPanels détruit tout
+            SetHeader(sender);
             ClearPanels();
             SetMainControl(AccountControl);
 
@@ -207,12 +224,14 @@ namespace MeteoStation
         //Met les controles de connection
         private void tsbConnection_Click(object sender, EventArgs e)
         {
+            SetHeader(sender);
             ClearPanels();
         }
 
         //Met les controles de calibration
         private void tsbCalibration_Click(object sender, EventArgs e)
         {
+            SetHeader(sender);
             ClearPanels();
         }
 

@@ -13,53 +13,69 @@ namespace MeteoStation.Controls
     public partial class MeasureConfigControl : UserControl
     {
         internal event EventHandler ConfigDone;
-        internal int ID { get; set; }
+        internal event EventHandler DropDown;
+        internal event EventHandler DropDownClosed;
+        internal int ID { get; set; } = -1;
         internal int Max { get => (int)nudMax.Value; }
         internal int Min { get => (int)nudMin.Value; }
+        internal object SelectedItem { get => cbIdSelect.SelectedItem; }
 
         public MeasureConfigControl()
         {
             InitializeComponent();
-            ID = -1;
         }
 
-        //Vérifie que les données on du sens
-        private void bApply_Click(object sender, EventArgs e)
-        {
-            if (ID == -1) MessageBox.Show("Veuillez sélectionner une mesure", "Erreur de configuration", MessageBoxButtons.OK, MessageBoxIcon.Error); 
-            else if (Min >= Max) MessageBox.Show("Min et Max incohérents (ils ne peuvent pas êtres égaux, non plus)", "Erreur de configuration", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            else
-            {
-                ConfigDone?.Invoke(this, EventArgs.Empty);
-                UpdateLabels();
-            }
-        }
-
-        //va chercher les ids des mesures qu'on a
-        private void cbIdSelect_DropDown(object sender, EventArgs e)
+        //set ce qui va dans la combobox (dans ce cas les IDs)
+        internal void SetCbItems(object[] items)
         {
             cbIdSelect.Items.Clear();
-            cbIdSelect.Items.AddRange(Data.Collections.GetMeasureIds());
-        }
-
-        //Set l'id de la mesure a configurer et indique le type et status
-        private void cbIdSelect_DropDownClosed(object sender, EventArgs e)
-        {
-            if (cbIdSelect.SelectedItem != null)
-            {
-                ID = (int.Parse((string)cbIdSelect.SelectedItem));
-                UpdateLabels();
-            }
+            cbIdSelect.Items.AddRange(items);
         }
 
         //Affiche les infos de config de la mesure sur les bons controles
-        private void UpdateLabels()
+        internal void UpdateInfo(int low, int high, string type, string unit, bool config)
         {
-            Data.SensorData.Measure m = Data.Collections.GetMeasure(ID);
-            lType.Text = "Type : " + Data.Collections.TypeList[m.type].Name + " (" + Data.Collections.TypeList[m.type].Unit + ")";
-            lStatus.Text = "Status : " + ((m.IsConfigured())? "Done" : "Not Done");
-            nudMax.Value = m.HighLimit;
-            nudMin.Value = m.LowLimit;
+            lType.Text = "Type : " + type + " (" + unit + ")";
+            lStatus.Text = "Status : " + ((config)? "Done" : "Not Done");
+
+            nudMax.Value = high;
+            nudMin.Value = low;
+        }
+
+        //Demande la configuration de la mesure
+        private void bApply_Click(object sender, EventArgs e)
+        {
+            ConfigDone.Invoke(this, e);
+        }
+
+        //Event pour quand on ouvre le combo box
+        private void cbIdSelect_DropDown(object sender, EventArgs e)
+        {
+            DropDown.Invoke(this, e);
+        }
+
+        //Event pour quand on ferme le combo box
+        private void cbIdSelect_DropDownClosed(object sender, EventArgs e)
+        {
+            DropDownClosed.Invoke(this, e);
+        }
+
+        internal void SendError(int code)
+        {
+            switch (code)
+            {
+                case 0:
+                    MessageBox.Show("Veuillez sélectionner une mesure", "Erreur de configuration", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
+
+                case 1:
+                    MessageBox.Show("Min et Max incohérents (ils ne peuvent pas êtres égaux, non plus)", "Erreur de configuration", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
+
+                default:
+                    MessageBox.Show("Une erreur c'est produite", "Erreur de configuration", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
+            }
         }
     }
 }

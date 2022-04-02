@@ -14,9 +14,9 @@ namespace MeteoStation.Data
     {
         internal static Queue<byte> SerialBuffer { get; set; } = new Queue<byte>();
         internal static ArrayList ObjectList { get; set; } = new ArrayList();
-        internal static List<SensorData.MeasureType> TypeList { get; set; } = new List<SensorData.MeasureType>();
+        internal static Dictionary<int, SensorData.MeasureType> TypeDict { get; set; } = new Dictionary<int, SensorData.MeasureType>();
 
-        //met les infos de la liste sur la table
+        //met les infos des measures de la liste sur la table
         internal static void UpdateMeasureTable(DataGridView dgv)
         {
             DataTable dt = Tables.MeasureTable;
@@ -34,13 +34,13 @@ namespace MeteoStation.Data
                     {
                         if (measure.HasAlarms()) config = "Done";
                         else config = "Basic";
-                        data = measure.ConvertedData + " " + Collections.TypeList[measure.type].Unit;
+                        data = measure.ConvertedData + " " + TypeDict[measure.type].Unit;
                     }
 
                     dt.Rows.Add(new object[] {
                         obj.id,
                         config,
-                        Collections.TypeList[obj.type].Name,// + " (" + obj.type + ")",
+                        TypeDict[obj.type].Name,// + " (" + obj.type + ")",
                         data,
                         (int)((DateTime.Now - obj.moment).TotalSeconds) + " sec",
                         measure.GetStatus()
@@ -53,6 +53,7 @@ namespace MeteoStation.Data
             dgv.DataSource = dt;
         }
 
+        //met les infos des mesures avec alarmes de la liste sur la table
         internal static void UpdateAlarmTable(DataGridView dgv)
         {
             DataTable dt = Tables.AlarmTable;
@@ -115,7 +116,39 @@ namespace MeteoStation.Data
                 dgv.Rows[y].Cells[x].Style.BackColor = c;
         }
 
-        //retourne toutes les id des mesures contenues dans l'objectlist
+        //Retourne une mesure selon son id
+        internal static SensorData.Measure GetMeasure(int id)
+        {
+            foreach (SensorData.Base obj in Collections.ObjectList)
+            {
+                if (id == obj.id && id != 0) return (SensorData.Measure)obj;
+            }
+
+            return null;
+        }
+
+        //EventHandler pour l'ouverture de combo box du measure config control
+        internal static void MeasureConfigDropDown(object sender, EventArgs e)
+        {
+            ((Controls.MeasureConfigControl)sender).SetCbItems(GetMeasureIds());
+        }
+
+        //EventHandler pour la fermeture du combo box du measure config control
+        internal static void MeasureConfigDropDownClosed(object sender, EventArgs e)
+        {
+            Controls.MeasureConfigControl mcc = (Controls.MeasureConfigControl)sender;
+            SensorData.Measure measure = null;
+
+            if (mcc.SelectedItem != null)
+            {
+                mcc.ID = int.Parse((string)mcc.SelectedItem);
+                measure = GetMeasure(mcc.ID);
+
+                mcc.UpdateInfo(measure.LowLimit, measure.HighLimit, TypeDict[measure.type].Name, TypeDict[measure.type].Unit, measure.IsConfigured());
+            }
+        }
+
+        //retourne une liste des id de toutes les mesures
         internal static string[] GetMeasureIds()
         {
             List<string> ids = new List<string>();
@@ -131,43 +164,21 @@ namespace MeteoStation.Data
             return ids.ToArray();
         }
 
-        //retourne toutes les id des mesures contenues dans l'objectlist
-        internal static string[] GetConfiguredMeasureIds()
-        {
-            List<string> ids = new List<string>();
-
-            foreach (SensorData.Base obj in Collections.ObjectList)
-            {
-                if (obj.id != 0)
-                {
-                    SensorData.Measure measure = (SensorData.Measure)obj;
-
-                    if ( measure.IsConfigured() )
-                    {
-                        ids.Add(obj.id.ToString());
-                    }
-                }
-            }
-
-            return ids.ToArray();
-        }
-
-        //Retourne une mesure selon son id
-        internal static SensorData.Measure GetMeasure(int id)
-        {
-            foreach (SensorData.Base obj in Collections.ObjectList)
-            {
-                if (id == obj.id && id != 0) return (SensorData.Measure)obj;
-            }
-
-            return null;
-        }
-
-        //Handler de la configuration basique
+        //Handler de la configuration basique qui vérifie que les données ont du sens avant de modifier la mesure
         internal static void MeasureBasicConfigDone(object sender, EventArgs e)
         {
             Controls.MeasureConfigControl mcc = (Controls.MeasureConfigControl)sender;
-            SetBasicConfiguration(mcc.ID, mcc.Min, mcc.Max);
+            SensorData.Measure measure = null;
+
+            if (mcc.ID == -1) mcc.SendError(0);
+            else if (mcc.Min >= mcc.Max) mcc.SendError(1);
+            else
+            {
+                measure = GetMeasure(mcc.ID);
+
+                SetBasicConfiguration(mcc.ID, mcc.Min, mcc.Max);
+                mcc.UpdateInfo(measure.LowLimit, measure.HighLimit, TypeDict[measure.type].Name, TypeDict[measure.type].Unit, measure.IsConfigured());
+            }
         }
 
         //Applique une configuration basique a une mesure
@@ -184,11 +195,68 @@ namespace MeteoStation.Data
             m.CriticalMin = 0;
         }
 
-        //Handler de la configuration d'alarmes
+        //EventHandler pour l'ouverture de combo box du alarm config control
+        internal static void AlarmConfigDropDown(object sender, EventArgs e)
+        {
+            ((Controls.AlarmConfigControl)sender).SetCbItems(GetConfiguredMeasureIds());
+        }
+
+        //EventHandler pour la fermeture de combo box du alarm config control
+        internal static void AlarmConfigDropDownClosed(object sender, EventArgs e)
+        {
+            Controls.AlarmConfigControl acc = (Controls.AlarmConfigControl)sender;
+            SensorData.Measure measure;
+
+            if (acc.SelectedItem != null)
+            {
+                acc.ID = int.Parse((string)acc.SelectedItem);
+                measure = GetMeasure(acc.ID);
+
+                if (measure.HasAlarms()) acc.UpdateInfo(measure.LowLimit, measure.HighLimit, measure.CriticalMax, measure.WarningMax, measure.WarningMin, measure.CriticalMin, (int)measure.AlarmMaxPeriod, TypeDict[measure.type].Name, measure.HasAlarms());
+                else acc.UpdateInfo(measure.LowLimit, measure.HighLimit, (int)measure.AlarmMaxPeriod, TypeDict[measure.type].Name);
+            }
+        }
+
+        //retourne toutes les id des mesures contenues dans l'objectlist
+        internal static string[] GetConfiguredMeasureIds()
+        {
+            List<string> ids = new List<string>();
+
+            foreach (SensorData.Base obj in Collections.ObjectList)
+            {
+                if (obj.id != 0)
+                {
+                    SensorData.Measure measure = (SensorData.Measure)obj;
+
+                    if (measure.IsConfigured())
+                    {
+                        ids.Add(obj.id.ToString());
+                    }
+                }
+            }
+
+            return ids.ToArray();
+        }
+
+        //Handler de la configuration d'alarmes qui vérifie les données du control avant de les mettre
         internal static void MeasureAlarmConfigDone(object sender, EventArgs e)
         {
             Controls.AlarmConfigControl acc = (Controls.AlarmConfigControl)sender;
-            SetAlarmConfiguration(acc.ID, acc.CritMax, acc.WarnMax, acc.WarnMin, acc.CritMin, acc.MaxPeriod);
+            SensorData.Measure m;
+
+            if (acc.ID == -1) acc.SendError(0);
+            else
+            {
+                m = Collections.GetMeasure(acc.ID);
+
+                if (acc.CritMax > m.HighLimit || acc.WarnMax > m.HighLimit || acc.WarnMin < m.LowLimit || acc.CritMin < m.LowLimit) acc.SendError(1);
+                else if (acc.CritMin > acc.CritMax || acc.WarnMin > acc.WarnMax) acc.SendError(2);
+                else if (acc.WarnMax > acc.CritMax || acc.WarnMin < acc.CritMin) acc.SendError(3);
+                else if (acc.MaxPeriod <= 0) acc.SendError(4);
+                else 
+                    SetAlarmConfiguration(acc.ID, acc.CritMax, acc.WarnMax, acc.WarnMin, acc.CritMin, acc.MaxPeriod);
+            }
+
         }
 
         //Applique une configuration d'alarmes a une mesure
@@ -200,7 +268,6 @@ namespace MeteoStation.Data
             m.WarningMin = warnMin;
             m.CriticalMin = critMin;
             m.AlarmMaxPeriod = maxPeriod;
-            //SerialPortHandler.Reception.SetStatus(m);
         }
     }
 }
