@@ -12,26 +12,25 @@ namespace MeteoStation.Controls
 {
     public partial class AccountControl : UserControl
     {
-        DataTable dataUsersAccounts = new DataTable();
+     
 
-        
+        internal DataTable dataUsersAccounts = new DataTable();        
 
         public AccountControl()
         {
             InitializeComponent();
 
-            //les titres des colonnes ainsi que les types 
-            dataUsersAccounts.Columns.Add("Username", typeof(string));
-            dataUsersAccounts.Columns.Add("Password", typeof(string));
+      
 
-           
+            
+            
+     
 
-
-            dataGridView1.DataSource = dataUsersAccounts;
+          
         }
 
 
-
+  
 
 
     }

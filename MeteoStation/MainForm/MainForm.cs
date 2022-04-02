@@ -16,11 +16,24 @@ namespace MeteoStation
     {
         Control mainControl = null, configControl = null;
 
+        AccountConfigControl myAccount = new AccountConfigControl();
+
+        AccountControl AccountControl = new AccountControl();
+
+        DataTable myTable = new DataTable();
+
         public MainForm()
         {
             InitializeComponent();
 
+            AccountControl.dataUsersAccounts.Columns.Add("Username", typeof(string));
+            AccountControl.dataUsersAccounts.Columns.Add("Password", typeof(string));
+
+            AccountControl.dataGridViewAccount.DataSource = AccountControl.dataUsersAccounts; 
+
+
             spSensorData.DataReceived += new SerialDataReceivedEventHandler(SerialPortHandler.Reception.RecieveData);
+
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -133,6 +146,7 @@ namespace MeteoStation
         private void SetConfigControl(Control control)
         {
             configControl = control;
+
             pConfigControl.Controls.Add(control);
             control.Dock = DockStyle.Fill;
         }
@@ -176,16 +190,19 @@ namespace MeteoStation
         private void tsbGraphs_Click(object sender, EventArgs e)
         {
             ClearPanels();
-            
-            
+
+
         }
 
         //Met les controles de comptes
         private void tsbAccounts_Click(object sender, EventArgs e)
         {
             ClearPanels();
-            SetMainControl(new AccountControl());
-            SetConfigControl(new AccountConfigControl());
+            SetMainControl(AccountControl);
+
+            myAccount.ButtonClickRegister += new EventHandler(Register_Click);
+            myAccount.ButtonClickClear += new EventHandler(Clear_Click);
+            SetConfigControl(myAccount);
         }
 
         //Met les controles de connection
@@ -199,5 +216,71 @@ namespace MeteoStation
         {
             ClearPanels();
         }
+
+        private void Register_Click(object sender, EventArgs e)
+        {
+            ////si les textBoxs sont vides, on affiche un msg d'erreur
+            if (myAccount.textBoxUsername.Text == "" || myAccount.textBoxPassword.Text == "" || myAccount.textBoxConfirmPassword.Text == "")
+            {
+                MessageBox.Show("Username or Password field is empty", "Registration failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            ////si les mdp ne sont pas les memes, on affiche un msg d'erreur
+            else if (myAccount.textBoxPassword.Text != myAccount.textBoxConfirmPassword.Text)
+            {
+                MessageBox.Show("Paswords does not match, Please Re-enter ", "Registration failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                clearTextBox(myAccount.textBoxPassword);
+                clearTextBox(myAccount.textBoxConfirmPassword);
+                myAccount.textBoxPassword.Focus();
+            }
+            ////sinon on affiche un message de success
+            else
+            {
+              
+                MessageBox.Show("Your Account has been Successfully Created", "Registration Succes", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                updateDGV(AccountControl.dataUsersAccounts, AccountControl.dataGridViewAccount, myAccount.textBoxUsername.Text, myAccount.textBoxPassword.Text);
+
+                //on supprime les texts qui ont été entrés dans les textBoxs
+                clearTextBox(myAccount.textBoxUsername);
+                clearTextBox(myAccount.textBoxConfirmPassword);
+                clearTextBox(myAccount.textBoxPassword);
+                myAccount.textBoxUsername.Focus();
+
+
+            }
+        }
+
+
+
+        //si l'utilisateur clique sur le btn clear du user Control Account
+        //on supp tous les champs et on focus sur le textBox tout en haut
+        public void Clear_Click(object sender, EventArgs e)
+        {
+
+            clearTextBox(myAccount.textBoxUsername);
+            clearTextBox(myAccount.textBoxConfirmPassword);
+            clearTextBox(myAccount.textBoxPassword);
+            myAccount.textBoxUsername.Focus();
+        }
+        //méthode qui permet de supprimer les saisies de l'utilisateur se trouvant dans les textBoxs du user control Account
+        private void clearTextBox(TextBox txtb)
+        {
+            txtb.Clear();
+        }
+
+        //méthode qui nous permet de remplacés en cachant/affichant les caractères des mdp
+        private void textBoxHidePasswordByAChar(TextBox txtbox, Char caractere)
+        {
+            txtbox.PasswordChar = caractere;
+        }
+
+        private void updateDGV(DataTable dt, DataGridView dgv,string username, string password)
+        {
+            
+            dt.Rows.Add(username,password);
+            dgv.Refresh();
+            dgv.DataSource = dt;
+        }
     }
-}
+
+    }

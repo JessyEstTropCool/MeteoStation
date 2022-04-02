@@ -96,7 +96,7 @@
             this.checkBoxShowPassword.TabIndex = 18;
             this.checkBoxShowPassword.Text = "Show Password";
             this.checkBoxShowPassword.UseVisualStyleBackColor = true;
-            this.checkBoxShowPassword.CheckedChanged += new System.EventHandler(this.checkBoxShowPassword_CheckedChanged_1);
+//            this.checkBoxShowPassword.CheckedChanged += new System.EventHandler(this.checkBoxShowPassword_CheckedChanged_1);
             // 
             // textBoxConfirmPassword
             // 
@@ -206,14 +206,14 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button buttonClear;
-        private System.Windows.Forms.Button buttonRegister;
-        private System.Windows.Forms.CheckBox checkBoxShowPassword;
-        private System.Windows.Forms.TextBox textBoxConfirmPassword;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox textBoxPassword;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBoxUsername;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label5;
+        internal System.Windows.Forms.Button buttonRegister;
+        internal System.Windows.Forms.CheckBox checkBoxShowPassword;
+        internal System.Windows.Forms.TextBox textBoxConfirmPassword;
+        internal System.Windows.Forms.TextBox textBoxPassword;
+        internal System.Windows.Forms.TextBox textBoxUsername;
     }
 }
