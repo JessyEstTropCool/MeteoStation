@@ -29,8 +29,9 @@ namespace MeteoStation
             AccountControl.dataUsersAccounts.Columns.Add("Username", typeof(string));
             AccountControl.dataUsersAccounts.Columns.Add("Password", typeof(string));
 
-            AccountControl.dataGridViewAccount.DataSource = AccountControl.dataUsersAccounts; 
+            AccountControl.dataGridViewAccount.DataSource = AccountControl.dataUsersAccounts;
 
+            tsslPrompt.Text = "";
 
             spSensorData.DataReceived += new SerialDataReceivedEventHandler(SerialPortHandler.Reception.RecieveData);
         }
@@ -52,6 +53,15 @@ namespace MeteoStation
 
             //Affiche les controles de mesures des le début
             tsbMeasures.PerformClick();
+
+            ShowPrompt("Welcome !", 5);
+        }
+
+        internal void ShowPrompt(string text, int length)
+        {
+            tsslPrompt.Text = text;
+
+            Task.Delay(length*1000).ContinueWith(t => tsslPrompt.Text = "");
         }
 
         //Handler du timer responsable du traitement des données
@@ -61,10 +71,10 @@ namespace MeteoStation
             if (spSensorData.IsOpen)
             {
                 SerialPortHandler.Reception.DataTreatment();
-                tslErrors.Text = SerialPortHandler.Reception.errors + " erreurs";
+                tsslErrors.Text = SerialPortHandler.Reception.errors + " errors";
             }
 
-            lTemps.Text = DateTime.Now.ToString("F");
+            tsslTemps.Text = DateTime.Now.ToString("F");
         }
 
         //Ouverture / Fermeture du port
@@ -204,8 +214,6 @@ namespace MeteoStation
         {
             SetHeader(sender);
             ClearPanels();
-
-
         }
 
         //Met les controles de comptes

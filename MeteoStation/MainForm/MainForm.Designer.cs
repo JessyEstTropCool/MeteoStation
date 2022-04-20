@@ -49,22 +49,25 @@ namespace MeteoStation
             this.tscbComPorts = new System.Windows.Forms.ToolStripComboBox();
             this.tslStatus = new System.Windows.Forms.ToolStripLabel();
             this.tsbOpenClose = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.tslErrors = new System.Windows.Forms.ToolStripLabel();
             this.pMainCointainer = new System.Windows.Forms.Panel();
-            this.pConfigControl = new System.Windows.Forms.Panel();
-            this.lTemps = new System.Windows.Forms.Label();
-            this.lCredits = new System.Windows.Forms.Label();
-            this.pbLogo = new System.Windows.Forms.PictureBox();
+            this.pMainControl = new System.Windows.Forms.Panel();
             this.pHeader = new System.Windows.Forms.Panel();
             this.lTitle = new System.Windows.Forms.Label();
             this.pbIcon = new System.Windows.Forms.PictureBox();
-            this.pMainControl = new System.Windows.Forms.Panel();
+            this.pConfigControl = new System.Windows.Forms.Panel();
+            this.lCredits = new System.Windows.Forms.Label();
+            this.pbLogo = new System.Windows.Forms.PictureBox();
+            this.ssInfo = new System.Windows.Forms.StatusStrip();
+            this.tsslTemps = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tsslErrors = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tsslPrompt = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tsslVersion = new System.Windows.Forms.ToolStripStatusLabel();
             this.tsViews.SuspendLayout();
             this.pMainCointainer.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbLogo)).BeginInit();
             this.pHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbIcon)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbLogo)).BeginInit();
+            this.ssInfo.SuspendLayout();
             this.SuspendLayout();
             // 
             // spSensorData
@@ -80,6 +83,7 @@ namespace MeteoStation
             // tsViews
             // 
             this.tsViews.BackColor = System.Drawing.Color.Black;
+            this.tsViews.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.tsViews.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsbMeasures,
             this.toolStripSeparator7,
@@ -95,9 +99,7 @@ namespace MeteoStation
             this.toolStripSeparator1,
             this.tscbComPorts,
             this.tslStatus,
-            this.tsbOpenClose,
-            this.toolStripSeparator2,
-            this.tslErrors});
+            this.tsbOpenClose});
             this.tsViews.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
             this.tsViews.Location = new System.Drawing.Point(0, 0);
             this.tsViews.Name = "tsViews";
@@ -172,7 +174,7 @@ namespace MeteoStation
             this.tsbConnection.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbConnection.Name = "tsbConnection";
             this.tsbConnection.Size = new System.Drawing.Size(89, 22);
-            this.tsbConnection.Text = "Connection";
+            this.tsbConnection.Text = "&Connection";
             this.tsbConnection.Click += new System.EventHandler(this.tsbConnection_Click);
             // 
             // toolStripSeparator3
@@ -224,18 +226,6 @@ namespace MeteoStation
             this.tsbOpenClose.Text = "Open";
             this.tsbOpenClose.Click += new System.EventHandler(this.OpenClosePort);
             // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
-            // 
-            // tslErrors
-            // 
-            this.tslErrors.ForeColor = System.Drawing.Color.White;
-            this.tslErrors.Name = "tslErrors";
-            this.tslErrors.Size = new System.Drawing.Size(47, 22);
-            this.tslErrors.Text = "X errors";
-            // 
             // pMainCointainer
             // 
             this.pMainCointainer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -247,51 +237,16 @@ namespace MeteoStation
             this.pMainCointainer.Location = new System.Drawing.Point(12, 28);
             this.pMainCointainer.Name = "pMainCointainer";
             this.pMainCointainer.Padding = new System.Windows.Forms.Padding(1);
-            this.pMainCointainer.Size = new System.Drawing.Size(512, 421);
+            this.pMainCointainer.Size = new System.Drawing.Size(512, 428);
             this.pMainCointainer.TabIndex = 9;
             // 
-            // pConfigControl
+            // pMainControl
             // 
-            this.pConfigControl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pConfigControl.BackColor = System.Drawing.Color.Black;
-            this.pConfigControl.Location = new System.Drawing.Point(530, 159);
-            this.pConfigControl.Name = "pConfigControl";
-            this.pConfigControl.Padding = new System.Windows.Forms.Padding(1);
-            this.pConfigControl.Size = new System.Drawing.Size(242, 290);
-            this.pConfigControl.TabIndex = 10;
-            // 
-            // lTemps
-            // 
-            this.lTemps.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lTemps.Location = new System.Drawing.Point(530, 116);
-            this.lTemps.Name = "lTemps";
-            this.lTemps.Size = new System.Drawing.Size(242, 14);
-            this.lTemps.TabIndex = 12;
-            this.lTemps.Text = "00:00:00";
-            this.lTemps.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lCredits
-            // 
-            this.lCredits.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lCredits.Location = new System.Drawing.Point(530, 130);
-            this.lCredits.Name = "lCredits";
-            this.lCredits.Size = new System.Drawing.Size(242, 26);
-            this.lCredits.TabIndex = 13;
-            this.lCredits.Text = "Fait par : \r\nAdam Jessy, Afkir Ridwane et Bah Abdoulaye\r\n";
-            this.lCredits.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // pbLogo
-            // 
-            this.pbLogo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.pbLogo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.pbLogo.Image = global::MeteoStation.Properties.Resources.HELB_Logo;
-            this.pbLogo.Location = new System.Drawing.Point(530, 28);
-            this.pbLogo.Name = "pbLogo";
-            this.pbLogo.Size = new System.Drawing.Size(242, 85);
-            this.pbLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pbLogo.TabIndex = 11;
-            this.pbLogo.TabStop = false;
+            this.pMainControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pMainControl.Location = new System.Drawing.Point(1, 28);
+            this.pMainControl.Name = "pMainControl";
+            this.pMainControl.Size = new System.Drawing.Size(510, 399);
+            this.pMainControl.TabIndex = 10;
             // 
             // pHeader
             // 
@@ -327,37 +282,110 @@ namespace MeteoStation
             this.pbIcon.TabIndex = 4;
             this.pbIcon.TabStop = false;
             // 
-            // pMainControl
+            // pConfigControl
             // 
-            this.pMainControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pMainControl.Location = new System.Drawing.Point(1, 28);
-            this.pMainControl.Name = "pMainControl";
-            this.pMainControl.Size = new System.Drawing.Size(510, 392);
-            this.pMainControl.TabIndex = 10;
+            this.pConfigControl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pConfigControl.BackColor = System.Drawing.Color.Black;
+            this.pConfigControl.Location = new System.Drawing.Point(530, 159);
+            this.pConfigControl.Name = "pConfigControl";
+            this.pConfigControl.Padding = new System.Windows.Forms.Padding(1);
+            this.pConfigControl.Size = new System.Drawing.Size(242, 297);
+            this.pConfigControl.TabIndex = 10;
+            // 
+            // lCredits
+            // 
+            this.lCredits.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lCredits.Location = new System.Drawing.Point(530, 116);
+            this.lCredits.Name = "lCredits";
+            this.lCredits.Size = new System.Drawing.Size(242, 40);
+            this.lCredits.TabIndex = 13;
+            this.lCredits.Text = "Made by :\r\nAdam Jessy, Afkir Ridwane et Bah Abdoulaye";
+            this.lCredits.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // pbLogo
+            // 
+            this.pbLogo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.pbLogo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.pbLogo.Image = global::MeteoStation.Properties.Resources.HELB_Logo;
+            this.pbLogo.Location = new System.Drawing.Point(530, 28);
+            this.pbLogo.Name = "pbLogo";
+            this.pbLogo.Size = new System.Drawing.Size(242, 85);
+            this.pbLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbLogo.TabIndex = 11;
+            this.pbLogo.TabStop = false;
+            // 
+            // ssInfo
+            // 
+            this.ssInfo.BackColor = System.Drawing.Color.Black;
+            this.ssInfo.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsslTemps,
+            this.tsslErrors,
+            this.tsslPrompt,
+            this.tsslVersion});
+            this.ssInfo.Location = new System.Drawing.Point(0, 457);
+            this.ssInfo.Name = "ssInfo";
+            this.ssInfo.Size = new System.Drawing.Size(784, 24);
+            this.ssInfo.SizingGrip = false;
+            this.ssInfo.TabIndex = 14;
+            this.ssInfo.Text = "statusStrip1";
+            // 
+            // tsslTemps
+            // 
+            this.tsslTemps.ForeColor = System.Drawing.Color.White;
+            this.tsslTemps.Name = "tsslTemps";
+            this.tsslTemps.Size = new System.Drawing.Size(136, 19);
+            this.tsslTemps.Text = "Changing locales is hard";
+            // 
+            // tsslErrors
+            // 
+            this.tsslErrors.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left;
+            this.tsslErrors.ForeColor = System.Drawing.Color.White;
+            this.tsslErrors.Name = "tsslErrors";
+            this.tsslErrors.Size = new System.Drawing.Size(51, 19);
+            this.tsslErrors.Text = "X errors";
+            // 
+            // tsslPrompt
+            // 
+            this.tsslPrompt.ForeColor = System.Drawing.Color.White;
+            this.tsslPrompt.Name = "tsslPrompt";
+            this.tsslPrompt.Size = new System.Drawing.Size(488, 19);
+            this.tsslPrompt.Spring = true;
+            this.tsslPrompt.Text = "This is information";
+            // 
+            // tsslVersion
+            // 
+            this.tsslVersion.ForeColor = System.Drawing.Color.White;
+            this.tsslVersion.Name = "tsslVersion";
+            this.tsslVersion.Size = new System.Drawing.Size(63, 19);
+            this.tsslVersion.Text = "Version 2.0";
+            this.tsslVersion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.PowderBlue;
-            this.ClientSize = new System.Drawing.Size(784, 461);
+            this.ClientSize = new System.Drawing.Size(784, 481);
+            this.Controls.Add(this.ssInfo);
             this.Controls.Add(this.lCredits);
-            this.Controls.Add(this.lTemps);
             this.Controls.Add(this.pbLogo);
             this.Controls.Add(this.pConfigControl);
             this.Controls.Add(this.pMainCointainer);
             this.Controls.Add(this.tsViews);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MinimumSize = new System.Drawing.Size(800, 500);
+            this.MinimumSize = new System.Drawing.Size(800, 520);
             this.Name = "MainForm";
             this.Text = "Meteo Station";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.tsViews.ResumeLayout(false);
             this.tsViews.PerformLayout();
             this.pMainCointainer.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pbLogo)).EndInit();
             this.pHeader.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pbIcon)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbLogo)).EndInit();
+            this.ssInfo.ResumeLayout(false);
+            this.ssInfo.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -371,8 +399,6 @@ namespace MeteoStation
         private System.Windows.Forms.ToolStripComboBox tscbComPorts;
         private System.Windows.Forms.ToolStripLabel tslStatus;
         private System.Windows.Forms.ToolStripButton tsbOpenClose;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-        private System.Windows.Forms.ToolStripLabel tslErrors;
         private System.Windows.Forms.ToolStripButton tsbMeasures;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
         private System.Windows.Forms.ToolStripButton tsbAlarms;
@@ -387,12 +413,16 @@ namespace MeteoStation
         private System.Windows.Forms.Panel pMainCointainer;
         private System.Windows.Forms.Panel pConfigControl;
         private System.Windows.Forms.PictureBox pbLogo;
-        private System.Windows.Forms.Label lTemps;
         private System.Windows.Forms.Label lCredits;
         private System.Windows.Forms.Panel pHeader;
         private System.Windows.Forms.Label lTitle;
         private System.Windows.Forms.PictureBox pbIcon;
         private System.Windows.Forms.Panel pMainControl;
+        private System.Windows.Forms.StatusStrip ssInfo;
+        private System.Windows.Forms.ToolStripStatusLabel tsslTemps;
+        private System.Windows.Forms.ToolStripStatusLabel tsslVersion;
+        private System.Windows.Forms.ToolStripStatusLabel tsslPrompt;
+        private System.Windows.Forms.ToolStripStatusLabel tsslErrors;
     }
 }
 

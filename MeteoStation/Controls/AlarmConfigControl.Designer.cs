@@ -32,6 +32,9 @@ namespace MeteoStation.Controls
             this.lTitre = new System.Windows.Forms.Label();
             this.bApply = new System.Windows.Forms.Button();
             this.tlpRows = new System.Windows.Forms.TableLayoutPanel();
+            this.pExpiration = new System.Windows.Forms.Panel();
+            this.lMaxPeriod = new System.Windows.Forms.Label();
+            this.nudMaxPeriod = new System.Windows.Forms.NumericUpDown();
             this.pIdSelect = new System.Windows.Forms.Panel();
             this.cbIdSelect = new System.Windows.Forms.ComboBox();
             this.lId = new System.Windows.Forms.Label();
@@ -49,10 +52,9 @@ namespace MeteoStation.Controls
             this.pCritMax = new System.Windows.Forms.Panel();
             this.lCritMax = new System.Windows.Forms.Label();
             this.nudCritMax = new System.Windows.Forms.NumericUpDown();
-            this.pExpiration = new System.Windows.Forms.Panel();
-            this.lMaxPeriod = new System.Windows.Forms.Label();
-            this.nudMaxPeriod = new System.Windows.Forms.NumericUpDown();
             this.tlpRows.SuspendLayout();
+            this.pExpiration.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMaxPeriod)).BeginInit();
             this.pIdSelect.SuspendLayout();
             this.pCritMin.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudCritMin)).BeginInit();
@@ -63,8 +65,6 @@ namespace MeteoStation.Controls
             ((System.ComponentModel.ISupportInitialize)(this.nudWarnMax)).BeginInit();
             this.pCritMax.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudCritMax)).BeginInit();
-            this.pExpiration.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudMaxPeriod)).BeginInit();
             this.SuspendLayout();
             // 
             // lTitre
@@ -77,7 +77,7 @@ namespace MeteoStation.Controls
             this.lTitre.Margin = new System.Windows.Forms.Padding(3, 10, 3, 0);
             this.lTitre.Name = "lTitre";
             this.lTitre.Size = new System.Drawing.Size(264, 47);
-            this.lTitre.TabIndex = 5;
+            this.lTitre.TabIndex = 2;
             this.lTitre.Text = "Alarms";
             this.lTitre.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -90,7 +90,7 @@ namespace MeteoStation.Controls
             this.bApply.Location = new System.Drawing.Point(0, 350);
             this.bApply.Name = "bApply";
             this.bApply.Size = new System.Drawing.Size(264, 44);
-            this.bApply.TabIndex = 6;
+            this.bApply.TabIndex = 1;
             this.bApply.Text = "Apply";
             this.bApply.UseVisualStyleBackColor = false;
             this.bApply.Click += new System.EventHandler(this.bApply_Click);
@@ -118,7 +118,54 @@ namespace MeteoStation.Controls
             this.tlpRows.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28571F));
             this.tlpRows.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28571F));
             this.tlpRows.Size = new System.Drawing.Size(264, 303);
-            this.tlpRows.TabIndex = 7;
+            this.tlpRows.TabIndex = 0;
+            // 
+            // pExpiration
+            // 
+            this.pExpiration.BackColor = System.Drawing.Color.Brown;
+            this.pExpiration.Controls.Add(this.lMaxPeriod);
+            this.pExpiration.Controls.Add(this.nudMaxPeriod);
+            this.pExpiration.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pExpiration.Location = new System.Drawing.Point(0, 258);
+            this.pExpiration.Margin = new System.Windows.Forms.Padding(0);
+            this.pExpiration.Name = "pExpiration";
+            this.pExpiration.Size = new System.Drawing.Size(264, 45);
+            this.pExpiration.TabIndex = 6;
+            // 
+            // lMaxPeriod
+            // 
+            this.lMaxPeriod.Dock = System.Windows.Forms.DockStyle.Left;
+            this.lMaxPeriod.ForeColor = System.Drawing.Color.White;
+            this.lMaxPeriod.Location = new System.Drawing.Point(0, 0);
+            this.lMaxPeriod.Name = "lMaxPeriod";
+            this.lMaxPeriod.Size = new System.Drawing.Size(80, 45);
+            this.lMaxPeriod.TabIndex = 1;
+            this.lMaxPeriod.Text = "Max Period :";
+            this.lMaxPeriod.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // nudMaxPeriod
+            // 
+            this.nudMaxPeriod.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.nudMaxPeriod.Location = new System.Drawing.Point(86, 13);
+            this.nudMaxPeriod.Maximum = new decimal(new int[] {
+            -1,
+            -1,
+            -1,
+            0});
+            this.nudMaxPeriod.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nudMaxPeriod.Name = "nudMaxPeriod";
+            this.nudMaxPeriod.Size = new System.Drawing.Size(175, 20);
+            this.nudMaxPeriod.TabIndex = 0;
+            this.nudMaxPeriod.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.nudMaxPeriod.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // pIdSelect
             // 
@@ -129,7 +176,7 @@ namespace MeteoStation.Controls
             this.pIdSelect.Margin = new System.Windows.Forms.Padding(0);
             this.pIdSelect.Name = "pIdSelect";
             this.pIdSelect.Size = new System.Drawing.Size(264, 43);
-            this.pIdSelect.TabIndex = 6;
+            this.pIdSelect.TabIndex = 0;
             // 
             // cbIdSelect
             // 
@@ -138,7 +185,7 @@ namespace MeteoStation.Controls
             this.cbIdSelect.Location = new System.Drawing.Point(86, 11);
             this.cbIdSelect.Name = "cbIdSelect";
             this.cbIdSelect.Size = new System.Drawing.Size(175, 21);
-            this.cbIdSelect.TabIndex = 2;
+            this.cbIdSelect.TabIndex = 0;
             this.cbIdSelect.DropDown += new System.EventHandler(this.cbIdSelect_DropDown);
             this.cbIdSelect.DropDownClosed += new System.EventHandler(this.cbIdSelect_DropDownClosed);
             // 
@@ -162,7 +209,7 @@ namespace MeteoStation.Controls
             this.pCritMin.Margin = new System.Windows.Forms.Padding(0);
             this.pCritMin.Name = "pCritMin";
             this.pCritMin.Size = new System.Drawing.Size(264, 43);
-            this.pCritMin.TabIndex = 1;
+            this.pCritMin.TabIndex = 5;
             // 
             // lCritMin
             // 
@@ -170,7 +217,7 @@ namespace MeteoStation.Controls
             this.lCritMin.Location = new System.Drawing.Point(0, 0);
             this.lCritMin.Name = "lCritMin";
             this.lCritMin.Size = new System.Drawing.Size(80, 43);
-            this.lCritMin.TabIndex = 3;
+            this.lCritMin.TabIndex = 1;
             this.lCritMin.Text = "Critical Min :";
             this.lCritMin.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -190,7 +237,7 @@ namespace MeteoStation.Controls
             -2147483648});
             this.nudCritMin.Name = "nudCritMin";
             this.nudCritMin.Size = new System.Drawing.Size(175, 20);
-            this.nudCritMin.TabIndex = 1;
+            this.nudCritMin.TabIndex = 0;
             this.nudCritMin.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // pWarnMin
@@ -211,7 +258,7 @@ namespace MeteoStation.Controls
             this.lWarnMin.Location = new System.Drawing.Point(0, 0);
             this.lWarnMin.Name = "lWarnMin";
             this.lWarnMin.Size = new System.Drawing.Size(80, 43);
-            this.lWarnMin.TabIndex = 3;
+            this.lWarnMin.TabIndex = 1;
             this.lWarnMin.Text = "Warning Min :";
             this.lWarnMin.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -231,7 +278,7 @@ namespace MeteoStation.Controls
             -2147483648});
             this.nudWarnMin.Name = "nudWarnMin";
             this.nudWarnMin.Size = new System.Drawing.Size(175, 20);
-            this.nudWarnMin.TabIndex = 1;
+            this.nudWarnMin.TabIndex = 0;
             this.nudWarnMin.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // pStatus
@@ -251,7 +298,7 @@ namespace MeteoStation.Controls
             this.lConfigStatus.Location = new System.Drawing.Point(0, 0);
             this.lConfigStatus.Name = "lConfigStatus";
             this.lConfigStatus.Size = new System.Drawing.Size(264, 43);
-            this.lConfigStatus.TabIndex = 3;
+            this.lConfigStatus.TabIndex = 0;
             this.lConfigStatus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // pWarnMax
@@ -272,7 +319,7 @@ namespace MeteoStation.Controls
             this.lWarnMax.Location = new System.Drawing.Point(0, 0);
             this.lWarnMax.Name = "lWarnMax";
             this.lWarnMax.Size = new System.Drawing.Size(80, 43);
-            this.lWarnMax.TabIndex = 2;
+            this.lWarnMax.TabIndex = 1;
             this.lWarnMax.Text = "Warning Max :";
             this.lWarnMax.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -292,7 +339,7 @@ namespace MeteoStation.Controls
             -2147483648});
             this.nudWarnMax.Name = "nudWarnMax";
             this.nudWarnMax.Size = new System.Drawing.Size(175, 20);
-            this.nudWarnMax.TabIndex = 1;
+            this.nudWarnMax.TabIndex = 0;
             this.nudWarnMax.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // pCritMax
@@ -305,7 +352,7 @@ namespace MeteoStation.Controls
             this.pCritMax.Margin = new System.Windows.Forms.Padding(0);
             this.pCritMax.Name = "pCritMax";
             this.pCritMax.Size = new System.Drawing.Size(264, 43);
-            this.pCritMax.TabIndex = 0;
+            this.pCritMax.TabIndex = 1;
             // 
             // lCritMax
             // 
@@ -336,53 +383,6 @@ namespace MeteoStation.Controls
             this.nudCritMax.TabIndex = 0;
             this.nudCritMax.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
-            // pExpiration
-            // 
-            this.pExpiration.BackColor = System.Drawing.Color.Brown;
-            this.pExpiration.Controls.Add(this.lMaxPeriod);
-            this.pExpiration.Controls.Add(this.nudMaxPeriod);
-            this.pExpiration.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pExpiration.Location = new System.Drawing.Point(0, 258);
-            this.pExpiration.Margin = new System.Windows.Forms.Padding(0);
-            this.pExpiration.Name = "pExpiration";
-            this.pExpiration.Size = new System.Drawing.Size(264, 45);
-            this.pExpiration.TabIndex = 7;
-            // 
-            // lMaxPeriod
-            // 
-            this.lMaxPeriod.Dock = System.Windows.Forms.DockStyle.Left;
-            this.lMaxPeriod.ForeColor = System.Drawing.Color.White;
-            this.lMaxPeriod.Location = new System.Drawing.Point(0, 0);
-            this.lMaxPeriod.Name = "lMaxPeriod";
-            this.lMaxPeriod.Size = new System.Drawing.Size(80, 45);
-            this.lMaxPeriod.TabIndex = 3;
-            this.lMaxPeriod.Text = "Max Period :";
-            this.lMaxPeriod.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // nudMaxPeriod
-            // 
-            this.nudMaxPeriod.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.nudMaxPeriod.Location = new System.Drawing.Point(86, 13);
-            this.nudMaxPeriod.Maximum = new decimal(new int[] {
-            -1,
-            -1,
-            -1,
-            0});
-            this.nudMaxPeriod.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.nudMaxPeriod.Name = "nudMaxPeriod";
-            this.nudMaxPeriod.Size = new System.Drawing.Size(175, 20);
-            this.nudMaxPeriod.TabIndex = 1;
-            this.nudMaxPeriod.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.nudMaxPeriod.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
             // AlarmConfigControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -394,6 +394,8 @@ namespace MeteoStation.Controls
             this.Name = "AlarmConfigControl";
             this.Size = new System.Drawing.Size(264, 394);
             this.tlpRows.ResumeLayout(false);
+            this.pExpiration.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.nudMaxPeriod)).EndInit();
             this.pIdSelect.ResumeLayout(false);
             this.pCritMin.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.nudCritMin)).EndInit();
@@ -404,8 +406,6 @@ namespace MeteoStation.Controls
             ((System.ComponentModel.ISupportInitialize)(this.nudWarnMax)).EndInit();
             this.pCritMax.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.nudCritMax)).EndInit();
-            this.pExpiration.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.nudMaxPeriod)).EndInit();
             this.ResumeLayout(false);
 
         }
