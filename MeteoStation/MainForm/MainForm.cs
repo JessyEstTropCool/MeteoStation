@@ -57,6 +57,11 @@ namespace MeteoStation
             ShowPrompt("Welcome !", 5);
         }
 
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Files.ConfigFiles.SaveConfigs();
+        }
+
         internal void ShowPrompt(string text, int length)
         {
             tsslPrompt.Text = text;
@@ -308,5 +313,4 @@ namespace MeteoStation
             dgv.DataSource = dt;
         }
     }
-
-    }
+}
