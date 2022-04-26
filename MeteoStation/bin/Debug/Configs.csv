@@ -1,2 +1,5 @@
-5;-40;80;-20;0;40;60;10
-7;0;10000;0;0;0;0;10
+MeteoStation_Measure_Config_File
+ID; LowLimit; HighLimit; CriticalMin; WarningMin; WarningMax; CriticalMax; AlarmMaxPeriod
+start
+3;0;10000;0;0;0;0;10
+end
