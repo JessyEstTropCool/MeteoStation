@@ -92,33 +92,5 @@ namespace MeteoStation.Data
                 Unit = unit;
             }
         }
-
-        //Représente la configuration d'une mesure, sans être lié à une en particulier, sert a appliqué les configs prit de fichiers
-        internal class MeasureConfig
-        {
-            internal int LowLimit = 0; 
-            internal int HighLimit = 0;
-            internal uint AlarmMaxPeriod = 10; 
-            internal int WarningMin = 0;         //User Alarm
-            internal int CriticalMin = 0;        //User Alarm
-            internal int WarningMax = 0;         //User Alarm
-            internal int CriticalMax = 0;         //User Alarm
-
-            internal MeasureConfig()
-            {
-
-            }
-
-            internal void ApplyConfig(Measure measure)
-            {
-                measure.LowLimit = LowLimit;
-                measure.HighLimit = HighLimit;
-                measure.AlarmMaxPeriod = AlarmMaxPeriod;
-                measure.WarningMin = WarningMin;
-                measure.CriticalMin = CriticalMin;
-                measure.WarningMax = WarningMax;
-                measure.CriticalMax = CriticalMax;
-            }
-        }
     }
 }

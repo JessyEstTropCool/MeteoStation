@@ -29,6 +29,8 @@ namespace MeteoStation
 
             tsslPrompt.Text = "";
 
+            Files.ConfigFiles.LoadConfigs();
+
             spSensorData.DataReceived += new SerialDataReceivedEventHandler(SerialPortHandler.Reception.RecieveData);
         }
 

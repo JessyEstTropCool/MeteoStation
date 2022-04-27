@@ -237,7 +237,7 @@ namespace MeteoStation
             this.pMainCointainer.Location = new System.Drawing.Point(12, 28);
             this.pMainCointainer.Name = "pMainCointainer";
             this.pMainCointainer.Padding = new System.Windows.Forms.Padding(1);
-            this.pMainCointainer.Size = new System.Drawing.Size(512, 428);
+            this.pMainCointainer.Size = new System.Drawing.Size(512, 424);
             this.pMainCointainer.TabIndex = 9;
             // 
             // pMainControl
@@ -245,7 +245,7 @@ namespace MeteoStation
             this.pMainControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pMainControl.Location = new System.Drawing.Point(1, 28);
             this.pMainControl.Name = "pMainControl";
-            this.pMainControl.Size = new System.Drawing.Size(510, 399);
+            this.pMainControl.Size = new System.Drawing.Size(510, 395);
             this.pMainControl.TabIndex = 10;
             // 
             // pHeader
@@ -290,7 +290,7 @@ namespace MeteoStation
             this.pConfigControl.Location = new System.Drawing.Point(530, 159);
             this.pConfigControl.Name = "pConfigControl";
             this.pConfigControl.Padding = new System.Windows.Forms.Padding(1);
-            this.pConfigControl.Size = new System.Drawing.Size(242, 297);
+            this.pConfigControl.Size = new System.Drawing.Size(242, 293);
             this.pConfigControl.TabIndex = 10;
             // 
             // lCredits
@@ -324,6 +324,7 @@ namespace MeteoStation
             this.tsslPrompt,
             this.tsslVersion});
             this.ssInfo.Location = new System.Drawing.Point(0, 457);
+            this.ssInfo.Margin = new System.Windows.Forms.Padding(0, 2, 0, 0);
             this.ssInfo.Name = "ssInfo";
             this.ssInfo.Size = new System.Drawing.Size(784, 24);
             this.ssInfo.SizingGrip = false;
@@ -349,7 +350,7 @@ namespace MeteoStation
             // 
             this.tsslPrompt.ForeColor = System.Drawing.Color.White;
             this.tsslPrompt.Name = "tsslPrompt";
-            this.tsslPrompt.Size = new System.Drawing.Size(488, 19);
+            this.tsslPrompt.Size = new System.Drawing.Size(519, 19);
             this.tsslPrompt.Spring = true;
             this.tsslPrompt.Text = "This is information";
             // 

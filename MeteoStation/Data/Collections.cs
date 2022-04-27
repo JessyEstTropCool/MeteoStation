@@ -15,7 +15,6 @@ namespace MeteoStation.Data
         internal static Queue<byte> SerialBuffer { get; set; } = new Queue<byte>();
         internal static ArrayList ObjectList { get; set; } = new ArrayList();
         internal static Dictionary<int, SensorData.MeasureType> TypeDict { get; set; } = new Dictionary<int, SensorData.MeasureType>();
-        internal static Dictionary<int, SensorData.MeasureConfig> LoadedConfigs { get; set; } = new Dictionary<int, SensorData.MeasureConfig>();
 
         //met les infos des measures de la liste sur la table
         internal static void UpdateMeasureTable(DataGridView dgv)
