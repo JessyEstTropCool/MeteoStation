@@ -55,7 +55,7 @@ namespace MeteoStation.Files
                 {
                     string line = "";
 
-                    if (reader.ReadLine() == CONFIG_FILE_HEADER && reader.ReadLine() == CONFIG_FILE_CONTENT_DESC)
+                    if (!reader.EndOfStream && reader.ReadLine() == CONFIG_FILE_HEADER && !reader.EndOfStream && reader.ReadLine() == CONFIG_FILE_CONTENT_DESC)
                     {
                         while (reader.Peek() >= 0 && reader.ReadLine() != START_READ) ;
 
@@ -88,13 +88,22 @@ namespace MeteoStation.Files
                                 "\nMaxPeriod : " + csv[8]);*/
                         }
                     }
+                    else MessageBox.Show("Le fichier est corrompu", "Erreur de fichier", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                     reader.Close();
                 }
             }
+            catch (FileNotFoundException e)
+            {
+                MessageBox.Show(e.Message, "Erreur de fichier", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (IOException e)
+            {
+                MessageBox.Show(e.Message, "Erreur de fichier", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
             catch (Exception e)
             {
-                e.Message
+                MessageBox.Show(e.Message, "Erreur de fichier", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

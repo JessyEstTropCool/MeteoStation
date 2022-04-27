@@ -1,4 +1,0 @@
-MeteoStation_Measure_Config_File
-ID; LowLimit; HighLimit; CriticalMin; WarningMin; WarningMax; CriticalMax; AlarmMaxPeriod
-start
-end
