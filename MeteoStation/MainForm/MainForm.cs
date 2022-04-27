@@ -16,9 +16,9 @@ namespace MeteoStation
     {
         Control mainControl = null, configControl = null;
 
-        AccountConfigControl myAccount = new AccountConfigControl();
+        AccountConfigControl myAccount ;
 
-        AccountControl AccountControl = new AccountControl();
+        AccountControl AccountControl ;
 
         DataTable myTable = new DataTable();
 
@@ -26,10 +26,6 @@ namespace MeteoStation
         {
             InitializeComponent();
 
-            AccountControl.dataUsersAccounts.Columns.Add("Username", typeof(string));
-            AccountControl.dataUsersAccounts.Columns.Add("Password", typeof(string));
-
-            AccountControl.dataGridViewAccount.DataSource = AccountControl.dataUsersAccounts;
 
             tsslPrompt.Text = "";
 
@@ -225,6 +221,13 @@ namespace MeteoStation
         private void tsbAccounts_Click(object sender, EventArgs e)
         {
             //Attention on peut l'ouvrir qu'une fois car le clearPanels détruit tout
+            myAccount = new AccountConfigControl();
+            AccountControl = new AccountControl();
+
+            AccountControl.dataUsersAccounts.Columns.Add("Username", typeof(string));
+            AccountControl.dataUsersAccounts.Columns.Add("Password", typeof(string));
+
+            AccountControl.dataGridViewAccount.DataSource = AccountControl.dataUsersAccounts;
             SetHeader(sender);
             ClearPanels();
             SetMainControl(AccountControl);
