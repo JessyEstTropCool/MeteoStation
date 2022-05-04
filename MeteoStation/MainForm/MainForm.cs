@@ -30,16 +30,19 @@ namespace MeteoStation
             tsslPrompt.Text = "";
 
             Files.ConfigFiles.LoadConfigs();
+            Task.Run(() => Data.WebConnection.GetNewToken());
 
             spSensorData.DataReceived += new SerialDataReceivedEventHandler(SerialPortHandler.Reception.RecieveData);
+            timerDequeue.Tick += new System.EventHandler(Data.WebConnection.SendDataToServer);
         }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
             //Dans le futur a prendre d'un fichier voire la db
-            Data.Collections.TypeDict.Add(1, new Data.SensorData.MeasureType("CO²", "ppm"));
+            /*Data.Collections.TypeDict.Add(1, new Data.SensorData.MeasureType("CO²", "ppm"));
             Data.Collections.TypeDict.Add(2, new Data.SensorData.MeasureType("Température", "°C"));
-            Data.Collections.TypeDict.Add(3, new Data.SensorData.MeasureType("Humidité", "%"));
+            Data.Collections.TypeDict.Add(3, new Data.SensorData.MeasureType("Humidité", "%"));*/
+            Task.Run(() => Data.WebConnection.GetTypes()); 
 
             if (SerialPort.GetPortNames().Length > 0)
             {
@@ -308,6 +311,15 @@ namespace MeteoStation
         private void textBoxHidePasswordByAChar(TextBox txtbox, Char caractere)
         {
             txtbox.PasswordChar = caractere;
+        }
+
+        private void tsmiExport_Click(object sender, EventArgs e)
+        {
+            saveFileDialog1.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK )
+            {
+                MessageBox.Show(saveFileDialog1.FileName);
+            }
         }
 
         private void updateDGV(DataTable dt, DataGridView dgv,string username, string password)

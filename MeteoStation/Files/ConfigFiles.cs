@@ -49,61 +49,64 @@ namespace MeteoStation.Files
         //On load c tout
         internal static void LoadConfigs()
         {
-            try
+            if ( File.Exists(CONFIG_FILENAME) )
             {
-                using (StreamReader reader = new StreamReader(CONFIG_FILENAME))
+                try
                 {
-                    string line = "";
-
-                    if (!reader.EndOfStream && reader.ReadLine() == CONFIG_FILE_HEADER && !reader.EndOfStream && reader.ReadLine() == CONFIG_FILE_CONTENT_DESC)
+                    using (StreamReader reader = new StreamReader(CONFIG_FILENAME))
                     {
-                        while (reader.Peek() >= 0 && reader.ReadLine() != START_READ) ;
+                        string line = "";
 
-                        while ((line = reader.ReadLine()) != null && line != END_READ)
+                        if (!reader.EndOfStream && reader.ReadLine() == CONFIG_FILE_HEADER && !reader.EndOfStream && reader.ReadLine() == CONFIG_FILE_CONTENT_DESC)
                         {
-                            string[] csv = line.Split(';');
-                            SensorData.Measure measure = new SensorData.Measure();
+                            while (reader.Peek() >= 0 && reader.ReadLine() != START_READ) ;
 
-                            measure.id = byte.Parse(csv[0]);
-                            measure.type = byte.Parse(csv[1]);
+                            while ((line = reader.ReadLine()) != null && line != END_READ)
+                            {
+                                string[] csv = line.Split(';');
+                                SensorData.Measure measure = new SensorData.Measure();
 
-                            measure.LowLimit = int.Parse(csv[2]);
-                            measure.HighLimit = int.Parse(csv[3]);
-                            measure.CriticalMin = int.Parse(csv[4]);
-                            measure.WarningMin = int.Parse(csv[5]);
-                            measure.WarningMax = int.Parse(csv[6]);
-                            measure.CriticalMax = int.Parse(csv[7]);
-                            measure.AlarmMaxPeriod = uint.Parse(csv[8]);
+                                measure.id = byte.Parse(csv[0]);
+                                measure.type = byte.Parse(csv[1]);
 
-                            SerialPortHandler.Reception.AddToList(measure);
+                                measure.LowLimit = int.Parse(csv[2]);
+                                measure.HighLimit = int.Parse(csv[3]);
+                                measure.CriticalMin = int.Parse(csv[4]);
+                                measure.WarningMin = int.Parse(csv[5]);
+                                measure.WarningMax = int.Parse(csv[6]);
+                                measure.CriticalMax = int.Parse(csv[7]);
+                                measure.AlarmMaxPeriod = uint.Parse(csv[8]);
 
-                            /*MessageBox.Show("ID : " + csv[0] +
-                                "\nType : " + csv[1] +
-                                "\nLowLimit : " + csv[2] +
-                                "\nHighLimit : " + csv[3] +
-                                "\nCriticalMin : " + csv[4] +
-                                "\nWarningMin : " + csv[5] +
-                                "\nWarningMax : " + csv[6] +
-                                "\nCriticalMax : " + csv[7] +
-                                "\nMaxPeriod : " + csv[8]);*/
+                                SerialPortHandler.Reception.AddToList(measure);
+
+                                /*MessageBox.Show("ID : " + csv[0] +
+                                    "\nType : " + csv[1] +
+                                    "\nLowLimit : " + csv[2] +
+                                    "\nHighLimit : " + csv[3] +
+                                    "\nCriticalMin : " + csv[4] +
+                                    "\nWarningMin : " + csv[5] +
+                                    "\nWarningMax : " + csv[6] +
+                                    "\nCriticalMax : " + csv[7] +
+                                    "\nMaxPeriod : " + csv[8]);*/
+                            }
                         }
-                    }
-                    else MessageBox.Show("Le fichier est corrompu", "Erreur de fichier", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        else MessageBox.Show("Le fichier est corrompu", "Erreur de fichier", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-                    reader.Close();
+                        reader.Close();
+                    }
                 }
-            }
-            catch (FileNotFoundException e)
-            {
-                MessageBox.Show(e.Message, "Erreur de fichier", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            catch (IOException e)
-            {
-                MessageBox.Show(e.Message, "Erreur de fichier", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show(e.Message, "Erreur de fichier", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                /*catch (FileNotFoundException e)
+                {
+                    MessageBox.Show(e.Message, "Erreur de fichier", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }*/
+                catch (IOException e)
+                {
+                    MessageBox.Show("Could not be loaded : "+e.Message, "Erreur de fichier", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.Message, "Erreur de fichier", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
     }
