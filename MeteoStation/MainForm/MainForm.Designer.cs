@@ -58,19 +58,21 @@ namespace MeteoStation
             this.pbIcon = new System.Windows.Forms.PictureBox();
             this.pConfigControl = new System.Windows.Forms.Panel();
             this.lCredits = new System.Windows.Forms.Label();
-            this.pbLogo = new System.Windows.Forms.PictureBox();
             this.ssInfo = new System.Windows.Forms.StatusStrip();
             this.tsslTemps = new System.Windows.Forms.ToolStripStatusLabel();
             this.tsslErrors = new System.Windows.Forms.ToolStripStatusLabel();
             this.tsslPrompt = new System.Windows.Forms.ToolStripStatusLabel();
             this.tsslVersion = new System.Windows.Forms.ToolStripStatusLabel();
-            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.sfdSaveConfig = new System.Windows.Forms.SaveFileDialog();
+            this.pbLogo = new System.Windows.Forms.PictureBox();
+            this.tsmiImport = new System.Windows.Forms.ToolStripMenuItem();
+            this.ofdLoadConfig = new System.Windows.Forms.OpenFileDialog();
             this.tsViews.SuspendLayout();
             this.pMainCointainer.SuspendLayout();
             this.pHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbIcon)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbLogo)).BeginInit();
             this.ssInfo.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbLogo)).BeginInit();
             this.SuspendLayout();
             // 
             // spSensorData
@@ -233,19 +235,21 @@ namespace MeteoStation
             // tsddbSave
             // 
             this.tsddbSave.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.tsddbSave.BackColor = System.Drawing.Color.White;
             this.tsddbSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.tsddbSave.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmiExport});
-            this.tsddbSave.Image = ((System.Drawing.Image)(resources.GetObject("tsddbSave.Image")));
+            this.tsmiExport,
+            this.tsmiImport});
+            this.tsddbSave.Image = global::MeteoStation.Properties.Resources.Saving;
             this.tsddbSave.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsddbSave.Name = "tsddbSave";
             this.tsddbSave.Size = new System.Drawing.Size(29, 22);
-            this.tsddbSave.Text = "toolStripDropDownButton1";
+            this.tsddbSave.Text = "Configuration";
             // 
             // tsmiExport
             // 
             this.tsmiExport.Name = "tsmiExport";
-            this.tsmiExport.Size = new System.Drawing.Size(185, 22);
+            this.tsmiExport.Size = new System.Drawing.Size(187, 22);
             this.tsmiExport.Text = "Export Configuration";
             this.tsmiExport.Click += new System.EventHandler(this.tsmiExport_Click);
             // 
@@ -326,18 +330,6 @@ namespace MeteoStation
             this.lCredits.Text = "Made by :\r\nAdam Jessy, Afkir Ridwane et Bah Abdoulaye";
             this.lCredits.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // pbLogo
-            // 
-            this.pbLogo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.pbLogo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.pbLogo.Image = global::MeteoStation.Properties.Resources.HELB_Logo;
-            this.pbLogo.Location = new System.Drawing.Point(530, 28);
-            this.pbLogo.Name = "pbLogo";
-            this.pbLogo.Size = new System.Drawing.Size(242, 85);
-            this.pbLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pbLogo.TabIndex = 11;
-            this.pbLogo.TabStop = false;
-            // 
             // ssInfo
             // 
             this.ssInfo.BackColor = System.Drawing.Color.Black;
@@ -385,11 +377,35 @@ namespace MeteoStation
             this.tsslVersion.Text = "Version 2.0";
             this.tsslVersion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // saveFileDialog1
+            // sfdSaveConfig
             // 
-            this.saveFileDialog1.DefaultExt = "csv";
-            this.saveFileDialog1.Filter = "Fichier CSV (*.csv)|*.csv";
-            this.saveFileDialog1.Title = "Meteo Station";
+            this.sfdSaveConfig.DefaultExt = "csv";
+            this.sfdSaveConfig.Filter = "Fichier CSV (*.csv)|*.csv";
+            // 
+            // pbLogo
+            // 
+            this.pbLogo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.pbLogo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.pbLogo.Image = global::MeteoStation.Properties.Resources.HELB_Logo;
+            this.pbLogo.Location = new System.Drawing.Point(530, 28);
+            this.pbLogo.Name = "pbLogo";
+            this.pbLogo.Size = new System.Drawing.Size(242, 85);
+            this.pbLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbLogo.TabIndex = 11;
+            this.pbLogo.TabStop = false;
+            // 
+            // tsmiImport
+            // 
+            this.tsmiImport.Name = "tsmiImport";
+            this.tsmiImport.Size = new System.Drawing.Size(187, 22);
+            this.tsmiImport.Text = "Import Configuration";
+            this.tsmiImport.Click += new System.EventHandler(this.tsmiImport_Click);
+            // 
+            // ofdLoadConfig
+            // 
+            this.ofdLoadConfig.DefaultExt = "csv";
+            this.ofdLoadConfig.FileName = "Config.csv";
+            this.ofdLoadConfig.Filter = "Fichier CSV (*.csv)|*.csv";
             // 
             // MainForm
             // 
@@ -414,9 +430,9 @@ namespace MeteoStation
             this.pMainCointainer.ResumeLayout(false);
             this.pHeader.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pbIcon)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbLogo)).EndInit();
             this.ssInfo.ResumeLayout(false);
             this.ssInfo.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbLogo)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -456,7 +472,9 @@ namespace MeteoStation
         private System.Windows.Forms.ToolStripStatusLabel tsslErrors;
         private System.Windows.Forms.ToolStripDropDownButton tsddbSave;
         private System.Windows.Forms.ToolStripMenuItem tsmiExport;
-        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.SaveFileDialog sfdSaveConfig;
+        private System.Windows.Forms.ToolStripMenuItem tsmiImport;
+        private System.Windows.Forms.OpenFileDialog ofdLoadConfig;
     }
 }
 

@@ -121,22 +121,25 @@
   <data name="Measures" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Images\Measures.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="HELB Logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\HELB Logo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Accounts" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\Accounts.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Graphs" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\Graphs.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Alarms" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Images\Alarms.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Connection" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Images\Connection.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Accounts" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Images\Accounts.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Calibration" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Images\Calibration.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Graphs" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Images\Graphs.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="HELB Logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Images\HELB Logo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Saving" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\Saving.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

@@ -19,7 +19,12 @@ namespace MeteoStation.Files
         //Enregistre les configuration des mesures qui l'ont été ainsi que les configuration du fichier qui n'ont pas été appliquées
         internal static void SaveConfigs()
         {
-            using (StreamWriter writer = new StreamWriter(CONFIG_FILENAME, false))
+            ExportConfigs(CONFIG_FILENAME);
+        }
+
+        internal static void ExportConfigs(string filename)
+        {
+            using (StreamWriter writer = new StreamWriter(filename, false))
             {
                 List<int> ids = new List<int>();
 
@@ -27,7 +32,7 @@ namespace MeteoStation.Files
                     CONFIG_FILE_CONTENT_DESC + Environment.NewLine +
                     START_READ + Environment.NewLine);
 
-                foreach ( SensorData.Base obj in Collections.ObjectList )
+                foreach (SensorData.Base obj in Collections.ObjectList)
                 {
                     if (obj.id != 0)
                     {
@@ -36,7 +41,7 @@ namespace MeteoStation.Files
                         ids.Add(measure.id);
 
                         if (measure.IsConfigured()) writer.Write(measure.id + ";" + measure.type + ";" + measure.LowLimit + ";" + measure.HighLimit + ";" +
-                            measure.CriticalMin + ";" +measure.WarningMin + ";" + measure.WarningMax + ";" + measure.CriticalMax + ";" +
+                            measure.CriticalMin + ";" + measure.WarningMin + ";" + measure.WarningMax + ";" + measure.CriticalMax + ";" +
                             measure.AlarmMaxPeriod + Environment.NewLine);
                     }
                 }
@@ -46,14 +51,31 @@ namespace MeteoStation.Files
             }
         }
 
-        //On load c tout
+        internal static void ImportConfigs(string filename)
+        {
+            if (File.Exists(filename))
+            {
+                ApplyConfigs(filename);
+            }
+            else MessageBox.Show("Ce fichier n'existe pas", "Erreur de fichier", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
         internal static void LoadConfigs()
         {
-            if ( File.Exists(CONFIG_FILENAME) )
+            if (File.Exists(CONFIG_FILENAME))
+            {
+                ApplyConfigs(CONFIG_FILENAME);
+            }
+        }
+
+        //On load c tout
+        internal static void ApplyConfigs(string filename)
+        {
+            if ( File.Exists(filename) )
             {
                 try
                 {
-                    using (StreamReader reader = new StreamReader(CONFIG_FILENAME))
+                    using (StreamReader reader = new StreamReader(filename))
                     {
                         string line = "";
 

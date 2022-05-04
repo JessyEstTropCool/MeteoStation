@@ -130,6 +130,27 @@ namespace MeteoStation
             }
         }
 
+        //Demande l'exportation de la configuration là ou l'utilisateur le demande avec sfdSaveConfig
+        private void tsmiExport_Click(object sender, EventArgs e)
+        {
+            sfdSaveConfig.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            if (sfdSaveConfig.ShowDialog() == DialogResult.OK)
+            {
+                Files.ConfigFiles.ExportConfigs(sfdSaveConfig.FileName);
+                ShowPrompt("Le fichier a été enregistré", 5);
+            }
+        }
+
+        private void tsmiImport_Click(object sender, EventArgs e)
+        {
+            ofdLoadConfig.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            if (ofdLoadConfig.ShowDialog() == DialogResult.OK)
+            {
+                Files.ConfigFiles.ImportConfigs(ofdLoadConfig.FileName);
+                MessageBox.Show(ofdLoadConfig.FileName);
+            }
+        }
+
         //On retire tout ce qu'il y a dans les pânels pour faire place au autres usercontrol
         private void ClearPanels()
         {
@@ -311,15 +332,6 @@ namespace MeteoStation
         private void textBoxHidePasswordByAChar(TextBox txtbox, Char caractere)
         {
             txtbox.PasswordChar = caractere;
-        }
-
-        private void tsmiExport_Click(object sender, EventArgs e)
-        {
-            saveFileDialog1.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            if (saveFileDialog1.ShowDialog() == DialogResult.OK )
-            {
-                MessageBox.Show(saveFileDialog1.FileName);
-            }
         }
 
         private void updateDGV(DataTable dt, DataGridView dgv,string username, string password)
