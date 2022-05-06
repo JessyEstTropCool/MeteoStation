@@ -38,10 +38,11 @@ namespace MeteoStation
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            //Dans le futur a prendre d'un fichier voire la db
-            /*Data.Collections.TypeDict.Add(1, new Data.SensorData.MeasureType("CO²", "ppm"));
+            //En attendant de récupérer les types de la db on a déjà ceux du cahier de charges
+            Data.Collections.TypeDict.Add(1, new Data.SensorData.MeasureType("CO²", "ppm"));
             Data.Collections.TypeDict.Add(2, new Data.SensorData.MeasureType("Température", "°C"));
-            Data.Collections.TypeDict.Add(3, new Data.SensorData.MeasureType("Humidité", "%"));*/
+            Data.Collections.TypeDict.Add(3, new Data.SensorData.MeasureType("Humidité", "%"));
+
             Task.Run(() => Data.WebConnection.GetTypes()); 
 
             if (SerialPort.GetPortNames().Length > 0)

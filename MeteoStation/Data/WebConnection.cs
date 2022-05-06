@@ -14,13 +14,14 @@ namespace MeteoStation.Data
     {
         private static readonly HttpClient client = new HttpClient();
         private static readonly TimeSpan sendingInterval = new TimeSpan(0, 0, 30);
+        private static readonly string baseAddress = "http://localhost:8000/";
 
         private static DateTime lastSent = DateTime.Now;
         private static string csrf = "";
 
         internal static async Task GetNewToken()
         {
-            HttpResponseMessage response = await client.GetAsync("http://localhost:8000/api/post/valeur");
+            HttpResponseMessage response = await client.GetAsync(baseAddress + "api/post/valeur");
             string responseString = await response.Content.ReadAsStringAsync();
 
             getCSRF(response.StatusCode, responseString);
@@ -28,25 +29,33 @@ namespace MeteoStation.Data
 
         internal static void SendDataToServer(object sender, EventArgs e)
         {
-            /*if ( DateTime.Now - lastSent > sendingInterval )
+            if ( DateTime.Now - lastSent > sendingInterval )
             {
-                Dictionary<string, string> values = new Dictionary<string, string>
-                {
-                    { "valeur", ((Data.SensorData.Measure)Data.Collections.ObjectList[1]).data.ToString() },
-                    { "id_capteur", "1" },
-                    { "csrfmiddlewaretoken", csrf }
-                };
+                string args = "";
 
-                Task.Run(() => SendPostRequest(values));
+                foreach (SensorData.Base obj in Collections.ObjectList)
+                {
+                    if (obj.id != 0)
+                    {
+                        SensorData.Measure m = (SensorData.Measure)obj;
+
+                        if ( m.IsConfigured() && m.moment > lastSent )
+                        {
+                            args += "&id[]=" + m.id + "&serial[]=" + m.serial + "&value[]=" + m.ConvertedData;
+                        }
+                    }
+                }
+
+                if ( args != "" )
+                    Task.Run(() => SendValuesRequest(args.Substring(1)));
                 
                 lastSent = DateTime.Now;
-            }*/
+            }
         }
 
-        private static async Task SendPostRequest(Dictionary<string, string> values)
+        private static async Task SendValuesRequest(string args)
         {
-            FormUrlEncodedContent postParams = new FormUrlEncodedContent(values);
-            HttpResponseMessage response = await client.PostAsync("http://localhost:8000/api/post/valeur", postParams);
+            HttpResponseMessage response = await client.GetAsync(baseAddress + "api/post/multivalue?" + args);
             string responseString = await response.Content.ReadAsStringAsync();
 
             getCSRF(response.StatusCode, responseString);
@@ -76,11 +85,12 @@ namespace MeteoStation.Data
 
         internal static async Task GetTypes()
         {
-            HttpResponseMessage response = await client.GetAsync("http://localhost:8000/api/type/");
+            HttpResponseMessage response = await client.GetAsync(baseAddress + "api/type/");
             string responseString = await response.Content.ReadAsStringAsync();
 
             if (response.StatusCode == HttpStatusCode.OK)
             {
+                Dictionary<int, SensorData.MeasureType> tempDict = new Dictionary<int, SensorData.MeasureType>();
                 JavaScriptSerializer js = new JavaScriptSerializer();
                 DBTypes typesJson = js.Deserialize<DBTypes>(responseString);
 
@@ -89,12 +99,8 @@ namespace MeteoStation.Data
                     Data.Collections.TypeDict.Add(type.id, new Data.SensorData.MeasureType(type.nom, type.unite));
                     //Task.Run(() => MessageBox.Show(type.id + " : " + type.nom + " (" + type.unite + ")"));
                 }
-            }
-            else
-            {
-                Data.Collections.TypeDict.Add(1, new Data.SensorData.MeasureType("CO²", "ppm"));
-                Data.Collections.TypeDict.Add(2, new Data.SensorData.MeasureType("Température", "°C"));
-                Data.Collections.TypeDict.Add(3, new Data.SensorData.MeasureType("Humidité", "%"));
+
+                Data.Collections.TypeDict = tempDict;
             }
         }
     }

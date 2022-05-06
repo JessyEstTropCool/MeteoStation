@@ -16,6 +16,14 @@ namespace MeteoStation.Data
         internal static ArrayList ObjectList { get; set; } = new ArrayList();
         internal static Dictionary<int, SensorData.MeasureType> TypeDict { get; set; } = new Dictionary<int, SensorData.MeasureType>();
 
+        internal static SensorData.MeasureType GetType(int index)
+        {
+            if (TypeDict.ContainsKey(index))
+                return TypeDict[index];
+            else
+                return new SensorData.MeasureType("Type " + index, "?");
+        }
+
         //met les infos des measures de la liste sur la table
         internal static void UpdateMeasureTable(DataGridView dgv)
         {
@@ -34,13 +42,13 @@ namespace MeteoStation.Data
                     {
                         if (measure.HasAlarms()) config = "Done";
                         else config = "Basic";
-                        data = measure.ConvertedData + " " + TypeDict[measure.type].Unit;
+                        data = measure.ConvertedData + " " + GetType(measure.type).Unit;
                     }
 
                     dt.Rows.Add(new object[] {
                         obj.id,
                         config,
-                        TypeDict[obj.type].Name,// + " (" + obj.type + ")",
+                        GetType(obj.type).Name,// + " (" + obj.type + ")",
                         data,
                         (int)((DateTime.Now - obj.moment).TotalSeconds) + " sec",
                         measure.GetStatus()
@@ -144,7 +152,7 @@ namespace MeteoStation.Data
                 mcc.ID = int.Parse((string)mcc.SelectedItem);
                 measure = GetMeasure(mcc.ID);
 
-                mcc.UpdateInfo(measure.LowLimit, measure.HighLimit, TypeDict[measure.type].Name, TypeDict[measure.type].Unit, measure.IsConfigured());
+                mcc.UpdateInfo(measure.LowLimit, measure.HighLimit, GetType(measure.type).Name, GetType(measure.type).Unit, measure.IsConfigured());
             }
         }
 
@@ -177,7 +185,7 @@ namespace MeteoStation.Data
                 measure = GetMeasure(mcc.ID);
 
                 SetBasicConfiguration(mcc.ID, mcc.Min, mcc.Max);
-                mcc.UpdateInfo(measure.LowLimit, measure.HighLimit, TypeDict[measure.type].Name, TypeDict[measure.type].Unit, measure.IsConfigured());
+                mcc.UpdateInfo(measure.LowLimit, measure.HighLimit, GetType(measure.type).Name, GetType(measure.type).Unit, measure.IsConfigured());
             }
         }
 
@@ -212,8 +220,8 @@ namespace MeteoStation.Data
                 acc.ID = int.Parse((string)acc.SelectedItem);
                 measure = GetMeasure(acc.ID);
 
-                if (measure.HasAlarms()) acc.UpdateInfo(measure.LowLimit, measure.HighLimit, measure.CriticalMax, measure.WarningMax, measure.WarningMin, measure.CriticalMin, (int)measure.AlarmMaxPeriod, TypeDict[measure.type].Name, measure.HasAlarms());
-                else acc.UpdateInfo(measure.LowLimit, measure.HighLimit, (int)measure.AlarmMaxPeriod, TypeDict[measure.type].Name);
+                if (measure.HasAlarms()) acc.UpdateInfo(measure.LowLimit, measure.HighLimit, measure.CriticalMax, measure.WarningMax, measure.WarningMin, measure.CriticalMin, (int)measure.AlarmMaxPeriod, GetType(measure.type).Name, measure.HasAlarms());
+                else acc.UpdateInfo(measure.LowLimit, measure.HighLimit, (int)measure.AlarmMaxPeriod, GetType(measure.type).Name);
             }
         }
 
