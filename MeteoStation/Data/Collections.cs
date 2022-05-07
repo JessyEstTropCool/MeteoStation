@@ -32,7 +32,7 @@ namespace MeteoStation.Data
 
             foreach (SensorData.Base obj in ObjectList)
             {
-                string config = "None", data = obj.data.ToString();
+                string config = "None", data = obj.data.ToString(), lastUpdate = "";
 
                 if (obj.id != 0)
                 {
@@ -45,12 +45,15 @@ namespace MeteoStation.Data
                         data = measure.ConvertedData + " " + GetType(measure.type).Unit;
                     }
 
+                    if (measure.moment != DateTime.MinValue) lastUpdate = (int)((DateTime.Now - obj.moment).TotalSeconds) + " sec";
+                    else lastUpdate = "-";
+
                     dt.Rows.Add(new object[] {
                         obj.id,
                         config,
                         GetType(obj.type).Name,// + " (" + obj.type + ")",
                         data,
-                        (int)((DateTime.Now - obj.moment).TotalSeconds) + " sec",
+                        lastUpdate,
                         measure.GetStatus()
                     });
 

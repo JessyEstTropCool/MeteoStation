@@ -148,7 +148,7 @@ namespace MeteoStation
             if (ofdLoadConfig.ShowDialog() == DialogResult.OK)
             {
                 Files.ConfigFiles.ImportConfigs(ofdLoadConfig.FileName);
-                MessageBox.Show(ofdLoadConfig.FileName);
+                //MessageBox.Show(ofdLoadConfig.FileName);
             }
         }
 

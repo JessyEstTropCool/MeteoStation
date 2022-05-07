@@ -13,7 +13,7 @@ namespace MeteoStation.Data
     class WebConnection
     {
         private static readonly HttpClient client = new HttpClient();
-        private static readonly TimeSpan sendingInterval = new TimeSpan(0, 0, 30);
+        private static readonly TimeSpan sendingInterval = new TimeSpan(0, 5, 0); //(heures, minutes, secondes)
         private static readonly string baseAddress = "http://localhost:8000/";
 
         private static DateTime lastSent = DateTime.Now;
