@@ -70,6 +70,44 @@ namespace MeteoStation.SerialPortHandler
             }
         }
 
+        //Ajoute une base dans la liste en remplacant tous les champs, utilisé pour les changements de config
+        internal static void ReplaceOrAddToList(Data.SensorData.Base obj)
+        {
+            bool isIn = false;
+
+            foreach (Data.SensorData.Base b in Data.Collections.ObjectList)
+            {
+                if (b.id == obj.id)
+                {
+                    isIn = true;
+                    b.data = obj.data;
+                    b.type = obj.type;
+                    b.moment = obj.moment;
+
+                    if (b.id != 0 && obj.id != 0)
+                    {
+                        Data.SensorData.Measure m = (Data.SensorData.Measure)b;
+                        Data.SensorData.Measure neoM = (Data.SensorData.Measure)obj;
+
+                        m.LowLimit = neoM.LowLimit;
+                        m.HighLimit = neoM.HighLimit;
+                        m.CriticalMin = neoM.CriticalMin;
+                        m.WarningMin = neoM.WarningMin;
+                        m.WarningMax = neoM.WarningMax;
+                        m.CriticalMax = neoM.CriticalMax;
+                        m.AlarmMaxPeriod = neoM.AlarmMaxPeriod;
+
+                        if (m.IsConfigured())
+                        {
+                            ConvertMeasure(m);
+                        }
+                    }
+                }
+            }
+
+            if (!isIn) AddToList(obj);
+        }
+
         //Ajoute une base dans la liste
         internal static void AddToList(Data.SensorData.Base obj)
         {

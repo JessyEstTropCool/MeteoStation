@@ -12,6 +12,8 @@ namespace MeteoStation.Controls
 {
     public partial class AlarmControl : UserControl
     {
+        internal event DataGridViewCellEventHandler RowClick;
+
         public AlarmControl()
         {
             InitializeComponent();
@@ -33,7 +35,7 @@ namespace MeteoStation.Controls
         //J'aime pas que la selection reste
         private void dgvGrid_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            dgvGrid.ClearSelection();
+            RowClick.Invoke(sender, e);
         }
     }
 }

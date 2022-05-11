@@ -13,15 +13,31 @@ namespace MeteoStation.Data
     class WebConnection
     {
         private static readonly HttpClient client = new HttpClient();
-        private static readonly TimeSpan sendingInterval = new TimeSpan(0, 5, 0); //(heures, minutes, secondes)
-        private static readonly string baseAddress = "http://localhost:8000/";
+        private static readonly TimeSpan sendingInterval = new TimeSpan(0, 0, 30); //(heures, minutes, secondes)
+        private static readonly string localAddress = "http://localhost:8000/", remoteAddress = "http://51.178.38.149/";
 
         private static DateTime lastSent = DateTime.Now;
         private static string csrf = "";
 
+        internal static string BaseAddress { get; set; } = localAddress;
+
+        internal static void SetAddress(int state)
+        {
+            switch ( state )
+            {
+                case 0:
+                    BaseAddress = localAddress;
+                    break;
+
+                case 1:
+                    BaseAddress = remoteAddress;
+                    break;
+            }
+        }
+
         internal static async Task GetNewToken()
         {
-            HttpResponseMessage response = await client.GetAsync(baseAddress + "api/post/valeur");
+            HttpResponseMessage response = await client.GetAsync(BaseAddress + "api/post/valeur");
             string responseString = await response.Content.ReadAsStringAsync();
 
             getCSRF(response.StatusCode, responseString);
@@ -55,7 +71,7 @@ namespace MeteoStation.Data
 
         private static async Task SendValuesRequest(string args)
         {
-            HttpResponseMessage response = await client.GetAsync(baseAddress + "api/post/multivalue?" + args);
+            HttpResponseMessage response = await client.GetAsync(BaseAddress + "api/post/multivalue?" + args);
             string responseString = await response.Content.ReadAsStringAsync();
 
             getCSRF(response.StatusCode, responseString);
@@ -85,7 +101,7 @@ namespace MeteoStation.Data
 
         internal static async Task GetTypes()
         {
-            HttpResponseMessage response = await client.GetAsync(baseAddress + "api/type/");
+            HttpResponseMessage response = await client.GetAsync(BaseAddress + "api/type/");
             string responseString = await response.Content.ReadAsStringAsync();
 
             if (response.StatusCode == HttpStatusCode.OK)

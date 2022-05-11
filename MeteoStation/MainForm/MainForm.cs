@@ -20,12 +20,9 @@ namespace MeteoStation
 
         AccountControl AccountControl ;
 
-        DataTable myTable = new DataTable();
-
         public MainForm()
         {
             InitializeComponent();
-
 
             tsslPrompt.Text = "";
 
@@ -131,25 +128,59 @@ namespace MeteoStation
             }
         }
 
+        //Envoie le signal pour la sauvegarde du fichier de configuration
+        private void tsmiSave_Click(object sender, EventArgs e)
+        {
+            Files.ConfigFiles.SaveConfigs(); 
+            ShowPrompt("Le fichier a été enregistré", 5);
+        }
+
         //Demande l'exportation de la configuration là ou l'utilisateur le demande avec sfdSaveConfig
         private void tsmiExport_Click(object sender, EventArgs e)
         {
             sfdSaveConfig.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            sfdSaveConfig.FileName = "*.csv";
+
             if (sfdSaveConfig.ShowDialog() == DialogResult.OK)
             {
                 Files.ConfigFiles.ExportConfigs(sfdSaveConfig.FileName);
-                ShowPrompt("Le fichier a été enregistré", 5);
+                ShowPrompt("Le fichier a été exporté", 5);
             }
         }
 
         private void tsmiImport_Click(object sender, EventArgs e)
         {
             ofdLoadConfig.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            if (ofdLoadConfig.ShowDialog() == DialogResult.OK)
+            ofdLoadConfig.FileName = "";
+
+            if (ofdLoadConfig.ShowDialog() == DialogResult.OK )
             {
                 Files.ConfigFiles.ImportConfigs(ofdLoadConfig.FileName);
-                //MessageBox.Show(ofdLoadConfig.FileName);
+                ShowPrompt("Les configurations ont été appliquées", 5);
             }
+        }
+
+        //Envoi le signal pour la suppression de la confguration
+        private void tsmiReset_Click(object sender, EventArgs e)
+        {
+            Files.ConfigFiles.ClearConfigs();
+        }
+
+        //Affiche les informations concernant une mesure
+        private void ShowMeasureInfo(object sender, DataGridViewCellEventArgs e)
+        {
+            DataGridView grid = (DataGridView)sender;
+
+            string message = Data.Collections.GetMeasureInfo( int.Parse( (string)((DataTable)grid.DataSource).Rows[e.RowIndex]["ID"] ) );
+
+            MessageBox.Show(message, "Info");
+        }
+
+        private static void ChangeAddress(object sender, EventArgs e)
+        {
+            ConnectionConfigControl ccc = (ConnectionConfigControl)sender;
+
+            Data.WebConnection.SetAddress(ccc.State);
         }
 
         //On retire tout ce qu'il y a dans les pânels pour faire place au autres usercontrol
@@ -187,6 +218,7 @@ namespace MeteoStation
             control.Dock = DockStyle.Fill;
         }
 
+        //Modifie le header du grand panel pour montrer le controle ouvert
         private void SetHeader(object sender)
         {
             ToolStripItem tsi = (ToolStripItem)sender;
@@ -209,6 +241,8 @@ namespace MeteoStation
 
             timerDequeue.Tick += mtc.UpdateTick;
 
+            mtc.RowClick += ShowMeasureInfo;
+
             mcc.ConfigDone += Data.Collections.MeasureBasicConfigDone;
             mcc.ConfigDone += mtc.UpdateTick;
 
@@ -230,6 +264,8 @@ namespace MeteoStation
 
             timerDequeue.Tick += ac.UpdateTick;
 
+            ac.RowClick += ShowMeasureInfo;
+
             acc.ConfigDone += Data.Collections.MeasureAlarmConfigDone;
             acc.ConfigDone += ac.UpdateTick;
 
@@ -247,7 +283,6 @@ namespace MeteoStation
         //Met les controles de comptes
         private void tsbAccounts_Click(object sender, EventArgs e)
         {
-            //Attention on peut l'ouvrir qu'une fois car le clearPanels détruit tout
             myAccount = new AccountConfigControl();
             AccountControl = new AccountControl();
 
@@ -267,8 +302,19 @@ namespace MeteoStation
         //Met les controles de connection
         private void tsbConnection_Click(object sender, EventArgs e)
         {
+            ConnectionControl cc = new ConnectionControl();
+            ConnectionConfigControl ccc = new ConnectionConfigControl();
+
             SetHeader(sender);
             ClearPanels();
+
+            SetMainControl(cc);
+            SetConfigControl(ccc);
+
+            timerDequeue.Tick += cc.FetchInfo;
+
+            ccc.StateChanged += ChangeAddress;
+            ccc.StateChanged += cc.FetchInfo;
         }
 
         //Met les controles de calibration

@@ -13,7 +13,7 @@ namespace MeteoStation.Files
     {
         const string CONFIG_FILENAME = "Configs.csv",
             CONFIG_FILE_HEADER = "MeteoStation_Measure_Config_File", 
-            CONFIG_FILE_CONTENT_DESC = "ID; Type; LowLimit; HighLimit; CriticalMin; WarningMin; WarningMax; CriticalMax; AlarmMaxPeriod",
+            CONFIG_FILE_CONTENT_DESC = "Serial; ID; Type; LowLimit; HighLimit; CriticalMin; WarningMin; WarningMax; CriticalMax; AlarmMaxPeriod",
             START_READ = "start", END_READ = "end";
 
         //Enregistre les configuration des mesures qui l'ont été ainsi que les configuration du fichier qui n'ont pas été appliquées
@@ -40,7 +40,7 @@ namespace MeteoStation.Files
 
                         ids.Add(measure.id);
 
-                        if (measure.IsConfigured()) writer.Write(measure.id + ";" + measure.type + ";" + measure.LowLimit + ";" + measure.HighLimit + ";" +
+                        if (measure.IsConfigured()) writer.Write(measure.serial + ";" + measure.id + ";" + measure.type + ";" + measure.LowLimit + ";" + measure.HighLimit + ";" +
                             measure.CriticalMin + ";" + measure.WarningMin + ";" + measure.WarningMax + ";" + measure.CriticalMax + ";" +
                             measure.AlarmMaxPeriod + Environment.NewLine);
                     }
@@ -51,14 +51,39 @@ namespace MeteoStation.Files
             }
         }
 
+        internal static bool ClearConfigs()
+        {
+            if (MessageBox.Show("Vous allez perdre toutes les données jusqu'ici, voulez-vous continuer ?", "Meteo Station", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+            {
+                if ( File.Exists(CONFIG_FILENAME) )
+                {
+                    try
+                    {
+                        File.Delete(CONFIG_FILENAME);
+                    }
+                    catch (Exception e)
+                    {
+                        MessageBox.Show(e.Message, "Erreur de fichier", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+
+                Data.Collections.ObjectList.Clear();
+                return true;
+            }
+
+            return false;
+        }
+
         internal static void ImportConfigs(string filename)
         {
             if (File.Exists(filename))
             {
-                if ( !File.Exists(CONFIG_FILENAME) || DialogResult.Yes == MessageBox.Show("Un fihcier de configuration existe déjà, voulez-vous l'écraser ?", "Meteo Station", MessageBoxButtons.YesNo, MessageBoxIcon.Question) )
+                if ( (!File.Exists(CONFIG_FILENAME) || DialogResult.Yes == MessageBox.Show("Un fichier de configuration existe déjà, voulez-vous l'écraser ?", "Meteo Station", MessageBoxButtons.YesNo, MessageBoxIcon.Question)) && ClearConfigs() )
+                {
                     File.Copy(filename, CONFIG_FILENAME, true);
 
-                ApplyConfigs(filename);
+                    ApplyConfigs(filename);
+                }
             }
             else MessageBox.Show("Ce fichier n'existe pas", "Erreur de fichier", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
@@ -89,29 +114,20 @@ namespace MeteoStation.Files
                             string[] csv = line.Split(';');
                             SensorData.Measure measure = new SensorData.Measure();
 
-                            measure.id = byte.Parse(csv[0]);
-                            measure.type = byte.Parse(csv[1]);
+                            measure.serial = ushort.Parse(csv[0]);
+                            measure.id = byte.Parse(csv[1]);
+                            measure.type = byte.Parse(csv[2]);
                             measure.moment = DateTime.MinValue;
 
-                            measure.LowLimit = int.Parse(csv[2]);
-                            measure.HighLimit = int.Parse(csv[3]);
-                            measure.CriticalMin = int.Parse(csv[4]);
-                            measure.WarningMin = int.Parse(csv[5]);
-                            measure.WarningMax = int.Parse(csv[6]);
-                            measure.CriticalMax = int.Parse(csv[7]);
-                            measure.AlarmMaxPeriod = uint.Parse(csv[8]);
+                            measure.LowLimit = int.Parse(csv[3]);
+                            measure.HighLimit = int.Parse(csv[4]);
+                            measure.CriticalMin = int.Parse(csv[5]);
+                            measure.WarningMin = int.Parse(csv[6]);
+                            measure.WarningMax = int.Parse(csv[7]);
+                            measure.CriticalMax = int.Parse(csv[8]);
+                            measure.AlarmMaxPeriod = uint.Parse(csv[9]);
 
-                            SerialPortHandler.Reception.AddToList(measure);
-
-                            /*MessageBox.Show("ID : " + csv[0] +
-                                "\nType : " + csv[1] +
-                                "\nLowLimit : " + csv[2] +
-                                "\nHighLimit : " + csv[3] +
-                                "\nCriticalMin : " + csv[4] +
-                                "\nWarningMin : " + csv[5] +
-                                "\nWarningMax : " + csv[6] +
-                                "\nCriticalMax : " + csv[7] +
-                                "\nMaxPeriod : " + csv[8]);*/
+                            SerialPortHandler.Reception.ReplaceOrAddToList(measure);
                         }
                     }
                     else MessageBox.Show("Le fichier est corrompu", "Erreur de fichier", MessageBoxButtons.OK, MessageBoxIcon.Error);

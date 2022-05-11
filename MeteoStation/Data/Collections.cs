@@ -280,5 +280,18 @@ namespace MeteoStation.Data
             m.CriticalMin = critMin;
             m.AlarmMaxPeriod = maxPeriod;
         }
+
+        internal static String GetMeasureInfo(int id)
+        {
+            SensorData.Measure m = GetMeasure(id);
+
+            return m.serial + " - " + m.id + 
+                "\nType " + m.type + " (" + GetType(m.type).Name + 
+                ")\n\nConfigured ? " + m.IsConfigured() +
+                "\nLimits : " + m.LowLimit + " - " + m.HighLimit +
+                "\n\nAlarms ? " + m.HasAlarms() + 
+                "\n" + m.CriticalMin + " - " + m.WarningMin + " - OK - " + m.WarningMax + " - " + m.CriticalMax +
+                "\n\nMax Period : " + m.AlarmMaxPeriod + " (seconds)";
+        }
     }
 }
