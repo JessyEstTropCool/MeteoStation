@@ -50,6 +50,7 @@ namespace MeteoStation
             this.tslStatus = new System.Windows.Forms.ToolStripLabel();
             this.tsbOpenClose = new System.Windows.Forms.ToolStripButton();
             this.tsddbSave = new System.Windows.Forms.ToolStripDropDownButton();
+            this.tsmiSave = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiExport = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiImport = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
@@ -69,7 +70,6 @@ namespace MeteoStation
             this.sfdSaveConfig = new System.Windows.Forms.SaveFileDialog();
             this.pbLogo = new System.Windows.Forms.PictureBox();
             this.ofdLoadConfig = new System.Windows.Forms.OpenFileDialog();
-            this.tsmiSave = new System.Windows.Forms.ToolStripMenuItem();
             this.tsViews.SuspendLayout();
             this.pMainCointainer.SuspendLayout();
             this.pHeader.SuspendLayout();
@@ -252,6 +252,13 @@ namespace MeteoStation
             this.tsddbSave.Size = new System.Drawing.Size(20, 22);
             this.tsddbSave.Text = "Configuration";
             // 
+            // tsmiSave
+            // 
+            this.tsmiSave.Name = "tsmiSave";
+            this.tsmiSave.Size = new System.Drawing.Size(187, 22);
+            this.tsmiSave.Text = "Save Configuration";
+            this.tsmiSave.Click += new System.EventHandler(this.tsmiSave_Click);
+            // 
             // tsmiExport
             // 
             this.tsmiExport.Name = "tsmiExport";
@@ -424,13 +431,6 @@ namespace MeteoStation
             this.ofdLoadConfig.DefaultExt = "csv";
             this.ofdLoadConfig.FileName = "Config.csv";
             this.ofdLoadConfig.Filter = "Fichier CSV (*.csv)|*.csv";
-            // 
-            // tsmiSave
-            // 
-            this.tsmiSave.Name = "tsmiSave";
-            this.tsmiSave.Size = new System.Drawing.Size(187, 22);
-            this.tsmiSave.Text = "Save Configuration";
-            this.tsmiSave.Click += new System.EventHandler(this.tsmiSave_Click);
             // 
             // MainForm
             // 

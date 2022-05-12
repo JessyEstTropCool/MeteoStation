@@ -115,7 +115,7 @@ namespace MeteoStation.Data
                     break;
 
                 case "Obselete":
-                    c = Color.Brown;
+                    c = Color.BlueViolet;
                     break;
 
                 default:
