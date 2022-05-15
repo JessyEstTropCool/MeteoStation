@@ -32,5 +32,20 @@ namespace MeteoStation.Controls
             State = REMOTE;
             StateChanged.Invoke(this, e);
         }
+
+        private void bSend_Click(object sender, EventArgs e)
+        {
+            Task.Run(() => Data.WebConnection.SendValuesRequest());
+        }
+
+        private void bOnOff_Click(object sender, EventArgs e)
+        {
+            Data.WebConnection.Sending = !Data.WebConnection.Sending;
+
+            if (Data.WebConnection.Sending) bOnOff.BackColor = Color.PaleGreen;
+            else bOnOff.BackColor = Color.LightCoral;
+
+            StateChanged.Invoke(this, e);
+        }
     }
 }

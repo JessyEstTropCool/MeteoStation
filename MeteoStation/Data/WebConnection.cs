@@ -13,13 +13,15 @@ namespace MeteoStation.Data
     class WebConnection
     {
         private static readonly HttpClient client = new HttpClient();
-        private static readonly TimeSpan sendingInterval = new TimeSpan(0, 0, 30); //(heures, minutes, secondes)
         private static readonly string localAddress = "http://localhost:8000/", remoteAddress = "http://51.178.38.149/";
+        internal static readonly TimeSpan sendingInterval = new TimeSpan(0, 0, 30); //(heures, minutes, secondes)
 
-        private static DateTime lastSent = DateTime.Now;
-        private static string csrf = "";
+        internal static DateTime lastSent = DateTime.Now;
+        internal static string csrf = "";
 
         internal static string BaseAddress { get; set; } = localAddress;
+        internal static DateTime SentDataTime { get => lastSent; }
+        internal static bool Sending { get; set; } = true;
 
         internal static void SetAddress(int state)
         {
@@ -45,38 +47,44 @@ namespace MeteoStation.Data
 
         internal static void SendDataToServer(object sender, EventArgs e)
         {
-            if ( DateTime.Now - lastSent > sendingInterval )
+            if ( Sending && DateTime.Now - lastSent > sendingInterval )
             {
-                string args = "";
+                Task.Run(() => SendValuesRequest());
 
-                foreach (SensorData.Base obj in Collections.ObjectList)
-                {
-                    if (obj.id != 0)
-                    {
-                        SensorData.Measure m = (SensorData.Measure)obj;
-
-                        if ( m.IsConfigured() && m.moment > lastSent )
-                        {
-                            args += "&id[]=" + m.id + "&serial[]=" + m.serial + "&value[]=" + m.ConvertedData;
-                        }
-                    }
-                }
-
-                if ( args != "" )
-                    Task.Run(() => SendValuesRequest(args.Substring(1)));
-                
                 lastSent = DateTime.Now;
             }
         }
 
-        private static async Task SendValuesRequest(string args)
+        internal static async Task SendValuesRequest()
         {
-            HttpResponseMessage response = await client.GetAsync(BaseAddress + "api/post/multivalue?" + args);
-            string responseString = await response.Content.ReadAsStringAsync();
+            string args = "";
 
-            getCSRF(response.StatusCode, responseString);
+            foreach (SensorData.Base obj in Collections.ObjectList)
+            {
+                if (obj.id != 0)
+                {
+                    SensorData.Measure m = (SensorData.Measure)obj;
 
-            if (csrf == "") await GetNewToken();
+                    if (m.IsConfigured() && m.moment > lastSent)
+                    {
+                        args += "&id[]=" + m.id + "&serial[]=" + m.serial + "&value[]=" + m.ConvertedData;
+                    }
+                }
+            }
+
+            if (args != "")
+            {
+                args = args.Substring(1);
+
+                HttpResponseMessage response = await client.GetAsync(BaseAddress + "api/post/multivalue?" + args);
+                string responseString = await response.Content.ReadAsStringAsync();
+
+                MessageBox.Show(response.ToString());
+
+                getCSRF(response.StatusCode, responseString);
+
+                if (csrf == "") await GetNewToken();
+            }
         }
 
         private static void getCSRF(HttpStatusCode status, string response)

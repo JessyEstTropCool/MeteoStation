@@ -15,11 +15,17 @@ namespace MeteoStation.Controls
         public ConnectionControl()
         {
             InitializeComponent();
+
+            FetchInfo(null, EventArgs.Empty);
         }
 
         internal void FetchInfo(object sender, EventArgs e)
         {
-            lInfo.Text = Data.WebConnection.BaseAddress;
+            string info = "Sending data : " + Data.WebConnection.Sending;
+            info += "\nAddress : " + Data.WebConnection.BaseAddress;
+            info += "\nLatest Send : " + Data.WebConnection.SentDataTime;
+
+            lInfo.Text = info;
         }
     }
 }
