@@ -19,6 +19,11 @@ namespace MeteoStation.Controls
         public ConnectionConfigControl()
         {
             InitializeComponent();
+
+            if (Data.WebConnection.Sending) bOnOff.BackColor = Color.PaleGreen;
+            else bOnOff.BackColor = Color.LightCoral;
+
+            mtbFrequency.ValidatingType = typeof(TimeSpan);
         }
 
         private void bLocal_Click(object sender, EventArgs e)
@@ -36,6 +41,23 @@ namespace MeteoStation.Controls
         private void bSend_Click(object sender, EventArgs e)
         {
             Task.Run(() => Data.WebConnection.SendValuesRequest());
+        }
+
+        private void bConfirmTime_Click(object sender, EventArgs e)
+        {
+            if (mtbFrequency.ValidateText() != null)
+            {
+                TimeSpan time = (TimeSpan)mtbFrequency.ValidateText();
+
+                if (time >= new TimeSpan(0, 0, 5))
+                {
+                    Data.WebConnection.sendingInterval = time;
+                }
+                else MessageBox.Show("C'est trop petit !");
+            }
+            else MessageBox.Show("Vous avez fait une erreur");
+
+            StateChanged.Invoke(this, e);
         }
 
         private void bOnOff_Click(object sender, EventArgs e)

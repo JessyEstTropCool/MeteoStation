@@ -95,6 +95,32 @@ namespace MeteoStation.Data
             dgv.DataSource = dt;
         }
 
+        //met les infos des mesures qu'on peut envoyer de la liste sur la table
+        internal static void UpdateSendableTable(DataGridView dgv)
+        {
+            DataTable dt = Tables.SendableTable;
+            dt.Rows.Clear();
+
+            foreach (SensorData.Base obj in ObjectList)
+            {
+                if (obj.id != 0)
+                {
+                    SensorData.Measure measure = (SensorData.Measure)obj;
+
+                    if (measure.IsConfigured())
+                    {
+                        dt.Rows.Add(new object[] {
+                            obj.serial,
+                            obj.id,
+                            GetType(obj.type).Name
+                        });
+                    }
+                }
+            }
+
+            dgv.DataSource = dt;
+        }
+
         //Colore un cellule d'un dgv avec la couleur qui correspond au status d'une mesure
         internal static void SetStatusColor(DataGridView dgv, SensorData.Measure measure, int x, int y)
         {

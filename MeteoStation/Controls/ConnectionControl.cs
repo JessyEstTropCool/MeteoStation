@@ -12,6 +12,8 @@ namespace MeteoStation.Controls
 {
     public partial class ConnectionControl : UserControl
     {
+        internal event DataGridViewCellEventHandler RowClick;
+
         public ConnectionControl()
         {
             InitializeComponent();
@@ -21,11 +23,21 @@ namespace MeteoStation.Controls
 
         internal void FetchInfo(object sender, EventArgs e)
         {
-            string info = "Sending data : " + Data.WebConnection.Sending;
-            info += "\nAddress : " + Data.WebConnection.BaseAddress;
-            info += "\nLatest Send : " + Data.WebConnection.SentDataTime;
+            Data.Collections.UpdateSendableTable(gGoodMeasures);
+            gGoodMeasures.ClearSelection();
 
-            lInfo.Text = info;
+            lInfo.Text = "Sending data : " + Data.WebConnection.Sending +
+            "\nTime interval : " + Data.WebConnection.sendingInterval +
+            "\nAddress : " + Data.WebConnection.BaseAddress +
+            "\nLatest Send : " + Data.WebConnection.SentDataTime;
+
+            tbLastAddress.Text = "Address : " + Data.WebConnection.LastAddress;
+            tbLastResponse.Text = Data.WebConnection.LastResponse;
+        }
+
+        private void gGoodMeasures_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            RowClick.Invoke(sender, e);
         }
     }
 }

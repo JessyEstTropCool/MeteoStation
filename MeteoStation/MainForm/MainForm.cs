@@ -311,6 +311,8 @@ namespace MeteoStation
             SetMainControl(cc);
             SetConfigControl(ccc);
 
+            cc.RowClick += ShowMeasureInfo;
+
             timerDequeue.Tick += cc.FetchInfo;
 
             ccc.StateChanged += ChangeAddress;

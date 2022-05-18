@@ -14,14 +14,16 @@ namespace MeteoStation.Data
     {
         private static readonly HttpClient client = new HttpClient();
         private static readonly string localAddress = "http://localhost:8000/", remoteAddress = "http://51.178.38.149/";
-        internal static readonly TimeSpan sendingInterval = new TimeSpan(0, 0, 30); //(heures, minutes, secondes)
 
+        internal static TimeSpan sendingInterval = new TimeSpan(0, 0, 30); //(heures, minutes, secondes)
         internal static DateTime lastSent = DateTime.Now;
         internal static string csrf = "";
 
         internal static string BaseAddress { get; set; } = remoteAddress;
         internal static DateTime SentDataTime { get => lastSent; }
         internal static bool Sending { get; set; } = true;
+        internal static string LastAddress { get; set; } = "";
+        internal static string LastResponse { get; set; } = "No requests sent";
 
         internal static void SetAddress(int state)
         {
@@ -74,11 +76,14 @@ namespace MeteoStation.Data
             {
                 args = args.Substring(1);
 
-                HttpResponseMessage response = await client.GetAsync(BaseAddress + "api/post/multivalue?" + args);
+                LastAddress = BaseAddress + "api/post/multivalue?" + args;
+
+                HttpResponseMessage response = await client.GetAsync(LastAddress);
                 string responseString = await response.Content.ReadAsStringAsync();
 
                 lastSent = DateTime.Now;
                 //MessageBox.Show(response.ToString());
+                LastResponse = response.ToString();
 
                 getCSRF(response.StatusCode, responseString);
 
