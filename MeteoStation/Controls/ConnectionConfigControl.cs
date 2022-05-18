@@ -15,7 +15,7 @@ namespace MeteoStation.Controls
         public const int LOCAL = 0, REMOTE = 1;
 
         internal event EventHandler StateChanged;
-        internal int State { get; set; } = LOCAL;
+        internal int State { get; set; } = REMOTE;
         public ConnectionConfigControl()
         {
             InitializeComponent();

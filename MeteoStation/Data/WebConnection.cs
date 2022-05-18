@@ -19,7 +19,7 @@ namespace MeteoStation.Data
         internal static DateTime lastSent = DateTime.Now;
         internal static string csrf = "";
 
-        internal static string BaseAddress { get; set; } = localAddress;
+        internal static string BaseAddress { get; set; } = remoteAddress;
         internal static DateTime SentDataTime { get => lastSent; }
         internal static bool Sending { get; set; } = true;
 
@@ -49,9 +49,7 @@ namespace MeteoStation.Data
         {
             if ( Sending && DateTime.Now - lastSent > sendingInterval )
             {
-                Task.Run(() => SendValuesRequest());
-
-                lastSent = DateTime.Now;
+                Task.Run(() => Data.WebConnection.SendValuesRequest());
             }
         }
 
@@ -79,7 +77,8 @@ namespace MeteoStation.Data
                 HttpResponseMessage response = await client.GetAsync(BaseAddress + "api/post/multivalue?" + args);
                 string responseString = await response.Content.ReadAsStringAsync();
 
-                MessageBox.Show(response.ToString());
+                lastSent = DateTime.Now;
+                //MessageBox.Show(response.ToString());
 
                 getCSRF(response.StatusCode, responseString);
 
