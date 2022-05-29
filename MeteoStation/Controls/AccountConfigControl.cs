@@ -85,5 +85,10 @@ namespace MeteoStation.Controls
         {
             return true;
         }
+
+        private void Rights_box_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -14,6 +14,26 @@ namespace MeteoStation
 {
     public partial class MainForm : Form
     {
+
+        public static DataSet UserAccess;
+
+        public DataTable UserTable;
+        internal DataColumn User_ID;
+        internal DataColumn Username;
+        internal DataColumn UserPassword;
+        internal DataColumn Access_Type;
+
+        internal DataTable AccessTable;
+        internal DataColumn Access_ID;
+        internal DataColumn AccessName;
+        internal DataColumn CreateID;
+        internal DataColumn DestroyID;
+        internal DataColumn ConfigAlarm;
+        internal DataColumn CreateUser;
+
+
+
+
         Control mainControl = null, configControl = null;
 
         AccountConfigControl myAccount ;
@@ -23,6 +43,86 @@ namespace MeteoStation
         public MainForm()
         {
             InitializeComponent();
+
+
+            UserAccess = new DataSet(); // DB
+
+            UserTable = new DataTable(); // Table
+            User_ID = new DataColumn("ID", System.Type.GetType("System.Int16"));
+            Username = new DataColumn("Name", System.Type.GetType("System.String"));
+            UserPassword = new DataColumn("Password", System.Type.GetType("System.String"));
+            Access_Type = new DataColumn("Access type", System.Type.GetType("System.Int16"));
+
+            AccessTable = new DataTable(); // Table
+            Access_ID = new DataColumn("ID", System.Type.GetType("System.Int16"));
+            AccessName = new DataColumn("Name", System.Type.GetType("System.String"));
+            CreateID = new DataColumn("Create ID", System.Type.GetType("System.Boolean"));
+            DestroyID = new DataColumn("Destroy ID", System.Type.GetType("System.Boolean"));
+            ConfigAlarm = new DataColumn("Config Alarms", System.Type.GetType("System.Boolean"));
+            CreateUser = new DataColumn("Create User", System.Type.GetType("System.Boolean"));
+
+            
+
+            /* UserTable*/
+            UserTable.TableName = "Users";
+            User_ID.Unique = true;
+            User_ID.AutoIncrement = true;
+            UserTable.Columns.Add(User_ID);
+
+            Username.Unique = true;
+            UserTable.Columns.Add(Username);
+
+            UserPassword.Unique = false;
+            UserTable.Columns.Add(UserPassword);
+
+            Access_Type.Unique = false;
+            UserTable.Columns.Add(Access_Type);
+
+            /* Access*/
+            AccessTable.TableName = "Access";
+            Access_ID.Unique = true;
+            Access_ID.AutoIncrement = true;
+            AccessTable.Columns.Add(Access_ID);
+
+            AccessName.Unique = true;
+            AccessTable.Columns.Add(AccessName);
+
+            CreateID.Unique = false;
+            AccessTable.Columns.Add(CreateID);
+
+            DestroyID.Unique = false;
+            AccessTable.Columns.Add(DestroyID);
+
+            ConfigAlarm.Unique = false;
+            AccessTable.Columns.Add(ConfigAlarm);
+
+            CreateUser.Unique = false;
+            AccessTable.Columns.Add(CreateUser);
+
+            /* Dataset & Datarelation*/
+            UserAccess.Tables.Add(UserTable);
+            UserAccess.Tables.Add(AccessTable);
+
+            DataColumn parentColumn = UserAccess.Tables["Access"].Columns["ID"];
+            DataColumn childColumn = UserAccess.Tables["Users"].Columns["Access type"];
+
+            DataRelation relation = new DataRelation("Access2User", parentColumn, childColumn);
+
+            UserAccess.Tables["Users"].ParentRelations.Add(relation);
+
+            UserAccess.Tables["Access"].Rows.Add(new object[] { 1, "AdminRights", true, true, true, true });
+            UserAccess.Tables["Access"].Rows.Add(new object[] { 2, "MasterRights", true, true, true, false });
+            UserAccess.Tables["Access"].Rows.Add(new object[] { 3, "UserRights", false, false, false, false });
+
+
+            UserAccess.Tables["Users"].Rows.Add(new object[] { 1, "Abdou", "Password", 3 });
+
+            /*Rights box*/
+            //myAccount.Rights_box.DataSource = UserAccess.Tables["Access"];
+            //myAccount.Rights_box.ValueMember = "ID";
+            //myAccount.Rights_box.DisplayMember = "Name";
+
+
 
             tsslPrompt.Text = "";
 
@@ -328,35 +428,53 @@ namespace MeteoStation
 
         private void Register_Click(object sender, EventArgs e)
         {
-            ////si les textBoxs sont vides, on affiche un msg d'erreur
-            if (myAccount.textBoxUsername.Text == "" || myAccount.textBoxPassword.Text == "" || myAccount.textBoxConfirmPassword.Text == "")
-            {
-                MessageBox.Show("Username or Password field is empty", "Registration failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            ////si les mdp ne sont pas les memes, on affiche un msg d'erreur
-            else if (myAccount.textBoxPassword.Text != myAccount.textBoxConfirmPassword.Text)
-            {
-                MessageBox.Show("Paswords does not match, Please Re-enter ", "Registration failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                clearTextBox(myAccount.textBoxPassword);
-                clearTextBox(myAccount.textBoxConfirmPassword);
-                myAccount.textBoxPassword.Focus();
-            }
-            ////sinon on affiche un message de success
-            else
-            {
-              
-                MessageBox.Show("Your Account has been Successfully Created", "Registration Succes", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //////si les textBoxs sont vides, on affiche un msg d'erreur
+            //if (myAccount.textBoxUsername.Text == "" || myAccount.textBoxPassword.Text == "" || myAccount.textBoxConfirmPassword.Text == "")
+            //{
+            //    MessageBox.Show("Username or Password field is empty", "Registration failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //}
+            //////si les mdp ne sont pas les memes, on affiche un msg d'erreur
+            //else if (myAccount.textBoxPassword.Text != myAccount.textBoxConfirmPassword.Text)
+            //{
+            //    MessageBox.Show("Paswords does not match, Please Re-enter ", "Registration failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    clearTextBox(myAccount.textBoxPassword);
+            //    clearTextBox(myAccount.textBoxConfirmPassword);
+            //    myAccount.textBoxPassword.Focus();
+            //}
+            //////sinon on affiche un message de success
+            //else
+            //{
 
-                updateDGV(AccountControl.dataUsersAccounts, AccountControl.dataGridViewAccount, myAccount.textBoxUsername.Text, myAccount.textBoxPassword.Text);
+            //    MessageBox.Show("Your Account has been Successfully Created", "Registration Succes", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                //on supprime les texts qui ont été entrés dans les textBoxs
+            //    updateDGV(AccountControl.dataUsersAccounts, AccountControl.dataGridViewAccount, myAccount.textBoxUsername.Text, myAccount.textBoxPassword.Text);
+
+            //    //on supprime les texts qui ont été entrés dans les textBoxs
+            //    clearTextBox(myAccount.textBoxUsername);
+            //    clearTextBox(myAccount.textBoxConfirmPassword);
+            //    clearTextBox(myAccount.textBoxPassword);
+            //    myAccount.textBoxUsername.Focus();
+
+
+            //}
+            try
+            {
+                UserAccess.Tables[0].Rows.Add(new object[] { null, myAccount.textBoxUsername.Text, myAccount.textBoxPassword.Text, myAccount.Rights_box.SelectedValue });
+
+                myAccount.Rights_box.ResetText();
                 clearTextBox(myAccount.textBoxUsername);
                 clearTextBox(myAccount.textBoxConfirmPassword);
                 clearTextBox(myAccount.textBoxPassword);
-                myAccount.textBoxUsername.Focus();
 
-
+                AccountControl.dataGridViewAccount.DataSource = UserAccess.Tables["Users"];
+                AccountControl.dataGridViewRights.DataSource = AccessTable;
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+
         }
 
 
@@ -369,6 +487,7 @@ namespace MeteoStation
             clearTextBox(myAccount.textBoxUsername);
             clearTextBox(myAccount.textBoxConfirmPassword);
             clearTextBox(myAccount.textBoxPassword);
+
             myAccount.textBoxUsername.Focus();
         }
         //méthode qui permet de supprimer les saisies de l'utilisateur se trouvant dans les textBoxs du user control Account

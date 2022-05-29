@@ -69,3 +69,5 @@ C:\Users\Elie\source\repos\MeteoStation\MeteoStation\obj\Debug\MeteoStation.Cont
 C:\Users\Elie\source\repos\MeteoStation\MeteoStation\obj\Debug\MeteoStation.Controls.ConnectionControl.resources
 C:\xampp\htdocs\2022-PRJ-BA02-G2\MeteoStation\MeteoStation\obj\Debug\MeteoStation.Controls.ConnectionConfigControl.resources
 C:\xampp\htdocs\2022-PRJ-BA02-G2\MeteoStation\MeteoStation\obj\Debug\MeteoStation.Controls.ConnectionControl.resources
+C:\Users\abdou\Documents\GitHub\MeteoStation\MeteoStation\obj\Debug\MeteoStation.Controls.ConnectionConfigControl.resources
+C:\Users\abdou\Documents\GitHub\MeteoStation\MeteoStation\obj\Debug\MeteoStation.Controls.ConnectionControl.resources

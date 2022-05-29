@@ -30,7 +30,9 @@
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dataGridViewAccount = new System.Windows.Forms.DataGridView();
+            this.dataGridViewRights = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAccount)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewRights)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridViewAccount
@@ -46,30 +48,46 @@
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridViewAccount.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridViewAccount.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewAccount.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridViewAccount.Dock = System.Windows.Forms.DockStyle.Top;
             this.dataGridViewAccount.Location = new System.Drawing.Point(0, 0);
-            this.dataGridViewAccount.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dataGridViewAccount.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dataGridViewAccount.Name = "dataGridViewAccount";
             this.dataGridViewAccount.RowHeadersVisible = false;
             this.dataGridViewAccount.RowHeadersWidth = 51;
             this.dataGridViewAccount.RowTemplate.Height = 28;
-            this.dataGridViewAccount.Size = new System.Drawing.Size(369, 331);
+            this.dataGridViewAccount.Size = new System.Drawing.Size(492, 198);
             this.dataGridViewAccount.TabIndex = 1;
+            // 
+            // dataGridViewRights
+            // 
+            this.dataGridViewRights.BackgroundColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.dataGridViewRights.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewRights.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.dataGridViewRights.GridColor = System.Drawing.Color.PowderBlue;
+            this.dataGridViewRights.Location = new System.Drawing.Point(0, 215);
+            this.dataGridViewRights.Name = "dataGridViewRights";
+            this.dataGridViewRights.RowHeadersWidth = 51;
+            this.dataGridViewRights.RowTemplate.Height = 24;
+            this.dataGridViewRights.Size = new System.Drawing.Size(492, 192);
+            this.dataGridViewRights.TabIndex = 2;
             // 
             // AccountControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.dataGridViewRights);
             this.Controls.Add(this.dataGridViewAccount);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "AccountControl";
-            this.Size = new System.Drawing.Size(369, 331);
+            this.Size = new System.Drawing.Size(492, 407);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAccount)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewRights)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
         internal System.Windows.Forms.DataGridView dataGridViewAccount;
+        internal System.Windows.Forms.DataGridView dataGridViewRights;
     }
 }
