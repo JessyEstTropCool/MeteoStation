@@ -24,30 +24,37 @@ namespace MeteoStation.Files
 
         internal static void ExportConfigs(string filename)
         {
-            using (StreamWriter writer = new StreamWriter(filename, false))
+            try
             {
-                List<int> ids = new List<int>();
-
-                writer.Write(CONFIG_FILE_HEADER + Environment.NewLine +
-                    CONFIG_FILE_CONTENT_DESC + Environment.NewLine +
-                    START_READ + Environment.NewLine);
-
-                foreach (SensorData.Base obj in Collections.ObjectList)
+                using (StreamWriter writer = new StreamWriter(filename, false))
                 {
-                    if (obj.id != 0)
+                    List<int> ids = new List<int>();
+
+                    writer.Write(CONFIG_FILE_HEADER + Environment.NewLine +
+                        CONFIG_FILE_CONTENT_DESC + Environment.NewLine +
+                        START_READ + Environment.NewLine);
+
+                    foreach (SensorData.Base obj in Collections.ObjectList)
                     {
-                        SensorData.Measure measure = (SensorData.Measure)obj;
+                        if (obj.id != 0)
+                        {
+                            SensorData.Measure measure = (SensorData.Measure)obj;
 
-                        ids.Add(measure.id);
+                            ids.Add(measure.id);
 
-                        if (measure.IsConfigured()) writer.Write(measure.serial + ";" + measure.id + ";" + measure.type + ";" + measure.LowLimit + ";" + measure.HighLimit + ";" +
-                            measure.CriticalMin + ";" + measure.WarningMin + ";" + measure.WarningMax + ";" + measure.CriticalMax + ";" +
-                            measure.AlarmMaxPeriod + Environment.NewLine);
+                            if (measure.IsConfigured()) writer.Write(measure.serial + ";" + measure.id + ";" + measure.type + ";" + measure.LowLimit + ";" + measure.HighLimit + ";" +
+                                measure.CriticalMin + ";" + measure.WarningMin + ";" + measure.WarningMax + ";" + measure.CriticalMax + ";" +
+                                measure.AlarmMaxPeriod + Environment.NewLine);
+                        }
                     }
-                }
 
-                writer.Write(END_READ + Environment.NewLine);
-                writer.Close();
+                    writer.Write(END_READ + Environment.NewLine);
+                    writer.Close();
+                }
+            }
+            catch ( Exception e )
+            {
+                MessageBox.Show(e.Message, "Erreur de fichier", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
