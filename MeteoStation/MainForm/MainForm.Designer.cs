@@ -92,6 +92,7 @@ namespace MeteoStation
             // 
             this.tsViews.BackColor = System.Drawing.Color.Black;
             this.tsViews.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.tsViews.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.tsViews.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsbMeasures,
             this.toolStripSeparator7,
@@ -112,7 +113,7 @@ namespace MeteoStation
             this.tsViews.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
             this.tsViews.Location = new System.Drawing.Point(0, 0);
             this.tsViews.Name = "tsViews";
-            this.tsViews.Size = new System.Drawing.Size(784, 25);
+            this.tsViews.Size = new System.Drawing.Size(1045, 28);
             this.tsViews.TabIndex = 8;
             this.tsViews.Text = "toolStrip1";
             // 
@@ -122,14 +123,14 @@ namespace MeteoStation
             this.tsbMeasures.Image = global::MeteoStation.Properties.Resources.Measures;
             this.tsbMeasures.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbMeasures.Name = "tsbMeasures";
-            this.tsbMeasures.Size = new System.Drawing.Size(77, 22);
+            this.tsbMeasures.Size = new System.Drawing.Size(95, 36);
             this.tsbMeasures.Text = "Measures";
             this.tsbMeasures.Click += new System.EventHandler(this.tsbMeasures_Click);
             // 
             // toolStripSeparator7
             // 
             this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator7.Size = new System.Drawing.Size(6, 39);
             // 
             // tsbAlarms
             // 
@@ -137,14 +138,14 @@ namespace MeteoStation
             this.tsbAlarms.Image = global::MeteoStation.Properties.Resources.Alarms;
             this.tsbAlarms.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbAlarms.Name = "tsbAlarms";
-            this.tsbAlarms.Size = new System.Drawing.Size(64, 22);
+            this.tsbAlarms.Size = new System.Drawing.Size(79, 36);
             this.tsbAlarms.Text = "Alarms";
             this.tsbAlarms.Click += new System.EventHandler(this.tsbAlarms_Click);
             // 
             // toolStripSeparator6
             // 
             this.toolStripSeparator6.Name = "toolStripSeparator6";
-            this.toolStripSeparator6.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator6.Size = new System.Drawing.Size(6, 39);
             // 
             // tsbGraphs
             // 
@@ -152,14 +153,14 @@ namespace MeteoStation
             this.tsbGraphs.Image = global::MeteoStation.Properties.Resources.Graphs;
             this.tsbGraphs.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbGraphs.Name = "tsbGraphs";
-            this.tsbGraphs.Size = new System.Drawing.Size(64, 22);
+            this.tsbGraphs.Size = new System.Drawing.Size(79, 36);
             this.tsbGraphs.Text = "Graphs";
             this.tsbGraphs.Click += new System.EventHandler(this.tsbGraphs_Click);
             // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 39);
             // 
             // tsbAccounts
             // 
@@ -167,14 +168,14 @@ namespace MeteoStation
             this.tsbAccounts.Image = global::MeteoStation.Properties.Resources.Accounts;
             this.tsbAccounts.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbAccounts.Name = "tsbAccounts";
-            this.tsbAccounts.Size = new System.Drawing.Size(77, 22);
+            this.tsbAccounts.Size = new System.Drawing.Size(93, 36);
             this.tsbAccounts.Text = "Accounts";
             this.tsbAccounts.Click += new System.EventHandler(this.tsbAccounts_Click);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 39);
             // 
             // tsbConnection
             // 
@@ -182,14 +183,14 @@ namespace MeteoStation
             this.tsbConnection.Image = global::MeteoStation.Properties.Resources.Connection;
             this.tsbConnection.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbConnection.Name = "tsbConnection";
-            this.tsbConnection.Size = new System.Drawing.Size(89, 22);
+            this.tsbConnection.Size = new System.Drawing.Size(108, 36);
             this.tsbConnection.Text = "&Connection";
             this.tsbConnection.Click += new System.EventHandler(this.tsbConnection_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 39);
             // 
             // tsbCalibration
             // 
@@ -197,22 +198,23 @@ namespace MeteoStation
             this.tsbCalibration.Image = global::MeteoStation.Properties.Resources.Calibration;
             this.tsbCalibration.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbCalibration.Name = "tsbCalibration";
-            this.tsbCalibration.Size = new System.Drawing.Size(85, 22);
+            this.tsbCalibration.Size = new System.Drawing.Size(106, 36);
             this.tsbCalibration.Text = "Calibration";
             this.tsbCalibration.Click += new System.EventHandler(this.tsbCalibration_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 39);
             // 
             // tscbComPorts
             // 
             this.tscbComPorts.BackColor = System.Drawing.Color.White;
             this.tscbComPorts.FlatStyle = System.Windows.Forms.FlatStyle.Standard;
+            this.tscbComPorts.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.tscbComPorts.ForeColor = System.Drawing.Color.Black;
             this.tscbComPorts.Name = "tscbComPorts";
-            this.tscbComPorts.Size = new System.Drawing.Size(75, 25);
+            this.tscbComPorts.Size = new System.Drawing.Size(99, 39);
             this.tscbComPorts.Text = "NO COM";
             this.tscbComPorts.DropDown += new System.EventHandler(this.cbComPorts_DropDown);
             this.tscbComPorts.DropDownClosed += new System.EventHandler(this.cbComPorts_DropDownClosed);
@@ -221,7 +223,7 @@ namespace MeteoStation
             // 
             this.tslStatus.ForeColor = System.Drawing.Color.White;
             this.tslStatus.Name = "tslStatus";
-            this.tslStatus.Size = new System.Drawing.Size(84, 22);
+            this.tslStatus.Size = new System.Drawing.Size(105, 36);
             this.tslStatus.Text = "Status : Closed";
             // 
             // tsbOpenClose
@@ -231,7 +233,7 @@ namespace MeteoStation
             this.tsbOpenClose.Image = ((System.Drawing.Image)(resources.GetObject("tsbOpenClose.Image")));
             this.tsbOpenClose.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbOpenClose.Name = "tsbOpenClose";
-            this.tsbOpenClose.Size = new System.Drawing.Size(40, 22);
+            this.tsbOpenClose.Size = new System.Drawing.Size(49, 25);
             this.tsbOpenClose.Text = "Open";
             this.tsbOpenClose.Click += new System.EventHandler(this.OpenClosePort);
             // 
@@ -249,39 +251,39 @@ namespace MeteoStation
             this.tsddbSave.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsddbSave.Name = "tsddbSave";
             this.tsddbSave.ShowDropDownArrow = false;
-            this.tsddbSave.Size = new System.Drawing.Size(20, 22);
+            this.tsddbSave.Size = new System.Drawing.Size(24, 36);
             this.tsddbSave.Text = "Configuration";
             // 
             // tsmiSave
             // 
             this.tsmiSave.Name = "tsmiSave";
-            this.tsmiSave.Size = new System.Drawing.Size(187, 22);
+            this.tsmiSave.Size = new System.Drawing.Size(232, 26);
             this.tsmiSave.Text = "Save Configuration";
             this.tsmiSave.Click += new System.EventHandler(this.tsmiSave_Click);
             // 
             // tsmiExport
             // 
             this.tsmiExport.Name = "tsmiExport";
-            this.tsmiExport.Size = new System.Drawing.Size(187, 22);
+            this.tsmiExport.Size = new System.Drawing.Size(232, 26);
             this.tsmiExport.Text = "Export Configuration";
             this.tsmiExport.Click += new System.EventHandler(this.tsmiExport_Click);
             // 
             // tsmiImport
             // 
             this.tsmiImport.Name = "tsmiImport";
-            this.tsmiImport.Size = new System.Drawing.Size(187, 22);
+            this.tsmiImport.Size = new System.Drawing.Size(232, 26);
             this.tsmiImport.Text = "Import Configuration";
             this.tsmiImport.Click += new System.EventHandler(this.tsmiImport_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(184, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(229, 6);
             // 
             // tsmiReset
             // 
             this.tsmiReset.Name = "tsmiReset";
-            this.tsmiReset.Size = new System.Drawing.Size(187, 22);
+            this.tsmiReset.Size = new System.Drawing.Size(232, 26);
             this.tsmiReset.Text = "Reset Configuration";
             this.tsmiReset.Click += new System.EventHandler(this.tsmiReset_Click);
             // 
@@ -293,18 +295,20 @@ namespace MeteoStation
             this.pMainCointainer.BackColor = System.Drawing.Color.Black;
             this.pMainCointainer.Controls.Add(this.pMainControl);
             this.pMainCointainer.Controls.Add(this.pHeader);
-            this.pMainCointainer.Location = new System.Drawing.Point(12, 28);
+            this.pMainCointainer.Location = new System.Drawing.Point(16, 34);
+            this.pMainCointainer.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pMainCointainer.Name = "pMainCointainer";
             this.pMainCointainer.Padding = new System.Windows.Forms.Padding(1);
-            this.pMainCointainer.Size = new System.Drawing.Size(512, 424);
+            this.pMainCointainer.Size = new System.Drawing.Size(683, 522);
             this.pMainCointainer.TabIndex = 9;
             // 
             // pMainControl
             // 
             this.pMainControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pMainControl.Location = new System.Drawing.Point(1, 28);
+            this.pMainControl.Location = new System.Drawing.Point(1, 34);
+            this.pMainControl.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pMainControl.Name = "pMainControl";
-            this.pMainControl.Size = new System.Drawing.Size(510, 395);
+            this.pMainControl.Size = new System.Drawing.Size(681, 487);
             this.pMainControl.TabIndex = 10;
             // 
             // pHeader
@@ -314,17 +318,19 @@ namespace MeteoStation
             this.pHeader.Controls.Add(this.pbIcon);
             this.pHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.pHeader.Location = new System.Drawing.Point(1, 1);
+            this.pHeader.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pHeader.Name = "pHeader";
-            this.pHeader.Size = new System.Drawing.Size(510, 27);
+            this.pHeader.Size = new System.Drawing.Size(681, 33);
             this.pHeader.TabIndex = 6;
             // 
             // lTitle
             // 
             this.lTitle.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lTitle.Location = new System.Drawing.Point(24, 0);
+            this.lTitle.Location = new System.Drawing.Point(32, 0);
+            this.lTitle.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lTitle.Name = "lTitle";
-            this.lTitle.Size = new System.Drawing.Size(486, 27);
+            this.lTitle.Size = new System.Drawing.Size(649, 33);
             this.lTitle.TabIndex = 5;
             this.lTitle.Text = "Measures";
             this.lTitle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -335,8 +341,9 @@ namespace MeteoStation
             this.pbIcon.Dock = System.Windows.Forms.DockStyle.Left;
             this.pbIcon.Image = global::MeteoStation.Properties.Resources.Measures;
             this.pbIcon.Location = new System.Drawing.Point(0, 0);
+            this.pbIcon.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pbIcon.Name = "pbIcon";
-            this.pbIcon.Size = new System.Drawing.Size(24, 27);
+            this.pbIcon.Size = new System.Drawing.Size(32, 33);
             this.pbIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pbIcon.TabIndex = 4;
             this.pbIcon.TabStop = false;
@@ -346,18 +353,20 @@ namespace MeteoStation
             this.pConfigControl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pConfigControl.BackColor = System.Drawing.Color.Black;
-            this.pConfigControl.Location = new System.Drawing.Point(530, 159);
+            this.pConfigControl.Location = new System.Drawing.Point(707, 196);
+            this.pConfigControl.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pConfigControl.Name = "pConfigControl";
             this.pConfigControl.Padding = new System.Windows.Forms.Padding(1);
-            this.pConfigControl.Size = new System.Drawing.Size(242, 293);
+            this.pConfigControl.Size = new System.Drawing.Size(323, 361);
             this.pConfigControl.TabIndex = 10;
             // 
             // lCredits
             // 
             this.lCredits.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lCredits.Location = new System.Drawing.Point(530, 116);
+            this.lCredits.Location = new System.Drawing.Point(707, 143);
+            this.lCredits.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lCredits.Name = "lCredits";
-            this.lCredits.Size = new System.Drawing.Size(242, 40);
+            this.lCredits.Size = new System.Drawing.Size(323, 49);
             this.lCredits.TabIndex = 13;
             this.lCredits.Text = "Made by :\r\nAdam Jessy, Afkir Ridwane et Bah Abdoulaye";
             this.lCredits.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -365,15 +374,17 @@ namespace MeteoStation
             // ssInfo
             // 
             this.ssInfo.BackColor = System.Drawing.Color.Black;
+            this.ssInfo.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.ssInfo.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsslTemps,
             this.tsslErrors,
             this.tsslPrompt,
             this.tsslVersion});
-            this.ssInfo.Location = new System.Drawing.Point(0, 457);
+            this.ssInfo.Location = new System.Drawing.Point(0, 562);
             this.ssInfo.Margin = new System.Windows.Forms.Padding(0, 2, 0, 0);
             this.ssInfo.Name = "ssInfo";
-            this.ssInfo.Size = new System.Drawing.Size(784, 24);
+            this.ssInfo.Padding = new System.Windows.Forms.Padding(1, 0, 19, 0);
+            this.ssInfo.Size = new System.Drawing.Size(1045, 30);
             this.ssInfo.SizingGrip = false;
             this.ssInfo.TabIndex = 14;
             this.ssInfo.Text = "statusStrip1";
@@ -382,7 +393,7 @@ namespace MeteoStation
             // 
             this.tsslTemps.ForeColor = System.Drawing.Color.White;
             this.tsslTemps.Name = "tsslTemps";
-            this.tsslTemps.Size = new System.Drawing.Size(136, 19);
+            this.tsslTemps.Size = new System.Drawing.Size(170, 24);
             this.tsslTemps.Text = "Changing locales is hard";
             // 
             // tsslErrors
@@ -390,14 +401,14 @@ namespace MeteoStation
             this.tsslErrors.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left;
             this.tsslErrors.ForeColor = System.Drawing.Color.White;
             this.tsslErrors.Name = "tsslErrors";
-            this.tsslErrors.Size = new System.Drawing.Size(51, 19);
+            this.tsslErrors.Size = new System.Drawing.Size(64, 24);
             this.tsslErrors.Text = "X errors";
             // 
             // tsslPrompt
             // 
             this.tsslPrompt.ForeColor = System.Drawing.Color.White;
             this.tsslPrompt.Name = "tsslPrompt";
-            this.tsslPrompt.Size = new System.Drawing.Size(519, 19);
+            this.tsslPrompt.Size = new System.Drawing.Size(711, 24);
             this.tsslPrompt.Spring = true;
             this.tsslPrompt.Text = "This is information";
             // 
@@ -405,7 +416,7 @@ namespace MeteoStation
             // 
             this.tsslVersion.ForeColor = System.Drawing.Color.White;
             this.tsslVersion.Name = "tsslVersion";
-            this.tsslVersion.Size = new System.Drawing.Size(63, 19);
+            this.tsslVersion.Size = new System.Drawing.Size(80, 24);
             this.tsslVersion.Text = "Version 2.0";
             this.tsslVersion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -419,9 +430,10 @@ namespace MeteoStation
             this.pbLogo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pbLogo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.pbLogo.Image = global::MeteoStation.Properties.Resources.HELB_Logo;
-            this.pbLogo.Location = new System.Drawing.Point(530, 28);
+            this.pbLogo.Location = new System.Drawing.Point(707, 34);
+            this.pbLogo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pbLogo.Name = "pbLogo";
-            this.pbLogo.Size = new System.Drawing.Size(242, 85);
+            this.pbLogo.Size = new System.Drawing.Size(323, 105);
             this.pbLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pbLogo.TabIndex = 11;
             this.pbLogo.TabStop = false;
@@ -434,10 +446,10 @@ namespace MeteoStation
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.PowderBlue;
-            this.ClientSize = new System.Drawing.Size(784, 481);
+            this.ClientSize = new System.Drawing.Size(1045, 592);
             this.Controls.Add(this.ssInfo);
             this.Controls.Add(this.lCredits);
             this.Controls.Add(this.pbLogo);
@@ -445,7 +457,8 @@ namespace MeteoStation
             this.Controls.Add(this.pMainCointainer);
             this.Controls.Add(this.tsViews);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MinimumSize = new System.Drawing.Size(800, 520);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.MinimumSize = new System.Drawing.Size(1061, 629);
             this.Name = "MainForm";
             this.Text = "Meteo Station";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);

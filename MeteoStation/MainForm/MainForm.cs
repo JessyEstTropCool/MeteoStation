@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO.Ports;
 using MeteoStation.Controls;
+using System.Data.OleDb;
 
 namespace MeteoStation
 {
@@ -31,6 +32,14 @@ namespace MeteoStation
         internal DataColumn ConfigAlarm;
         internal DataColumn CreateUser;
 
+        //des booleans qui nous permettront d'afficher ou non les users contrôles en fction des droits
+        Boolean configAlarm = false;
+        Boolean createUser = false;
+        Boolean mesure = false;
+        Boolean calibration = false;
+        Boolean connection = false;
+        Boolean graphique = false;
+
 
 
 
@@ -45,23 +54,47 @@ namespace MeteoStation
             InitializeComponent();
 
 
+
+            configDataSet();
+
+
+
+            DB_Access.Tools.Config();
+
+            
+            DB_Access.Adapter.Fill(UserAccess, "Access", "Access");
+            DB_Access.Adapter.Fill(UserAccess, "Users", "Users");
+
+
+            tsslPrompt.Text = "";
+
+            Files.ConfigFiles.LoadConfigs();
+            Task.Run(() => Data.WebConnection.GetNewToken());
+
+            spSensorData.DataReceived += new SerialDataReceivedEventHandler(SerialPortHandler.Reception.RecieveData);
+            timerDequeue.Tick += new System.EventHandler(Data.WebConnection.SendDataToServer);
+        }
+
+        //configuration des datasets
+        private void configDataSet()
+        {
             UserAccess = new DataSet(); // DB
 
             UserTable = new DataTable(); // Table
             User_ID = new DataColumn("ID", System.Type.GetType("System.Int16"));
-            Username = new DataColumn("Name", System.Type.GetType("System.String"));
-            UserPassword = new DataColumn("Password", System.Type.GetType("System.String"));
-            Access_Type = new DataColumn("Access type", System.Type.GetType("System.Int16"));
+            Username = new DataColumn("UserName", System.Type.GetType("System.String"));
+            UserPassword = new DataColumn("UserPassword", System.Type.GetType("System.String"));
+            Access_Type = new DataColumn("Access_Id", System.Type.GetType("System.Int16"));
 
             AccessTable = new DataTable(); // Table
             Access_ID = new DataColumn("ID", System.Type.GetType("System.Int16"));
             AccessName = new DataColumn("Name", System.Type.GetType("System.String"));
-            CreateID = new DataColumn("Create ID", System.Type.GetType("System.Boolean"));
-            DestroyID = new DataColumn("Destroy ID", System.Type.GetType("System.Boolean"));
-            ConfigAlarm = new DataColumn("Config Alarms", System.Type.GetType("System.Boolean"));
-            CreateUser = new DataColumn("Create User", System.Type.GetType("System.Boolean"));
+            CreateID = new DataColumn("AllowCreateId", System.Type.GetType("System.Boolean"));
+            DestroyID = new DataColumn("AllowDestroyId", System.Type.GetType("System.Boolean"));
+            ConfigAlarm = new DataColumn("AllowConfigAlarm", System.Type.GetType("System.Boolean"));
+            CreateUser = new DataColumn("UserCreation", System.Type.GetType("System.Boolean"));
 
-            
+
 
             /* UserTable*/
             UserTable.TableName = "Users";
@@ -104,33 +137,13 @@ namespace MeteoStation
             UserAccess.Tables.Add(AccessTable);
 
             DataColumn parentColumn = UserAccess.Tables["Access"].Columns["ID"];
-            DataColumn childColumn = UserAccess.Tables["Users"].Columns["Access type"];
+            DataColumn childColumn = UserAccess.Tables["Users"].Columns["Access_Id"];
 
             DataRelation relation = new DataRelation("Access2User", parentColumn, childColumn);
 
             UserAccess.Tables["Users"].ParentRelations.Add(relation);
 
-            UserAccess.Tables["Access"].Rows.Add(new object[] { 1, "AdminRights", true, true, true, true });
-            UserAccess.Tables["Access"].Rows.Add(new object[] { 2, "MasterRights", true, true, true, false });
-            UserAccess.Tables["Access"].Rows.Add(new object[] { 3, "UserRights", false, false, false, false });
 
-
-            UserAccess.Tables["Users"].Rows.Add(new object[] { 1, "Abdou", "Password", 3 });
-
-            /*Rights box*/
-            //myAccount.Rights_box.DataSource = UserAccess.Tables["Access"];
-            //myAccount.Rights_box.ValueMember = "ID";
-            //myAccount.Rights_box.DisplayMember = "Name";
-
-
-
-            tsslPrompt.Text = "";
-
-            Files.ConfigFiles.LoadConfigs();
-            Task.Run(() => Data.WebConnection.GetNewToken());
-
-            spSensorData.DataReceived += new SerialDataReceivedEventHandler(SerialPortHandler.Reception.RecieveData);
-            timerDequeue.Tick += new System.EventHandler(Data.WebConnection.SendDataToServer);
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -149,9 +162,9 @@ namespace MeteoStation
                 tscbComPorts.Items.Add(SerialPort.GetPortNames()[0]);
                 tscbComPorts.SelectedIndex = 0;
             }
-
+            tsbAccounts.PerformClick();
             //Affiche les controles de mesures des le début
-            tsbMeasures.PerformClick();
+            //tsbMeasures.PerformClick();
 
             ShowPrompt("Welcome !", 5);
         }
@@ -271,7 +284,7 @@ namespace MeteoStation
         {
             DataGridView grid = (DataGridView)sender;
 
-            string message = Data.Collections.GetMeasureInfo( int.Parse( (string)((DataTable)grid.DataSource).Rows[e.RowIndex]["ID"] ) );
+            string message = Data.Collections.GetMeasureInfo( int.Parse((string)((DataTable)grid.DataSource).Rows[e.RowIndex]["ID"] ) );
 
             MessageBox.Show(message, "Info");
         }
@@ -330,29 +343,38 @@ namespace MeteoStation
         //Met les controles de mesures
         private void tsbMeasures_Click(object sender, EventArgs e)
         {
-            MeasureControl mtc = new MeasureControl();
-            MeasureConfigControl mcc = new MeasureConfigControl();
+            if (mesure)
+            {
+                MeasureControl mtc = new MeasureControl();
+                MeasureConfigControl mcc = new MeasureConfigControl();
 
-            SetHeader(sender);
-            ClearPanels();
+                SetHeader(sender);
+                ClearPanels();
 
-            SetMainControl(mtc);
-            SetConfigControl(mcc);
+                SetMainControl(mtc);
+                SetConfigControl(mcc);
 
-            timerDequeue.Tick += mtc.UpdateTick;
+                timerDequeue.Tick += mtc.UpdateTick;
 
-            mtc.RowClick += ShowMeasureInfo;
+                mtc.RowClick += ShowMeasureInfo;
 
-            mcc.ConfigDone += Data.Collections.MeasureBasicConfigDone;
-            mcc.ConfigDone += mtc.UpdateTick;
+                mcc.ConfigDone += Data.Collections.MeasureBasicConfigDone;
+                mcc.ConfigDone += mtc.UpdateTick;
 
-            mcc.DropDown += Data.Collections.MeasureConfigDropDown;
-            mcc.DropDownClosed += Data.Collections.MeasureConfigDropDownClosed;
+                mcc.DropDown += Data.Collections.MeasureConfigDropDown;
+                mcc.DropDownClosed += Data.Collections.MeasureConfigDropDownClosed;
+            }
+            else
+            {
+                MessageBox.Show("Vous n'êtes pas autrisé à faire cela");
+            }
         }
 
         //Met les controles d'alarmes
         private void tsbAlarms_Click(object sender, EventArgs e)
         {
+            if(configAlarm)
+            { 
             AlarmControl ac = new AlarmControl();
             AlarmConfigControl acc = new AlarmConfigControl();
 
@@ -371,103 +393,125 @@ namespace MeteoStation
 
             acc.DropDown += Data.Collections.AlarmConfigDropDown;
             acc.DropDownClosed += Data.Collections.AlarmConfigDropDownClosed;
+            }
+            else
+            {
+                MessageBox.Show("Vous n'êtes pas autrisé à faire cela");
+            }
         }
 
         //Met les controles de graphiques
         private void tsbGraphs_Click(object sender, EventArgs e)
         {
-            SetHeader(sender);
-            ClearPanels();
+            if (graphique)
+            {
+                SetHeader(sender);
+                ClearPanels();
+            }
+            else
+            {
+                MessageBox.Show("Vous n'êtes pas autorisé à faire cela");
+            }
+
         }
 
         //Met les controles de comptes
         private void tsbAccounts_Click(object sender, EventArgs e)
         {
+
             myAccount = new AccountConfigControl();
+
             AccountControl = new AccountControl();
 
             AccountControl.dataUsersAccounts.Columns.Add("Username", typeof(string));
             AccountControl.dataUsersAccounts.Columns.Add("Password", typeof(string));
 
+
             AccountControl.dataGridViewAccount.DataSource = AccountControl.dataUsersAccounts;
             SetHeader(sender);
             ClearPanels();
-            SetMainControl(AccountControl);
 
-            myAccount.ButtonClickRegister += new EventHandler(Register_Click);
-            myAccount.ButtonClickClear += new EventHandler(Clear_Click);
+            if(createUser)
+            { 
+            SetMainControl(AccountControl);
+            }
+            
+
+            AccountControl.ButtonClickRegister += new EventHandler(Register_Click);
+            AccountControl.ButtonClickClear += new EventHandler(Clear_Click);
+            myAccount.ButtonClickLogin += new EventHandler(Login);
             SetConfigControl(myAccount);
+
+            /*Rights box*/
+            AccountControl.Rights_box.DataSource = UserAccess.Tables["Access"];
+            AccountControl.Rights_box.ValueMember = "ID";
+            AccountControl.Rights_box.DisplayMember = "Name";
+            AccountControl.dataGridViewRights.DataSource = UserAccess.Tables["Access"];
+            AccountControl.dataGridViewAccount.DataSource = UserAccess.Tables["Users"];
+
+
         }
 
         //Met les controles de connection
         private void tsbConnection_Click(object sender, EventArgs e)
         {
-            ConnectionControl cc = new ConnectionControl();
-            ConnectionConfigControl ccc = new ConnectionConfigControl();
+            if (connection)
+            {
+                ConnectionControl cc = new ConnectionControl();
+                ConnectionConfigControl ccc = new ConnectionConfigControl();
 
-            SetHeader(sender);
-            ClearPanels();
+                SetHeader(sender);
+                ClearPanels();
 
-            SetMainControl(cc);
-            SetConfigControl(ccc);
+                SetMainControl(cc);
+                SetConfigControl(ccc);
 
-            cc.RowClick += ShowMeasureInfo;
+                cc.RowClick += ShowMeasureInfo;
 
-            timerDequeue.Tick += cc.FetchInfo;
+                timerDequeue.Tick += cc.FetchInfo;
 
-            ccc.StateChanged += ChangeAddress;
-            ccc.StateChanged += cc.FetchInfo;
+                ccc.StateChanged += ChangeAddress;
+                ccc.StateChanged += cc.FetchInfo;
+            }
+            else
+            {
+                MessageBox.Show("Vous n'êtes pas autorisé à faire cela");
+            }
         }
 
         //Met les controles de calibration
         private void tsbCalibration_Click(object sender, EventArgs e)
         {
-            SetHeader(sender);
-            ClearPanels();
+            if(calibration)
+            {
+                SetHeader(sender);
+                ClearPanels();
+            }
+            else
+            {
+                MessageBox.Show("Vous n'êtes pas autorisé à faire cela");
+            }
+            
         }
 
+        //méthode qui enregistre les users et les droits qu'ils sont dans la db
         private void Register_Click(object sender, EventArgs e)
         {
-            //////si les textBoxs sont vides, on affiche un msg d'erreur
-            //if (myAccount.textBoxUsername.Text == "" || myAccount.textBoxPassword.Text == "" || myAccount.textBoxConfirmPassword.Text == "")
-            //{
-            //    MessageBox.Show("Username or Password field is empty", "Registration failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //}
-            //////si les mdp ne sont pas les memes, on affiche un msg d'erreur
-            //else if (myAccount.textBoxPassword.Text != myAccount.textBoxConfirmPassword.Text)
-            //{
-            //    MessageBox.Show("Paswords does not match, Please Re-enter ", "Registration failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //    clearTextBox(myAccount.textBoxPassword);
-            //    clearTextBox(myAccount.textBoxConfirmPassword);
-            //    myAccount.textBoxPassword.Focus();
-            //}
-            //////sinon on affiche un message de success
-            //else
-            //{
-
-            //    MessageBox.Show("Your Account has been Successfully Created", "Registration Succes", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-            //    updateDGV(AccountControl.dataUsersAccounts, AccountControl.dataGridViewAccount, myAccount.textBoxUsername.Text, myAccount.textBoxPassword.Text);
-
-            //    //on supprime les texts qui ont été entrés dans les textBoxs
-            //    clearTextBox(myAccount.textBoxUsername);
-            //    clearTextBox(myAccount.textBoxConfirmPassword);
-            //    clearTextBox(myAccount.textBoxPassword);
-            //    myAccount.textBoxUsername.Focus();
-
-
-            //}
+           
             try
             {
-                UserAccess.Tables[0].Rows.Add(new object[] { null, myAccount.textBoxUsername.Text, myAccount.textBoxPassword.Text, myAccount.Rights_box.SelectedValue });
+                DB_Access.Adapter.Insert(AccountControl.textBoxUsername.Text, AccountControl.textBoxPassword.Text,int.Parse(AccountControl.Rights_box.SelectedValue.ToString()));
 
-                myAccount.Rights_box.ResetText();
-                clearTextBox(myAccount.textBoxUsername);
-                clearTextBox(myAccount.textBoxConfirmPassword);
-                clearTextBox(myAccount.textBoxPassword);
+                UserAccess.Tables[0].Rows.Add(new object[] { null, AccountControl.textBoxUsername.Text, AccountControl.textBoxPassword.Text, AccountControl.Rights_box.SelectedValue });
+
+                AccountControl.Rights_box.ResetText();
+                clearTextBox(AccountControl.textBoxUsername);
+                clearTextBox(AccountControl.textBoxPassword);
 
                 AccountControl.dataGridViewAccount.DataSource = UserAccess.Tables["Users"];
                 AccountControl.dataGridViewRights.DataSource = AccessTable;
+
+
             }
             catch (Exception ex)
             {
@@ -484,11 +528,10 @@ namespace MeteoStation
         public void Clear_Click(object sender, EventArgs e)
         {
 
-            clearTextBox(myAccount.textBoxUsername);
-            clearTextBox(myAccount.textBoxConfirmPassword);
-            clearTextBox(myAccount.textBoxPassword);
+            clearTextBox(AccountControl.textBoxUsername);
+            clearTextBox(AccountControl.textBoxPassword);
 
-            myAccount.textBoxUsername.Focus();
+            AccountControl.textBoxUsername.Focus();
         }
         //méthode qui permet de supprimer les saisies de l'utilisateur se trouvant dans les textBoxs du user control Account
         private void clearTextBox(TextBox txtb)
@@ -508,6 +551,96 @@ namespace MeteoStation
             dt.Rows.Add(username,password);
             dgv.Refresh();
             dgv.DataSource = dt;
+        }
+
+        //méthode qui permet de se connecter et vérifie les droits
+        private void Login(object sender, EventArgs e)
+        {
+            createUser = false;
+            configAlarm = false;
+            connection = false;
+            mesure = false;
+            graphique = false;
+            calibration = false;
+
+            for (int i = 0; i < UserTable.Rows.Count; i++)
+            {
+                if(UserTable.Rows[i]["UserName"].ToString() == myAccount.tb_User.Text && UserTable.Rows[i]["UserPassword"].ToString() == myAccount.tb_pwd.Text)
+                {
+                    MessageBox.Show("Bienvenue "+ myAccount.tb_User.Text+" !");
+                    if(UserTable.Rows[i]["Access_Id"].ToString() == "1")
+                    {
+                        
+                        createUser = true;
+                        configAlarm = true;
+                        connection = true;
+                        mesure = true;
+                        graphique = true;
+                        calibration = true;
+
+                        tsbMeasures.BackColor = Color.Green;
+                        tsbAlarms.BackColor = Color.Green;
+                        tsbAccounts.BackColor = Color.Green;
+                        tsbCalibration.BackColor = Color.Green;
+                        tsbConnection.BackColor = Color.Green;
+                        tsbGraphs.BackColor = Color.Green;
+                    }
+
+                    else if (UserTable.Rows[i]["Access_Id"].ToString() == "2")
+                    {
+                  
+                        configAlarm = true;
+                        connection = true;
+                        mesure = true;
+                        graphique = true;
+                        calibration = true;
+
+                        tsbMeasures.BackColor = Color.Green;
+                        tsbAlarms.BackColor = Color.Green;
+                        tsbCalibration.BackColor = Color.Green;
+                        tsbConnection.BackColor = Color.Green;
+                        tsbGraphs.BackColor = Color.Green;
+                    }
+                    else if (UserTable.Rows[i]["Access_Id"].ToString() == "3")
+                    {
+
+                        configAlarm = true;
+                        connection = true;
+                        graphique = true;
+                        calibration = true;
+
+                        tsbMeasures.BackColor = Color.Green;
+                        tsbAlarms.BackColor = Color.Green;
+                        tsbCalibration.BackColor = Color.Green;
+                        tsbGraphs.BackColor = Color.Green;
+                    }
+                    else if (UserTable.Rows[i]["Access_Id"].ToString() == "4")
+                    {                        
+                        configAlarm = true;
+                        graphique=true;
+
+                        tsbAlarms.BackColor = Color.Green;
+                        tsbGraphs.BackColor = Color.Green;
+
+                    }
+                    else if (UserTable.Rows[i]["Access_Id"].ToString() == "5")
+                    {
+                        configAlarm = true;
+
+                        tsbAlarms.BackColor = Color.Green;
+
+                    }
+                    tsbAccounts.PerformClick();
+                    break;
+
+                }
+
+                if (i == UserTable.Rows.Count -1)
+                {
+                    MessageBox.Show("pas bon !");
+                }
+            }
+
         }
     }
 }

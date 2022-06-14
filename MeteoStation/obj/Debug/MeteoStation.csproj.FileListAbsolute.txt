@@ -89,3 +89,4 @@ C:\Users\Elie\Desktop\MeteoStation\MeteoStation\obj\Debug\MeteoStation.csproj.Ge
 C:\Users\Elie\Desktop\MeteoStation\MeteoStation\obj\Debug\MeteoStation.csproj.CoreCompileInputs.cache
 C:\Users\Elie\Desktop\MeteoStation\MeteoStation\obj\Debug\MeteoStation.exe
 C:\Users\Elie\Desktop\MeteoStation\MeteoStation\obj\Debug\MeteoStation.pdb
+C:\Users\abdou\Documents\GitHub\MeteoStation\MeteoStation\bin\Debug\UserAccess.accdb
