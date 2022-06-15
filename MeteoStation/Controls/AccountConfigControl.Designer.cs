@@ -36,6 +36,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.buttonDeconnexion = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // buttonConnexion
@@ -45,7 +46,7 @@
             this.buttonConnexion.FlatAppearance.BorderSize = 0;
             this.buttonConnexion.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonConnexion.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.buttonConnexion.Location = new System.Drawing.Point(59, 293);
+            this.buttonConnexion.Location = new System.Drawing.Point(4, 287);
             this.buttonConnexion.Margin = new System.Windows.Forms.Padding(4);
             this.buttonConnexion.Name = "buttonConnexion";
             this.buttonConnexion.Size = new System.Drawing.Size(148, 43);
@@ -131,11 +132,28 @@
             this.label4.TabIndex = 21;
             this.label4.Text = "Password : Admin";
             // 
+            // buttonDeconnexion
+            // 
+            this.buttonDeconnexion.BackColor = System.Drawing.SystemColors.Highlight;
+            this.buttonDeconnexion.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.buttonDeconnexion.FlatAppearance.BorderSize = 0;
+            this.buttonDeconnexion.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonDeconnexion.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.buttonDeconnexion.Location = new System.Drawing.Point(160, 287);
+            this.buttonDeconnexion.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonDeconnexion.Name = "buttonDeconnexion";
+            this.buttonDeconnexion.Size = new System.Drawing.Size(140, 43);
+            this.buttonDeconnexion.TabIndex = 22;
+            this.buttonDeconnexion.Text = "DECONNEXION";
+            this.buttonDeconnexion.UseVisualStyleBackColor = false;
+            this.buttonDeconnexion.Click += new System.EventHandler(this.buttonDeconnexion_Click);
+            // 
             // AccountConfigControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.HighlightText;
+            this.Controls.Add(this.buttonDeconnexion);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.buttonConnexion);
@@ -162,5 +180,6 @@
         internal System.Windows.Forms.TextBox tb_User;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label4;
+        internal System.Windows.Forms.Button buttonDeconnexion;
     }
 }

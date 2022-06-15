@@ -440,6 +440,8 @@ namespace MeteoStation
             AccountControl.ButtonClickRegister += new EventHandler(Register_Click);
             AccountControl.ButtonClickClear += new EventHandler(Clear_Click);
             myAccount.ButtonClickLogin += new EventHandler(Login);
+            myAccount.ButtonClickLogout += new EventHandler(Logout);
+
             SetConfigControl(myAccount);
 
             /*Rights box*/
@@ -556,12 +558,7 @@ namespace MeteoStation
         //méthode qui permet de se connecter et vérifie les droits
         private void Login(object sender, EventArgs e)
         {
-            createUser = false;
-            configAlarm = false;
-            connection = false;
-            mesure = false;
-            graphique = false;
-            calibration = false;
+            is_false();
 
             for (int i = 0; i < UserTable.Rows.Count; i++)
             {
@@ -637,10 +634,40 @@ namespace MeteoStation
 
                 if (i == UserTable.Rows.Count -1)
                 {
-                    MessageBox.Show("pas bon !");
+                    MessageBox.Show("Nom d'utilisateur et/ou Mot de passe incorrect !");
+
+                    
                 }
             }
 
+
         }
+
+        //on remet tout à false,change les couleurs des toolstrip s'il se déconnecte
+        private void Logout(object sender, EventArgs e)
+        {
+            is_false();
+            MessageBox.Show("Déconnecté");
+            tsbMeasures.BackColor = Color.Black;
+            tsbAlarms.BackColor = Color.Black;
+            tsbAccounts.BackColor = Color.Black;
+            tsbCalibration.BackColor = Color.Black;
+            tsbConnection.BackColor = Color.Black;
+            tsbGraphs.BackColor = Color.Black;
+            tsbAccounts.PerformClick();
+
+        }
+
+        //méthode qui met les booleens à false
+        private void is_false()
+        {
+            createUser = false;
+            configAlarm = false;
+            connection = false;
+            mesure = false;
+            graphique = false;
+            calibration = false;
+        }
+
     }
 }

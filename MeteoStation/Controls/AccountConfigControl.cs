@@ -16,6 +16,8 @@ namespace MeteoStation.Controls
     {
         
         internal event EventHandler ButtonClickLogin;
+        internal event EventHandler ButtonClickLogout;
+
 
         string username { get; set; }
         string password { get; set; }
@@ -36,6 +38,11 @@ namespace MeteoStation.Controls
         private void buttonConnexion_Click(object sender, EventArgs e)
         {
             this.ButtonClickLogin(sender, e);
+        }
+
+        private void buttonDeconnexion_Click(object sender, EventArgs e)
+        {
+            this.ButtonClickLogout(sender, e);
         }
     }
 }
